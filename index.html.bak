@@ -29,14 +29,14 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <!-- Any section element inside of this container is displayed as a slide -->
 <div class="slides">
 <section>
-  <h2>Implantación de Aplicaciones WEB</h2>
-  <h5>(2020-2021)</h5>
+  <h2>Implantación de Aplicaciones WEb</h2>
+  <h5>(2017-2018)</h5>
   <p>
-        <p>Andrés Alcaraz Rey</p>
+        <a href="http://www.josedomingo.org">José Domingo Muñoz Rodríguez</a>
   </p>
   <p>
     <a href="http://creativecommons.org/licenses/by-sa/3.0/">
-      <img src="http://josedom24.github.io/img/cc_by_sa.png" width="100px" border="0"/></a>
+      <img src="../../img/cc_by_sa.png" width="100px" border="0"/></a>
   </p>
   <p><small>Theme by: <a href="http://lab.hakim.se/reveal-js/#/">reveal.js</a></small></p>
 </section>
@@ -83,7 +83,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
 </section>
 <section>
-	<img src="http://josedom24.github.io/mod/iaw/img/cms.png"/>
+	<img src="img/cms.png"/>
 	</section>
 </section>
 
@@ -170,7 +170,7 @@ gestionado por el equipo de Sistemas.</li>
 		<p>"Pues en mi local funciona"</p>
 	</section>
 	<section>
-	<img src="http://josedom24.github.io/mod/iaw/img/tradicional.png"/>
+	<img src="img/tradicional.png"/>
 	</section>
 </section>
 </section>
@@ -202,7 +202,7 @@ trabajo es modificar los programas.</li>
 		<a href="http://www.juntadeandalucia.es/servicios/madeja/contenido/procedimiento/12"> Procedimiento Gestión de Despliegues - Junta de Andalucía</a>
 	</section>
 	<section>
-	<img src="http://josedom24.github.io/mod/iaw/img/burocratica.png"/>
+	<img src="img/burocratica.png"/>
 	</section>
 </section>
 <section data-background="#FFCC99">
@@ -292,7 +292,7 @@ trabajo es modificar los programas.</li>
 	
 </section>
 <section>
-	<img src="http://josedom24.github.io/mod/iaw/img/ic.png"/>
+	<img src="img/ic.png"/>
 </section>
 
 <section>
@@ -379,7 +379,7 @@ trabajo es modificar los programas.</li>
 </section>
 <section>
 <section>
-	<img src="http://josedom24.github.io/mod/iaw/img/devops.png"/>
+	<img src="img/devops.png"/>
 	</section>
 </section>
 </section>
