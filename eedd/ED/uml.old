@@ -1,0 +1,494 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES">
+<head>
+<meta name="description" content="Página con contenidos educativos de informática. Existen materiales a diferentes niveles, como Enseñanza Secundaria Obligatoria (ESO) o el Ciclo de Grado Superior de Administración de Sistemas en Red (ASIR)."/>
+<meta name="google-site-verification" content="YA0qPqDBJQy4kdb-xT8UJV20oAwqD3fd-e5xmB-yWJA" />
+<meta http-equiv="Content-Type" content="text/html; charset="utf-8" />
+
+
+<meta name="description" content="Página con contenidos educativos de informática. Existen materiales a diferentes niveles, como Enseñanza Secundaria Obligatoria (ESO) o el Ciclo de Grado Superior de Administración de Sistemas en Red (ASIR)."/>
+<meta name="google-site-verification" content="YA0qPqDBJQy4kdb-xT8UJV20oAwqD3fd-e5xmB-yWJA" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>UML</title>
+
+
+<link rel="stylesheet" type="text/css" media="screen" href="../articulo3.css"/>
+</head>
+<body>
+
+
+<div id="contenedor">
+	<div id="caja-articulo">
+<h1>Principios que deben guiar la práctica del modelado</h1>
+
+<p class="1">En la fase de modelado podemos crear dos tipos de modelos:</p>
+<ul>
+	<li>Modelos de requerimientos</li>
+	<li>Modelos de diseño</li>
+</ul>
+
+<p class="1">Los modelos de requisitos representan los requisitos del cliente representados en tres niveles diferentes: el dominio de la información, el dominio funcional y el dominio del comportamiento. Por otra parte, los modelos de diseño representan características del software que ayudan a construirlo de manera efectiva: la interfaz, la arquitectura y detalles a nivel de componentes.</p>
+
+<p class="1">Dependiendo del proceso de desarrollo elegido, el peso de la fase de diseño es mayor o menor. La siguiente es una lista de principios de diseño aportada por <em>Scott Ambler</em> y <em>Ron Jeffries</em> en su libro <em>Agile Modeling</em> sobre modelado para procesos ágiles (aunque según <em>Roger S. Pressman</em> son aplicables a todos los procesos de desarrollo):</p>
+<ul>
+	<li>Principio 1. El objetivo principal del equipo de desarrollo es construir software, no crear modelos. Si los modelos aportan poca información sobre lo que ya se sabe sobre el software, debe evitarse.</li>
+	<li>Principio 2. No crear modelos que no son necesarios. Los modelos deben mantenerse actualizados en base a los cambios. Cuantos más modelos se hagan, más habrá que cambiar para cada cambio.</li>
+	<li>Principio 3. Esforzarse por producir el modelo más simple que describa el problema. Manteniendo los modelos simples, el software resultante será simple también. El resultado es software que se integra fácilmente, es fácil de probar y es más fácil de mantener. Además son más fácilmente comprensibles para el resto del equipo.</li>
+	<li>Principio 4. Crea modelos que sean fáciles de cambiar, pero sin ser descuidado.</li>
+	<div class="aclaracion">
+		<p class="2">Para cubrir este principio, existe una tendencia a crear una lista de requisitos simple, con pocos detalles. La razón de ello es que el software cambiará, y por ello, unos requisitos definidos de esta manera, ayudará a crear un software más abierto al cambio. Pero no debe llevarnos a ser descuidados en el diseño.</p>
+	</div> 
+	<li>Principio 5. Encuentra una razón para cada modelo. Si no existe una razón sólida para cerar ese modelo, no debe perderse tiempo en él.</li>
+	<li>Principio 6. Adapta los modelos al sistema con que cuentas. Infórmate sobre la notación y las reglas utilizados en el tipo de sistema de interés (modelar un video juego puede necesitar un modelado diferente a un sistema de tiempo real o a un sistema embebido).</li>
+	<li>Principio 7. Intenta construir modelos útiles, pero no modelos perfectos. Una vez reflejada la idea buscada, no tiene sentido abundar en detalles que consumirán tiempo y no aportarán gran cosa. Los modelos perfectos van en contra de los procesos ágiles.</li>
+	<li>Principio 8. No es preciso ser dogmático sobre la representación. Si la idea es comunicada de manera eficaz, la representación es secundaria.</li>
+	<li>Principio 9. Si tu intuición (basada en la experiencia) te dice que un modelo tiene algo malo, aunque sobre el papel quede bien, probablemente tengas razón.</li>
+	<li>Principio 10. Busca <em>feedbak</em> tan pronto como puedas. Todo modelo debería ser revisado por el resto del equipo. Estas revisiones tienen como propósito corregir errores, malinterpretaciones o añadir características o elementos que se hayan omitido por error.</li>
+</ul>
+
+<h1>Tipos de diagramas</h1>
+
+<p class="nivel1">Como ya se ha explicado, existen dos tipos de diagramas. En primer lugar están los diagramas de modelado de requerimientos. Entre este tipo de diagramas, están los siguientes</p>
+<ul>
+	<li>Diagramas estructurales</li>
+	<ul>
+		<li>Diagramas de casos de uso</li>
+		<li>Diagramas de clases</li>
+		<li>Diagramas de objetos</li>
+	</ul>
+	<li>Diagramos de comportamiento</li>
+	<ul>
+		<li>Diagramas de estados</li>
+		<li>Diagramas de actividad</li>
+	</ul>
+	<li>Diagramas de interacción</li>
+	<ul>
+		<li>Diagramas de secuencia</li>
+		<li>Diagramas de colaboración</li>
+	</ul>
+	<li>Diagramas de datos</li>
+	<ul>
+		<li>Diagramas E/R</li>
+		<li>Diagramas de flujo de datos</li>
+	</ul>
+</ul>
+
+<p class="nivel1">Otro tipo de diagramas, llamados de diseño, suponen un refinamiento de las diagramas de modelado de requermientos, reduciendo el nivel de abstracción (aumentando los detalles) y aproximándose más a la implementación del software. A los diagramas anteriormente expuestos, se unen otros, como los diagramas de interfaz, los diagramas de componentes y de despliegue.</p>
+
+<h1>UML</h1>
+
+<p class="nivel1">UML (Lenguaje de Modelado Unificado) es un lenguaje de modelado de sistemas estándar que se utiliza para modelar sistemas. Los diagramas mencionados anteriormente son parte de UML</p>
+
+<h2>UML y las metodologías ágiles</h2>
+
+<p class="nivel2">Hay una tendencia a pensar que en las metodologías ágiles, el modelado de requerimientos y el diseño están de más, ya que forman parte de metodologías clásicas como, como el proceso en cascada. Sin embargo, esta idea puede llevar a crear diseños y arquitecturas extrañas difíciles de mantener a la larga. En uno de sus artículos, Robert Martin se refiere a este error, indicando que el modelado y el diseño son necesarios para obtener un buen software.</p>
+
+<h2>UML</h2>
+
+<p class="nivel2">Existen diferentes versiones de UML. UML 1.x incluye <code>diagramas de estructura</code> y <code>diagramas de comportamiento</code>. Los primeros describien componentes del sistema y su relación, mientras que los segundos muestran cómo actúal el sistema a lo largo del tiempo.</p>
+
+<p class="nivel2">UML 2.x por su parte es una revisión de el estándar 1.x que data de 2007. En esta versión, se incluyen 13 tipos de diagramas, agrupados en <code>diagramas de estructura</code>, <code>diagramas de comportamiento</code> y <code>diagramas de interacción</code>:</p>
+
+<ul>
+	<li>Diagramas de Estrucutra</li>
+	<ul>
+		<li>Diagrama de clases</li>
+		<li>Diagrama de componentes</li>
+		<li>Diagrama de composición de estructuras (nuevo en UML 2)</li>
+		<li>Diagrama de despliegue</li>
+		<li>Diagrama de objetos (nuevo en UML 2)</li>
+		<li>Diagrama de paquetes (nuevo en UML 2)</li>
+	</ul>
+	<li>Diagramas de Comportamiento</li>
+	<ul>
+		<li>Diagrama de actividad</li>
+		<li>Diagrama de casos de uso</li>
+		<li>Diagrama de estados</li>
+	</ul>
+	<li>Diagramas de interacción (nuevo en UML 2) - Subcategoría de Diagramas de Comportamiento -</li>
+	<ul>
+		<li>Diagrama de secuencia</li>
+		<li>Diagrama de comunicación</li>
+		<li>Diagrama de temporización</li>
+	</ul>
+</ul>
+
+<h2>Diagrama de clases</h2>
+
+<p class="nivel2">Un diagrama de clases es un diagrama estructural. Describen los componentes del sistema y sus relaciones. Muestran las clases que componen el sistema y sus relaciones con otras clases.</p>
+
+<figure>
+	<img src="../ED/uml/diagrama_clases.png"/>
+	<figcaption>
+		Diagrama de clases de un juego.
+	</figcaption>
+</figure>
+
+<p class="nivel2">En el diagrama de una clase se puede ver:</p>
+
+<ul>
+	<li>Nombre de la clase</li>
+	<li>Atributos y su tipo y su valor por defecto</li>
+	<li>Métodos, su firma y su tipo</li>
+	<li>Visibilidad</li>
+</ul>
+
+<div class="aclaracion">
+	<p class="nivel1">Sobre la visibilidad, existe la siguiente notación</p>
+	<ul>
+		<li>+: pública</li>
+		<li>#: protegida</li>
+		<li>-: privada</li>
+		<li>~ o vacío: paquete</li>
+	</ul>
+</div>
+
+<p class="nivel2">Los <code>estereotipos</code> son un mecanismo que permite extender UML dando cierta información extra sobre el diagrama. Por ejemplo, podríamos estar interesados en expresar que:</p>
+<ul>
+	<li>Una clase es una colección de métodos estáticos. Se expresa con el estereotipo <code>&lt;&lt;Utility>></code></li>
+	<li>Una clase es estática. Se expresa con el estereotipo <code>&lt;&lt;Utility>></code></li>
+	<li>Un método es un constructor. Se expresa con el estereotipo <code>&lt;&lt;Create>></code></li>
+</ul>
+
+<div class="aclaracion">
+	<p class="nivel1">Un estereotipo se puede usar para clasificar el comportamiento de una clase o un método, indicando, por ejemplo, que un método es un constructor (<code>&lt;&lt;create>></code>) y que otro es un getter (<code>&lt;&lt;getter>></code>).</p>
+	<p class="nivel1">En ocasiones podemos observar la etiqueta <code>&lt;&lt;interface>></code>, que puede parecer un estereotipo, pero en realidad es un clasificador. Un clasificador permite mostrar interfaces, clases, tipos de datos y componentes.</p>
+</div>
+
+<div class="actividad">
+	<p class="nivel1">Actividad 1. Partiendo del proyecto <a href="https://github.com/mmatpein/calculadoraTDD">calculadoraTDD</a>, modela (utilizando algún programa de modelado) las clases correspondientes a <code>modelo/Operador.php</code> y <code>modelo/OperadorBinario.php</code></p>
+	<div class="entrega">
+		<p class="nivel1">Entrega la actividad en un archivo llamado Act1-uml.png</p>
+	</div>
+</div>
+
+<h2>Relaciones entre clases</h2>
+
+<p class="nivel2">En un diagrama de clases se pueden mostrar relaciones entre clases en los que unos métodos llamarán a los métodos de otras clases. Por ello, un método de una clase A que llama a un método de una clase B debe contener una referencia de B. Esta referencia se puede representar de diferentes maneras:</p>
+
+<ul>
+	<li>Asociación</li>
+	<li>Agregación</li>
+	<li>Composicón</li>
+	<li>Dependencia</li>
+</ul>
+
+<p class="nivel2">Además se pueden reflejar relaciones de herencia y de implementación (interfaces):</p>
+
+<ul>
+	<li>Generalización (herencia)</li>
+	<li>Realización (implementación de interfaces)</li>
+</ul>
+
+<h3>Asociación</h3>
+
+<p class="nivel3">Si hay una asociación entre la clase A y la clase B, significa que en la clase A hay un atributo de tipo B y/o viceversa. Además se suelen indicar los roles y la multiplicidad.</p>
+
+<figure>
+	<img src="../ED/uml/asociacion.jpg"/>
+	<figcaption>
+		Asociación entre clases.
+	</figcaption>
+</figure>
+
+<p class="nivel3">En ocasiones la <code>navegabilidad</code> es bidireccional y otras es unidireccional (lo que se expresa mediante una flecha).</p>
+
+<figure>
+	<img src="../ED/uml/asociacion-unidireccional.jpg"/>
+	<figcaption>
+		Asociación unidireccional. OverdrawnAccountsReport sabe de la existencia de BankAccount, pero no al revés.
+	</figcaption>
+</figure>
+
+<div class="destacado">
+	<p class="nivel1">Obsérvese que no se especifica el atributo de la asociación. Para eso está el diagrama.</p>
+</div>
+
+<p class="nivel3">Las multiplicidades se expresan del siguiente modo:</p>
+
+<ul>
+	<li>1..1: exactamente una instancia</li>
+	<li>1: equivalente a 1..1</li>
+	<li>0..*: número indefinido de veces</li>
+	<li>2..3: entre 2 y tres instancias</li>
+</ul>
+
+<h3>Agregación y composición</h3>
+
+<p class="nivel3">La agregación y la composición muestran asociaciones que representan una relación entre un todo y sus partes. Por ejemplo, un coche tiene ruedas. También es cierto que una compañía se compone de departamentos.</p>
+
+<p class="nivel3">La diferencia entre ambas relaciones es que una agregación describe una relación que indica que una clase es parte de otra, pero que puede existir independientemente de la primera. Por ejemplo, una rueda puede existir de manera independiente al coche.</p>
+
+<figure>
+	<img src="../ED/uml/agregacion.jpg"/>
+	<figcaption>
+		Relación de agregación
+	</figcaption>
+</figure>
+
+<p class="nivel3">En la composición, sin embargo, la clase hija no tiene sentido sin la existencia de la clase padre.</p>
+
+<figure>
+	<img src="../ED/uml/composicion.jpg"/>
+	<figcaption>
+		Relación de composición
+	</figcaption>
+</figure>
+
+<h3>Generalización</h3>
+
+<p class="nivel3">La generalización recoge el mecanismo de herencia de los lenguajes orientados a objetos.</p>
+
+<figure>
+	<img src="../ED/uml/generalizacion.jpg"/>
+	<figcaption>
+		Generalización
+	</figcaption>
+</figure>
+
+<p class="nivel3">Cuando una clase es abstracta (contiene algún método abstracto), las clases herederas no tienen que volver a mostrar el método implementado. Las clases y los métodos abstractos se representan en cursiva</p>
+
+<figure>
+	<img src="../ED/uml/herencia-abstracta.png"/>
+	<figcaption>
+		Herencia de métodos abstractos. El método <code>getPerimeter</code> es abstracto.
+	</figcaption>
+</figure>
+
+<h3>Interfaces y realización</h3>
+
+<p class="nivel3">Una interfaz es una clase abstracta pura. Su implementación (realización se representa del siguiente modo):</p>
+
+<figure>
+	<img src="../ED/uml/realizacion-interfaz.jpg"/>
+	<figcaption>
+		Player es una interfaz implementada por DVDPlayer, CDPlayer y Recorder (que es a su vez otra interfaz).
+	</figcaption>
+</figure>
+
+
+<div class="destacado">
+	<p class="nivel1">Es importante recordar que una clase puede implementar varias interfaces, mientras que solo puede heredar de una.</p>
+</div>
+
+<h3>Dependencia</h3>
+
+<p class="nivel3">Una dependencia es una relación semántica entre dos clases, pero que no se ajusta a ninguna de las anteriores. Suele hacer referencia a una clase que utiliza brevemente a otra (llamando a uno de sus métodos). En el ejemplo siguiente, <code>Mapa</code> no almacena en ningún momento un objeto de clase <code>Coordenadas</code>, y sólo lo utiliza durante las conversiones de dirección a coordenadas y viceversa</p>
+
+<figure>
+	<img src="../ED/uml/dependencia.png"/>
+	<figcaption>
+		Mapa utiliza "brevemente" las coordenadas.
+	</figcaption>
+</figure>
+
+<div class="actividad">
+	<p class="nivel1">Actividad 2. Analiza la relación entre las clases del proyecto <a href="https://github.com/mmatpein/calculadoraTDD">calculadoraTDD</a> y realiza un diagrama de clases con su estructura.</p>
+	<div class="entrega">
+		<p class="nivel1">Entrega la actividad en un archivo llamado Act2-uml.png</p>
+	</div>
+</div>
+
+<h2>Diagrama de actividad</h2>
+
+<p class="nivel2">Un diagrama de actividad permite comprobar el flujo de acciones paso a paso, permitiendo expresar condiciones, iteraciones y concurrencia. Los elementos gráficos de un diagrama de actividad son:</p>
+
+<figure>
+	<img src="../ED/uml/elementos-diagramas-actividad.jpg"/>
+	<figcaption>
+		Elementos en un diagrama de actividad
+	</figcaption>
+</figure>
+
+<p class="nivel2">El siguiente es un ejemplo del libro UML Práctico.</p>
+
+<figure>
+	<img src="../ED/uml/diagrama-actividad-maquina-cafe.png"/>
+	<figcaption>
+		Diagrama que muestre el funcionamiento de una máquina de café.
+	</figcaption>
+</figure>
+
+<p class="nivel2">Cuando hay una toma de desión en un punto de control, se indican las condiciones entre corchetes (en el ejemplo, las condiciones son <code>café</code>, <code>capuchino</code> y <code>cortado</code></p>
+
+<p class="nivel2">Otro ejemplo:</p>
+
+<figure>
+	<img src="../ED/uml/diagrama-actividad.gif"/>
+	<figcaption>
+		Diagrama de actividad.
+	</figcaption>
+</figure>
+
+<p class="nivel2">Los diagramas de actividad pueden seccionarse en particiones para mejorar la comprensión sobre la responsabilidad de las acciones del modelo. Por ejemplo:</p>
+
+<figure>
+	<img src="../ED/uml/diagrama-actividad-particiones.jpg"/>
+	<figcaption>
+		Las particiones indican la responsabilidad de cada conjunto de actividades.
+	</figcaption>
+</figure>
+
+
+<div class="actividad">
+	<p class="nivel1">Actividad 3. Realizar un diagrama de actividad que muestre el proceso de devolución de un artículo por parte de un cliente. Cuando el cliente solicita una devolución, el departamento de ventas por Internet se encargará de darle un código de devolución. Una vez obtenido, el cliente envía el artículo defectuoso por mensajería, adjuntando dicho código. El almacén es entonces el encargado de la recepción de la mercancía y de la recolocación del artículo. Al mismo tiempo que se recoloca, el departamento de contabilidad actualiza las cuentas. Después de realizarse ambas tareas, el departamento de contabilidad realiza el ingreso a favor del cliente.</p>
+	<p class="nivel1">Para el ejercicio, debes utilizar particiones.</p>
+	<div class="entrega">
+		<p class="nivel1">Entrega la actividad en un archivo llamado Act3-uml.png</p>
+	</div>
+</div>
+
+<h2>Diagramas de estados</h2>
+
+<p class="nivel2">Diagramas que modelan los diferentes estados en que puede estar un sistema. Los diferentes estímulos, puden hacer que el sistema cambie de estado, y ante las mismas entradas producirse diferentes respuestas. A este sistema, lo llamamos máquina de estados. Las características principales de una máquina de estados es la siguiente:</p>
+
+<ul>
+	<li>Una máquina de estados sólo puede estar en un estado a la vez</li>
+	<li>Para un mismo estado y un mismo conjunto de estímulos, la máquina siempre debe comportarse igual</li>
+</ul>
+
+<p class="nivel2">Son útiles para <strong>modelar la vida de un objeto</strong>. El diagrama de estados muestra las secuencias de estados por las que pasa un objeto a lo largo de su vida en respuesta a eventos, junto con sus respuestas a esos eventos.</p>
+
+<p class="nivel2">Los elementos que forman parte de un diagrama de estados son:</p>
+
+<figure>
+	<img src="../ED/uml/elementos-diagrama-estados.jpeg"/>
+	<figcaption>
+		Elementos que forman parte de un diagrama de estados
+	</figcaption>
+</figure>
+
+<p class="nivel2">El siguiente es un ejemplo:</p>
+
+<figure>
+	<img src="../ED/uml/diagrama-estados.gif"/>
+	<figcaption>
+		Otro ejemplo de diagrama de estados
+	</figcaption>
+</figure>
+
+<div class="actividad">
+	<p class="nivel1">Actividad 4. Para entrar en un centro de datos hay una puerta con dos sistemas de seguridad: uno biométrico que consiste en el reconocimiento de la palma de la mano, y un teclado donde el operador debe introducir su PIN. Inicialmente la pantalla indica que se debe introducir el PIN (números de 0 a 9), seguido de la tecla "Intro".</p>
+	<ul>
+		<li>Si el PIN es válido, la pantalla pedirá apoyar la mano en el detector</li>
+		<li>Si la mano también es correcta, se abrirá la cerradura</li>
+		<li>Cuando el usuario cierra la puerta, ésta se volverá a bloquear</li>
+		<li>También se bloqueará si el usuario no abre la puerta en 10 segundos</li>
+		<li>Si se abre la puerta pero no se cierra en 10 segundos, sonará una alarma que sólo se detendrá cuando se vuelva a cerrar la puerta</li>
+	</ul>
+
+	<p class="nivel1">En caso de fallar alguna de las dos verificaciones habrá que empezar el proceso de identificación de nuevo</p>
+
+
+	<div class="entrega">
+		<p class="nivel1">Entrega la actividad en un archivo llamado Act4-uml.png</p>
+	</div>
+</div>
+
+<h2>Diagramas de secuencia</h2>
+
+<p class="nivel2">Un diagrama de secuencia expresa qué objetos se relacionan con qué objetos, enfatizando el orden en que lo hacen y qué tipo de mensajes se envían entre sí. Los elementos que pueden intervenir en un diagrama de secuencia son los siguientes:</p>
+
+<figure>
+	<img src="../ED/uml/elementos-diagrama-secuencia.jpeg"/>
+	<figcaption>
+		Elementos que intervienen en los diagramas de secuencia
+	</figcaption>
+</figure>
+
+<p class="nivel2">Es importante tener en cuenta los siguientes consejos:</p>
+
+<ul>
+	<li>Sólo representa secuencias de mensajes (no intervalos precisos).</li>
+	<li>No hay que incluir todos los métodos de todos los objetos del diagrama. Sólo aquellos que sean de nuestro interés en un momento dado.</li>
+	<li>Cuando más complicado sea, menos útil será.</li>
+</ul>
+
+<figure>
+	<img src="../ED/uml/ejemplo-diagrama-secuencia.png"/>
+	<figcaption>
+		Diagrama de secuencia de un sistema de publicidad robotizada, que lee la propaganda y después cuelga.
+	</figcaption>
+</figure>
+
+<div class="actividad">
+	<p class="nivel1">Actividad 5. Modelar el diagrama de secuencia seguido por tu aplicación web de conversión de unidades.</p>
+	<div class="entrega">
+		<p class="nivel1">Entrega la actividad en un archivo llamado Act5-uml.png</p>
+	</div>
+</div>
+
+<h2>Diagrama de colaboración</h2>
+
+<p class="nivel2">Son similares a los diagramas de secuencia, pero cambian su representación. Aunque contiene la misma información, su disposición permite incluir más elementos. Las siguientes imágenes muestran dos diagramas equivalentes.</p>
+
+<figure>
+	<img src="../ED/uml/diagrama-colaboracion-lavadora.png"/>
+	<figcaption>
+		Diagrama de colaboración de una lavadora. El diagrama es equivalente al siguiente.
+	</figcaption>
+</figure>
+
+<figure>
+	<img src="../ED/uml/diagrama-secuencia-lavadora.png"/>
+	<figcaption>
+		Diagrama de secuencia de una lavadora. El diagrama es equivalente al anterior.
+	</figcaption>
+</figure>
+
+<h2>Diagramas de casos de uso</h2>
+
+<p class="nivel2">Los daigramas de casos de uso describen lo que debe hacer un sistema desde el punto de vista de quien lo va a utilizar. Un caso de uso captura algunas de las acciones y comportamientos del sistema y cómo los actores interactúan con él.</p>
+
+<figure>
+	<img src="../ED/uml/uml-caso_de_uso.png"/>
+	<figcaption>
+		Diagramas de casos de uso.
+	</figcaption>
+</figure>
+
+<p class="nivel2">En el diagrama anterior aparece el estereotipo <code>&lt;&lt;extend>></code>, que indica que un caso de uso aporta cierto comportamiento adicional en determinadas circunstancias o cuando se cumple cierta condición. Otro ejemplo:</p>
+
+<figure>
+	<img src="../ED/uml/caso-uso-extend2.png"/>
+	<figcaption>
+		Extensión de un caso de uso
+	</figcaption>
+</figure>
+
+<p class="nivel2">También podemos encontrar los estereotipos <code>&lt;&lt;include>></code> o <code>&lt;&lt;use>></code> indicando que un caso de uso se incluye dentro del comportamiento de otro. Por ejemplo:</p>
+
+<figure>
+	<img src="../ED/uml/caso-uso-extend.png"/>
+	<figcaption>
+		Inclusión de casos de uso.
+	</figcaption>
+</figure>
+
+<p class="nivel2">Por último podemos encontrar generalizaciones, que se utilizan para expresar que un caso de uso especializado es una forma particular de otro caso de uso más general. Por ejemplo:</p>
+
+<figure>
+	<img src="../ED/uml/caso-uso-generalizacion.png"/>
+	<figcaption>
+		Generalización de casos de uso.
+	</figcaption>
+</figure>
+
+<p class="nivel2">Los casos de uso no deben reflejar el funcionamiento del sistema completo. Sólamente las interacciones más importantes.</p>
+
+<div class="actividad">
+	<p class="nivel1">Actividad 6. Realiza un diagrama de casos de uso que describa el funcionamiento de tu aplicación de conversión de unidades.</p>
+	<div class="entrega">
+		<p class="nivel1">Entrega la actividad en un archivo llamado Act6-uml.png</p>
+	</div>
+</div>
+<br><br>
+	</div>
+
+
+</div>
+
+</body>
+</html>
+

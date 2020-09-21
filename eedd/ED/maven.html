@@ -1,0 +1,658 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES">
+<head>
+<meta name="description" content="Página con contenidos educativos de informática. Existen materiales a diferentes niveles, como Enseñanza Secundaria Obligatoria (ESO) o el Ciclo de Grado Superior de Administración de Sistemas en Red (ASIR)."/>
+<meta name="google-site-verification" content="YA0qPqDBJQy4kdb-xT8UJV20oAwqD3fd-e5xmB-yWJA" />
+<meta http-equiv="Content-Type" content="text/html; charset="utf-8" />
+
+
+<meta name="description" content="Página con contenidos educativos de informática. Existen materiales a diferentes niveles, como Enseñanza Secundaria Obligatoria (ESO) o el Ciclo de Grado Superior de Administración de Sistemas en Red (ASIR)."/>
+<meta name="google-site-verification" content="YA0qPqDBJQy4kdb-xT8UJV20oAwqD3fd-e5xmB-yWJA" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Maven</title>
+
+<link rel="stylesheet" type="text/css" media="screen" href="../articulo3.css"/>
+</head>
+<body>
+
+<div id="contenedor">
+<div id="caja-articulo">
+<h1>Maven</h1>
+<p class="nivel1">¿Qué es Maven?</p>
+<div class="destacado">
+    <p class="nivel1">"Apache Maven is a software project management and comprehension tool. Based on the concept of a project object model (POM), Maven can manage a project's build, reporting and documentation from a central piece of information."</p>
+    <p class="nivel2"><em>Apache Foundation</em></p>
+
+    </div>
+
+<h1>Instalar maven</h1>
+
+<h2>En Windows</h2>
+<p class="nivel2">La instalación de Maven en Windows, Linux y Mac queda descrita en <a href="https://www.baeldung.com/install-maven-on-windows-linux-mac">https://www.baeldung.com/install-maven-on-windows-linux-mac</a></p>
+
+<h1>Crear un nuevo proyecto</h1>
+
+<div class="codigo-fuente">
+mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app  -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+</div>
+
+<ul>
+    <li>groupId:  identificación única del proyecto. Convención  de nombrado Java (tld.dom.subdom)</li>
+    <li>artifactId: nombre del jar sin versión.</li>
+    <li>version: número de versión. Si se acompaña de la palabra SNAPSHOT significa que está en desarrollo.</li>
+</ul>
+
+<h1>Ciclo de vida de un proyecto Maven</h1>
+<img src="maven/ciclo_vida_maven.png"/>
+
+<ul>
+    <li>validate – valida que el proyecto es válido y toda la información necesaria está disponible</li>
+    <li>compile – compila el módulo y genera los archivos .class</li>
+    <li>test – realiza las pruebas sobre el proyecto</li>
+    <li>package – empaqueta en un jar</li>
+    <li>verify – realiza las pruebas de integración</li>
+    <li>install – instala el paquete en el repositorio local para poder ser usado como dependencia en otros proyectos locales</li>
+    <li>deploy – copia los paquetes finales en el repositorio remoto</li>
+</ul>
+
+<h1>Compilar un proyecto</h1>
+
+<p class="nivel1">Entrar dentro de la carpeta del proyeto.</p>
+
+<div class="codigo-fuente">
+    mvn compile
+</div>
+
+<p class="nivel1">Se crea una carpeta llamada <code>target</code> con la compilación. En su interior se encontrarán los archivos <code>.class</code> compilados. Para ejecutarlo, nos colocamos en la carpeta <code>target/classes</code> y ejecutamos el siguiente comando:</p>
+
+<div class="codigo-fuente">
+    java com.dominio.App // suponiendo que el groupId es "com.dominio" y el archivo .class ejecutado se llama "App"
+</div>
+    
+<h1>Empaquetar un proyecto</h1>
+
+<p class="nivel1">Entrar dentro de la carpeta del proyecto.</p>
+
+<div class="codigo-fuente">
+    mvn package
+</div>
+
+<p class="nivel1">Se crea un archivo jar dentro de la carpeta <code>target</code>. En su interior se pueden encontrar los archivo <code>.jar</code>. Para ejectuar directamente un .jar se puede usar el siguiente comando:</p>
+
+<div class="codigo-fuente">
+    java -classpath primerproyecto-1.0-SNAPSHOT.jar com/politecnicomalaga.primerproyecto.App  // la parte final es la ruta a la clase a ejecutar (classpath)
+</div>
+
+<div class="destacado">
+    <p class="nivel1">IntelliJ permite crear archivos .jar a partir de un proyecto cómodamente del modo especificado en <a href="https://www.jetbrains.com/help/idea/packaging-a-module-into-a-jar-file.html">https://www.jetbrains.com/help/idea/packaging-a-module-into-a-jar-file.html</a>. También es posible incluir un archivo .jar como dependencia con IntelliJ <a href="https://www.jetbrains.com/help/idea/working-with-module-dependencies.html#">https://www.jetbrains.com/help/idea/working-with-module-dependencies.html#</a>.</p>
+    <p class="nivel1">La principal diferencia que plantea <code>Maven</code> en este sentido, es que las dependencias están centralizadas en un repositorio, y simplica la gestión de los .jar.</p>
+</div>
+
+<div class="actividad">
+    <p class="nivel1">Actividad 1. Crear a partir de un proyecto Maven un archivo .jar. En dicho archivo .jar se incluirá una clase llamada "Suma", que incluye un método llamado "sumar", capaz de devolver la suma de dos números. Después, incluye la dependencia el proyecto y utiliza la clase "Suma" para realizar la suma de dos números.</p>
+</div>
+
+<h1>Instalar un módulo en el repositorio local</h1>
+
+<p class="nivel1">Maven crea un repositorio local, donde se instalan los módulos.</p>
+
+<div class="codigo-fuente">
+    mvn install
+</div>
+
+<p class="nivel1">Por ejemplo, si utilizamos el proyecto <code><a href="https://github.com/apache/commons-io">commons-io</a></code> de <code>Apache</code>, obtendríamos los siguientes ficheros:</p>
+
+<p class="nivel1">Se añade el módulo en el repositorio local</p>
+<div class="codigo-fuente">
+    ~/.m2/repository/groupId/artifactId/Versión/artifactId-Versión.pom  // copia del pom.xml
+    ~/.m2/repository/groupId/artifactId/Versión/artifactId-Versión.jar
+    ~/.m2/repository/groupId/artifactId/Versión/artifactId-Versión-sources.jar
+    ~/.m2/repository/groupId/artifactId/Versión/artifcatId-Versión-test.jar
+    ~/.m2/repository/groupId/artifactId/Versión/artifcatId-Versión-test-sources.jar
+</div>
+
+<p class="nivel1">Se generan 4 archivos .jar en la carpeta target del proyecto:</p>
+<ul>
+    <li>artifactId-Versión.jar</li>
+    <li>artifactId-Versión-sources.jar</li>
+    <li>artifcatId-Versión-test.jar</li>
+    <li>artifcatId-Versión-test-sources.jar</li>
+</ul>
+
+<h1>ejecutar un proyecto desde la línea de comandos</h1>
+
+<p class="nivel1">Dentro del acarpeta <code>target</code>:</p>
+
+<div class="codigo-fuente">
+    java -cp my-app-1.0-SNAPSHOT.jar com.mycompany.app.App
+</div>
+
+<h1>Limpiar la carpeta <strong>target</strong>:</h1>
+<div class="codigo-fuente">
+    mvn clean
+</div>
+
+<h1>Árbol de dependencias</h1>
+
+<p class="nivel1">Con Maven podemos obtener el arbol de dependencias de un proyecto. Para ello, se ejecuta el siguiente comando:</p>
+
+<div class="codigo-fuente">
+mvn dependency:tree
+</div>
+
+<p class="nivel1">El árbol de dependencias se muestra del siguiente modo para el proyecto <a href="https://github.com/apache/commons-io">commons-io</a> es:</p>
+
+<div class="codigo-fuente">
+    [INFO] --- maven-dependency-plugin:3.1.1:tree (default-cli) @ commons-io ---
+    [INFO] commons-io:commons-io:jar:2.7-SNAPSHOT
+    [INFO] +- org.junit.jupiter:junit-jupiter:jar:5.5.2:test
+    [INFO] |  +- org.junit.jupiter:junit-jupiter-api:jar:5.5.2:test
+    [INFO] |  |  +- org.apiguardian:apiguardian-api:jar:1.1.0:test
+    [INFO] |  |  +- org.opentest4j:opentest4j:jar:1.2.0:test
+    [INFO] |  |  \- org.junit.platform:junit-platform-commons:jar:1.5.2:test
+    [INFO] |  +- org.junit.jupiter:junit-jupiter-params:jar:5.5.2:test
+    [INFO] |  \- org.junit.jupiter:junit-jupiter-engine:jar:5.5.2:test
+    [INFO] |     \- org.junit.platform:junit-platform-engine:jar:1.5.2:test
+    [INFO] +- org.junit-pioneer:junit-pioneer:jar:0.3.0:test
+    [INFO] +- org.mockito:mockito-core:jar:3.0.0:test
+    [INFO] |  +- net.bytebuddy:byte-buddy:jar:1.9.10:test
+    [INFO] |  +- net.bytebuddy:byte-buddy-agent:jar:1.9.10:test
+    [INFO] |  \- org.objenesis:objenesis:jar:2.6:test
+    [INFO] +- com.google.jimfs:jimfs:jar:1.1:test
+    [INFO] |  \- com.google.guava:guava:jar:18.0:test
+    [INFO] \- org.apache.commons:commons-lang3:jar:3.9:test
+    
+</div>
+
+<p class="nivel1">Sin embargo, si buscamos en el archivo pom.xml la dependencia <code>org.objenesis</code>, veremos que no aparece por ninguna parte. Esto es así, porque es una dependencia transitiva.</p>
+
+<p class="nivel1">En el POM de commons-collections se especifica en la sección <code>dependencies</code>:</p>
+<ul>
+    <li>junit 4.12</li>
+    <li>easymock 4.0.2</li>
+    <li>commons-lang3 3.9</li>
+</ul>
+
+<p class="nivel1">El resto de dependencias son transitivas y se especifican en los archivos POM de los módulos anteriores.</p>
+
+<h1>El repositorio local de Maven</h1>
+
+<p class="nivel1">En Linux y MacOS, el repositorio local está en <code>~/.m2/repository/</code>. En Windows está en <code>C:\Users\{tu-usuario}\.m2\repository</code>. Esta ubicación se puede cambiar en la configuración de Maven.</p>
+
+<div class="aclaracion">
+    <p class="nivel1">Maven tiene un archivo de configuración llamado <code>settings.xml</code>. En linux se encuentra en <code>/etc/maven</code> y viene determinado por la variable <code>M2_HOME</code>. En el archivo <code>settings.xml</code> la ubicación del repositorio local se especifica en la etiqueta <code>&lt;localRepository</code></p>
+</div>
+
+<p class="nivel1">Cada vez que Maven descarga algo (por compilado, limpiado, etc.) se añaden los paquetes en este repositorio. La estructura de carpetas del repositorio es:</p>
+
+<div class="codigo-fuente">
+    group-id/artifact-id/versión
+</div>
+
+<p class="nivel1">Para añadir el módulo *Maven* con el que estamos trabajando al repositorio, usamos el comando <code>mvn install</code></p>
+
+<h1>Ejemplo con un proyecto existente</h1>
+
+<p class="nivel1">Sea el proyecto <code>commons-io</code></p>
+
+<ul>
+    <li>Compilado (mvn compile): crea la carpeta <code>target</code>  y coloca en ella los archivos <code>.class</code></li>
+    <li>Limpiado (mvn clean): borra la carpeta <code>target</code></li>
+    <li>Empaquetado (mvn package): lo que realmente hace es coger lo que hay dentro de la carpeta <code>class</code> y comprimirlo todo junto como un zip (renombrado a jar). Maven gestiona las dependencias.</li>
+</ul>
+
+<div class="aclaracion">
+    <p class="nivel1">Dar los siguientes pasos puede ser muy aclaratorio sobre lo que Maven hace:</p>
+    <ol>
+        <li>Ir al repositorio local y borrar la carpeta <code>commons-io</code></li>
+        <li>Ir hasta la carpeta donde está el proyecto <code>commons-io</code> y ejecutar el comando <code>mvn clean</code> (la carpeta <code>target</code> es eliminada</li>
+        <li>Ejecutar el comando <code>mvn compile</code>, con lo que se crea la carpeta <code>target</code>. Si entramos dentro veremos que la carpeta <code>classes</code> ha sido creada.</li>
+        <li>Ejecutar el comando <code>mvn package</code>. Este comando pasa por la fase <code>test</code> (ejecutando los tests) y después empaqueta el proyecto en archivos .jar</li>
+    </ol>
+</div>
+
+<h1>Maven Repository</h1>
+
+<p class="nivel1">https://mvnrepository.com/</p>
+
+
+<!--<div class="actividad">
+ACTIVIDAD PROPUESTA
+
+Descargar proyecto. Modificarlo (hacerlo nuestro) e instalarlo. Después añadir una dependencia desde el Maven Repository.
+=====================
+</div>-->
+
+<h1>POM</h1>
+
+<p class="nivel1">Define de manera estándar el ciclo de vida de cada módulo <code>Maven</code>. Cuando no se usa Maven, las librerías hay que guardarlas en el propio repositorio del proyecto, con todos los inconvenientes que esto tiene. Cuando se utiliza una librería que a su vez usa otra librería, no tenemos que preocuparnos, porque Maven lo resuelve.</p>
+
+<p class="nivel1">POM básico:</p>
+
+<div class="codigo-fuente">
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    &lt;modelVersion>4.0.0&lt;/modelVersion>
+    &lt;groupId>net.openwebinars&lt;/groupId>
+    &lt;artifactId>simplest-project&lt;/artifactId>
+    &lt;version>1&lt;/version>
+&lt;/project>
+</div>
+
+<h2>El POM efectivo</h2>
+<p class="nivel2">El POM funciona mediante la herencia (del superPOM). Para obtener el POM efectivo (incluyendo las opciones por defecto) se puede ejecutar el siguiente comando:</p>
+<div class="codigo-fuente">
+mvn help:effective-pom
+</div>
+
+<p class="nivel2">El resultado se  puede redireccionar.</p>
+
+<div class="codigo-fuente">
+mvn help:effective-pom > effective-pom.xml
+</div>
+
+<div class="actividad">
+    <p class="nivel1">Crea un proyecto maven vacío, utilizando el comando siguiente:</p>
+    <div class="codigo-fuente">
+        mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app  -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+    </div>
+    <p class="nivel1">Después obtén el POM efectivo.</p>
+</div>
+
+<h1>Composición de un archivo POM</h1>
+
+<p class="nivel1">El archivo <code>pom.xml</code> tiene muchas secciones con diferentes opciones cada una. En el siguiente gráfico sepuede ver un resumen:</p>
+
+<img src="maven/composicion_pom.png">
+
+<p class="nivel1">Para conocer en detalle cada sección, se puede consultar en <a href="http://maven.apache.org/pom.html">http://maven.apache.org/pom.html</a>.</p>
+
+<h2>El POM mínimo</h2>
+
+<p class="nivel2">Los requisitos mínimos de un POM son los siguientes:</p>
+
+<ul>
+    <li>Raíz del proyecto</li>
+    <li><code>modelVersion</code>: debe estar a 4.0.0 según la recomendación de Apache</li>
+    <li><code>groupId</code></li>
+    <li><code>artifactId</code></li>
+    <li><code>version</code>: versión del proyecto</li>
+</ul>
+
+<p class="nivel2">Un ejemplo de pom mínimo es el siguiente:</p>
+
+<div class="codigo-fuente">
+    &lt;project>
+        &lt;modelVersion>4.0.0&lt;/modelVersion>
+        &lt;groupId>com.mycompany.app&lt;/groupId>
+        &lt;artifactId>my-app&lt;/artifactId>
+        &lt;version>1&lt;/version>
+    &lt;/project>
+</div>
+
+<h2>Mecanismo de dependencias</h2>
+
+<p class="nivel1">En el archivo <code>pom.xml</code> podemos especificar las dependencias con otros proyectos. La sintaxis es la siguiente:</p>
+
+<div class="codigo-fuente">
+&lt;dependencies>
+    &lt;dependency>
+        &lt;groupId>org.springframework.boot&lt;/groupId>
+        &lt;artifactId>spring-boot-starter-web&lt;/artifactId>
+        &lt;version>2.1.3-RELEASE&lt;/version>
+    &lt;/dependency>
+&lt;/dependencies>
+</div>
+
+<p class="nivel1">En siguiente ejemplo, vamos a crear dos proyectos. Uno de ellos se llamará <code>com.politecnicomalaga.modulo</code> y el otro <code>com.politecnicomalaga.app</code>. El proyecto <code>com.politecnicomalaga.modulo</code> incluirá una clase llamada <code>Suma</code> con el método <code>sumar(int a, int b)</code>. El proyecto <code>com.politecnicomalaga.app</code> dependerá del primero y usará la clase <code>Suma</code>.</p>
+
+<h3>1. Crear el proyecto <code>com.politecnicomalaga.modulo</code></h3>
+
+<p class="nivel3">Creamos el proyecto:</p>
+
+<div class="codigo-fuente">
+    mvn archetype:generate -DgroupId=com.politecnicomalaga -DartifactId=modulo  -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+</div>
+
+<p class="nivel3">Después, en la carpeta <code>src/main/java/com/politecnicomalaga/</code> creamos la clase <code>Suma</code> con el método <code>sumar</code></p>
+
+<p class="nivel3">Finalmente, compilamos, empaquetamos e instalamos en proyecto en el repositorio:</p>
+
+<div class="codigo-fuente">
+    mvn compile
+    mvn package
+    mvn install
+</div>
+
+<p class="nivel3">En este punto, el proyecto <code>com.politecnicomalaga.modulo</code> ya está instalado en el repositorio local.</p>
+
+<h3>2. Crear el proyecto <code>com.politecnicomalaga.app</code></h3>
+
+<p class="nivel3">Vamos a crear el proyecto <code>com.politecnicomalaga.app</code> mediante el comando siguiente:</p>
+
+<div class="codigo-fuente">
+    mvn archetype:generate -DgroupId=com.politecnicomalaga -DartifactId=modulo  -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+</div>
+
+<p class="nivel3">Una vez creado el proyecto, añadimos la dependencia en el archivo <code>pom.xml</code>:</p>
+
+<div class="codigo-fuente">
+    &lt;dependency>
+        &lt;groupId>com.politecnicomalaga&lt;/groupId>
+        &lt;artifactId>modulo&lt;/artifactId>
+        &lt;version>1.0-SNAPSHOT&lt;/version>
+    &lt;/dependency>
+</div>
+
+<p class="nivel3">Ahora, Maven incluye la librería .jar entre las dependencias del proyecto, de forma que ya se puede utilizar la clase <code>Suma</code></p>
+
+<h1>Añadir .jar locales en las dependencias</h1>
+
+<p class="nivel1">Maven proporciona más de un método para incluir un archivo .jar, cuyas fuentes no tenemos, en un proyecto.</p>
+
+<h2>Opción 1. Incluir el archivo .jar en el repositorio local de Maven</h2>
+
+<p class="nivel2">Para añadir el archivo .jar en el repositorio local Maven, se debe usar la función <code>install:install-file</code> del siguiente modo:</p>
+
+<div class="codigo-fuente">
+    mvn install:install-file -Dfile=ruta_al_archivo.jar
+</div>
+
+<p class="nivel2">En el comando anterior no se ha especificado groupId, artifactId ni version. Si se desea, esta información puede proporcionarse desde el mismo comando:</p>
+
+<div class="codigo-fuente">
+    mvn install:install-file -Dfile="path-to-file" -DgroupId="group-id" -DartifactId="artifact-id" -Dversion="version" -Dpackaging="jar"
+</div>
+
+<div class="aclaracion">NOTA: el parámetro <code>pacakging</code> indica el tipo de empaquetamiento (jar, zip, war, etc.)</div>
+
+<p class="nivel2">De este modo, se suministra la información necesaria para incluir la dependencia.</p>
+
+<div class="actividad">
+<p class="nivel1">Crea un nuevo proyecto, llamado <code>Aritmetica</code> que incluye una clase llamada <code>Multiplicacion</code>. Después genera un archivo .jar. Finalmente instala el archivo .jar en el repositorio local de Maven utilizando el procedimiento anteriormente explicado.</p>
+<p class="nivel1">Una vez hecho esto, crea un nuevo proyecto llamado <code>TablaMultiplicar</code> que tenga como dependencia al proyecto <code>Aritmetica</code>. Incluye el proyecto en el POM, y muestra por pantalla la tabla de multiplicar de un número utilizando la clase <code>Multiplicacion</code>.</p>
+</div>
+
+<h2>Opción 2. Añadir la dependencia directamente sin instalar el archivo .jar en el repositorio local</h2>
+
+<p class="nivel2">Si sabemos donde está ubicado el archivo .jar, podemos hacer referencia a él en una sección <code>&lt;dependency></code>, añadiendo el <code>&lt;scope></code> <code>system</code>. El lugar donde debería colocarse el archivo .jar es en el mismo proyecto, dentro de la carpeta <code>lib</code>. La especificaciónd de la dependencia se puede hacer del siguiente modo:</p>
+
+<div class="codigo-fuente">
+    &lt;dependency>
+        &lt;groupId>groupIdDelProyecto&lt;/groupId>
+        &lt;artifactId>artifactIdDelProyecto&lt;/artifactId>
+        &lt;version>versionDelProyecto&lt;/version>
+        &lt;scope>system&lt;/scope>
+        &lt;systemPath>${basedir}/lib/archivo.jar&lt;/systemPath>
+    &lt;/dependency>
+</div>
+
+<div class="actividad">
+    <p class="nivel1">Actividad. Vuelve a repetir el ejercicio anterior. Antes de empezar elimina el archivo .jar del repositorio local. Para ello puedes utilizar el comando siguiente:</p>
+    <div class="codigo-fuente">
+        mvn dependency:purge-local-repository -DmanualInclude="groupId:artifactId"
+    </div>
+    <p class="nivel1">Después utiliza el archivo .jar, colocándolo en la carpeta <code>lib</code> del proyectoy y especifica la dependencia en el POM del proyecto <code>Multiplicacion</code>. Finalmente comprueba que el proyecto sigue funcionando.</p>
+</div>
+
+<h1>Utilizar GitHub como repositorio</h1>
+
+<p class="nivel1">Se puede utilizar GitHub como repositorio. Primero vamos a necesitar tener nuestro proyecto en GitHub. Las versiones distribuidas por Maven deben contar con tags para que sean identificables. Esto es algo que se puede hacer desde el repositorio local (con git), o bien desde el mismo GitHub.</p>
+
+<p class="nivel1">Una vez que ya está subido a GitHub el proyecto y las tags asignadas, vamos a usar el servicio <a href="https://jitpack.io/">JitPack</a>. En la página del servicio debemos pegar la URL del repositorio de GitHub, y se nos ofrecerán las opciones de importación del proyecto.</p>
+
+<h1>Servidor Nexus</h1>
+
+<p class="nivel1">Nexus Repository (de Sonatype) es un servicio que se puede usar como repositorio privado en una organización. Se puede instalar en un servidor de tipo *N*X, Windows u OS X. Se puede descargar desde <a href="https://help.sonatype.com/repomanager3/download">aquí</a>. Algunos requisitos para instalar Nexus son:</p>
+<ul>
+    <li>Hace falta instalar Java 8. Si contamos con una versión posterior o diferente, podemos hacer lo que indica la documentación en <a href="https://help.sonatype.com/repomanager3/installation/java-runtime-environment">https://help.sonatype.com/repomanager3/installation/java-runtime-environment</a>. Ver nota más abajo.</li>
+    <li>La documentación de Nexus especifica como <a href="https://help.sonatype.com/repomanager3/system-requirements">Requisito mínimo</a> contar con un microprocesador de 4 núcleos y 8 GB de RAM. Sin embargo, se puede probar sobre un sistema con 2 GB de RAM.</li>
+</ul>
+
+<div class="aclaracion">
+    <p class="nivel1"><strong>¿Qué hacer si utilizamos una versión diferente a JAVA 8?</strong></p>
+    <p class="nivel1">No es necesario cambiar la versión de JDK en el equipo. Basta con instalar la versión de JDK deseada (en este caso la 8), y editar el script de ejecución <code>/opt/nexus/nexus-3.x.x/bin/nexus</code>. En dicho script se puede cambiar la opción <code>INSTALL4J_JAVA_HOME_OVERRIDE</code>. Así, la instalación de JAVA 8 está en <code>/usr/lib/jvm/java-1.8.0-openjdk-amd64/</code>, la variable deberá tener el siguiente aspecto:</p>
+    <div class="codigo-fuente">
+        INSTALL4J_JAVA_HOME_OVERRIDE=/usr/lib/jvm/java-1.8.0-openjdk-amd64/
+    </div>
+</div>
+
+<p class="nivel1">Para instalar Nexus en Linux, se deben seguir los siguientes pasos:</p>
+
+<ol>
+    <li>Instalar Java JDK 8</li>
+    <li>Descargar el archivo de instalación de Nexus desde <a href="https://help.sonatype.com/repomanager3/download">la página de escargas</a>. El archivo estará comprimido en un archivo <code>tar.gz</code>. Los comandos a ejecutar son los siguientes:</li>
+    <div class="codigo-fuente">
+        # cd /opt
+        # mkdir nexus
+        # cd nexus
+        # wget https://download.sonatype.com/nexus/3/latest-unix.tar.gz
+        # mv latest-unix.tar.gz nexus-3.21.1-01.tar.gz
+        # tar zxvf nexus-3.21.1-01.tar.gz
+        # cd nexus-3.21.1-01/bin
+        # ./nexus run
+    </div>
+</ol>
+
+<p class="nivel1">A partir de este momento, el servicio Nexus estará corriendo y escuchando en el puerto especificado en el archivo <code>/opt/nexus/nexus-3.21.1-01/etc/nexus-default.properties</code>, que por defecto es 8081.</p>
+
+<h2>Configurar Nexus como repositorio de Maven 2. Repositorios por defecto</h2>
+
+<p class="nivel2">Nexus incluye repositorios por defecto que son suficientes para empezar a trabajar. Estos repositorios son los siguientes:</p>
+
+<ul>
+    <li>maven-snapshots - orientado al almacenamiento de versiones snapshot</li>
+    <li>maven-releases - orientado al almacenamiento de versiones estables</li>
+    <li>Además de estos repositorios, hay un grupo predefinido, llamado <code>maven-public</code> que incluye los dos repositorios anteriores. El único propósito de los grupos, es organizativo.</li>
+    <li>Finalmente, hay un repositorio de tipo proxy, que sirve para que Nexus actúe como un proxy de otro repositorio (probablemente el repositorio central de Maven).</li>
+</ul>
+
+<h1>Configración de los clientes para el uso del repositorio Nexus</h1>
+
+<p class="nivel1">En primer lugar hay que añadir lo siguiente en el archvio <code>~/.m2/settings.xml</code>. Esto sirve para configurar las credenciales que se utilizarán para utilizar el repositorio</p>
+
+<div class="codigo-fuente">
+&lt;?xml version="1.0" encoding="UTF-8"?>
+    &lt;settings xmlns="http://maven.apache.org/SETTINGS/1.1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">
+    
+      &lt;servers>
+        &lt;server>
+          &lt;id>nexus-snapshots&lt;/id>
+          &lt;username>admin&lt;/username>
+          &lt;password>admin123&lt;/password>
+        &lt;/server>
+        &lt;server>
+          &lt;id>nexus-releases&lt;/id>
+          &lt;username>admin&lt;/username>
+          &lt;password>admin123&lt;/password>
+        &lt;/server>
+      &lt;/servers>
+    
+      &lt;mirrors>
+        &lt;mirror>
+          &lt;id>central&lt;/id>
+          &lt;name>central&lt;/name>
+          &lt;url>http://your-host:8081/repository/maven-group/&lt;/url>
+          &lt;mirrorOf>*&lt;/mirrorOf>
+        &lt;/mirror>
+      &lt;/mirrors>
+    
+    &lt;/settings>
+</div>
+
+<p class="nivel1">Para configurar los proyectos en desarrollo, será necesario añadir lo siguiente en el archivo <code>pom.xml</code>:</p>
+
+<div class="codigo-fuente">
+&lt;project ...>
+
+  ...
+
+  &lt;repositories>
+    &lt;repository>
+      &lt;id>maven-group&lt;/id>
+      &lt;url>http://your-host:8081/repository/maven-group/&lt;/url>
+    &lt;/repository>
+  &lt;/repositories>
+&lt;/project>
+</div>
+
+<p class="nivel1">Y si también se desea publibar el proyecto en el repositorio, se debe añadir lo siguiente:</p>
+
+<div class="codigo-fuente">
+&lt;project ...>
+
+  ...
+
+  &lt;distributionManagement>
+    &lt;snapshotRepository>
+      &lt;id>nexus-snapshots&lt;/id>
+      &lt;url>http://your-host:8081/repository/maven-snapshots/&lt;/url>
+    &lt;/snapshotRepository>
+    &lt;repository>
+      &lt;id>nexus-releases&lt;/id>
+      &lt;url>http://your-host:8081/repository/maven-releases/&lt;/url>
+    &lt;/repository>
+  &lt;/distributionManagement>
+&lt;/project>
+</div>
+
+<p class="nivel1">Si se desea publicar un proyecto en el repositorio, debemos llegar a la fase <code>deploy</code>.</p>
+
+<h2>Configurar los permisos del sistema de ficheros</h2>
+
+<p class="nivel1">Es una buena práctica ejectuar Nexus como un cierto usuario específico para el servicio. El usuario debería llamarse <code>nexus</code> y debería tener acceso a una shell. Para ello debemos seguir los siguientes pasos:</p>
+
+<div class="codigo-fuente">
+    sudo useradd nexus
+</div>
+
+<p class="nivel1">El usuario <code>nexus</code> debe tener como directorio <code>home</code> aquel en que se encuentra instalado el servicio:</p>
+
+<div class="codigo-fuente">
+    sudo usermod -d /opt/nexus nexus
+</div>
+
+<p class="nivel1">A continuación debemos configurar el propietario del directorio, en nuestro caso <code>nexus</code>:</p>
+
+<div class="codigo-fuente">
+    sudo chown nexus:nexus /opt/nexus -R
+</div>
+
+<p class="nivel1">Finalmente, configuramos el servicio nexus para que se ejecute con los permisos del usuario <code>nexus</code>. Para ello, editamos el archivo <code>/opt/nexus/nexus-3.x.x-x/bin/nexus</code> y editamos la línea que contiene el parámetro <code>run_as_user</code> para que quede del siguiente modo:</p>
+
+<div class="codigo-fuente">
+    run_as_user="nexus"
+</div>
+
+<p class="nivel1">Para terminar, debemos ejecutar el servicio:</p>
+
+<div class="codigo-fuente">
+    ./nexus run
+</div>
+
+<div class="actividad">
+    <p class="nivel1">Actividad 1. Crea un proyecto de Maven. El proyecto debe incluir como dependencia a <code>MySQL Connector/J</code> en el archivo <code>pom.xml</code>. El proyecto debe además incluir una clase llamada <code>Copyright</code> con un método llamado <code>getText</code> que devuelve una cadena de texto de copyright de un proyecto, similar a la siguiente, pero con tus datos incluidos:</p>
+
+    <div class="codigo-fuente">
+        Copyright (C) 1883 Thomas Edison - All Rights Reserved
+        You may use, distribute and modify this code under the
+        terms of the XYZ license, which unfortunately won't be
+        written for another century.
+        
+        You should have received a copy of the XYZ license with
+        this file. If not, please visit : http://www.thomas-edison.com
+    </div>
+
+    <p class="nivel1">Una vez terminado, debes subir el proyecto a GitHub.</p> 
+        
+    <p class="nivel1">Objetivo del ejercicio: Utilizando el proyecto de otro compañero, emplea <code>jitpack</code> para añadir el proyecto anterior como dependencia. Escribe el código necesario para mostrar por pantalla su texto de Copyright.</p>
+</div>
+
+<div class="actividad">
+    <p class="nivel1">Actividad 2. Repite el ejercicio, pero utilizando el servicio <code>Nexus</code> en este caso.</p>
+</div>
+
+<div class="actividad">
+    <p class="nivel1">Actividad 3. Consulta en <a href="https://blog.sonatype.com/using-nexus-3-as-your-repository-part-1-maven-artifacts">https://blog.sonatype.com/using-nexus-3-as-your-repository-part-1-maven-artifacts</a>, para entender cómo puedes crear tus propios repositorios (además de los definidos por defecto). Crea tus propios repositorios y repite el ejercicio, desplegando en este caso el artefacto en el repositorio que has definido manualmente.</p>
+</div>
+
+<h1>Proyectos multimódulo</h1>
+
+<p class="nivel1">Maven permite los proyectos multimódulo. Este tipo de proyectos tiene una estructura jerárquica en la que hay, al menos, un proyecto padre. El proyecto padre incluye un POM especial, llamado <code>POM padre</code>. El resto de módulos, incluyen un POM que hace referencia al <code>POM padre</code>. Aunque sólo existe un proyecto principal, pueden existir  sub-módulos que hagan a su vez de proyectos padre de otros submódulos.</p>
+
+<p class="nivel1">Hasta ahora hemos visto como agregar dependencias en el POM, para poder utilizar otros artefactos. Sin embargo, a veces es deseable mantener una alta cohesión entre proyectos que están muy relacionados. Cuando esto es así, además de agregar las dependencias en el POM, los proyectos multi-módulo permiten crear una estructura jerárquica entre módulos. Los proyectos multimódulo permiten, además, aplicar las reglas de herencia entre los diferentes POM.</p>
+
+<p class="nivel1">En el ejemplo que se va a mostrar a continuación, existe un proyecto llamado <code>saludos-internacionales</code> que aglutina diferentes módulos relacionados con saludos de diferentes paises. La estructura que tendrá el proyecto será la siguiente</p>
+
+<img src="maven/maven-multimodule.png">
+
+<p class="nivel1">En el siguiente vídeo podremos ver como se crea un proyecto multimódulo como el descrito en la imagen anterior. <a href="maven/tutorial-multimodule.mp4">Ver vídeo</a></p>
+
+<div class="actividad">
+    <p class="nivel1">Actividad 4. Crea un proyecto multimódulo llamado Calculadora. La estructura del proyecto será la siguiente:</p>
+
+    <img src="maven/maven-multimodule.ejercicio.png"/>
+
+    <p class="nivel1">Una vez que el proyecto esté completo, asegúrate de que la calculadora puede realizar sumas, multiplicaciones, restas y divisiones. Para ello, utiliza las clases <code>Suma, Resta, Multiplicacion</code> y <code>Division</code> en el método <code>main</code> del módulo <code>Calculadora.</code></p>
+
+    <p class="nivel1">Finalmente despliega el proyecto en tu servidor Nexus.</p>
+</div>
+
+<h1>Apéndice: Crear jar en IntelliJ</h1>
+<div class="aclaracion">
+<p class="nivel3">En <a href="https://www.jetbrains.com/help/idea/packaging-a-module-into-a-jar-file.html">https://www.jetbrains.com/help/idea/packaging-a-module-into-a-jar-file.html</a> se puede encontrar información sobre cómo crear un .jar en IntelliJ</p>
+</div>
+<!--
+<h2>Dependency management</h2>
+<p class="nivel2">Se puede definir esta sección en un POM padre, dando de alta dependencias, aunque lo que se hace es declarar la dependencia, incluyendo la versión, evitando de esta forma inconsistencias en los submódulos.</p>
+
+https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html
+
+<h2>Scope</h2>
+https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Dependency Scope
+
+<p class="nivel2">Scope se indica en una dependencia para limitar la transitividad de una dependencia.</p>
+
+<ul>
+<li>compile (por defecto): ámbito predeterminado. Va a estar disponible en el classpath del proyecto</li>
+<li>provided: muy parecido a compile, aunque la dependencia será proporcionada en tiempo de ejecución. Se utiliza durante la compilación, aunque no se añade al empaquetado final (jar, war, ear), porque un servicio adicional lo proporcionará.</li>
+<li>test: sólo con fines de prueba (no es transitiva, y no se transmite a proyectos hijos)</li>
+</ul>
+
+<p class="nivel2">Otras opciones menos habituales son</p>
+
+<ul>
+    <li>runtime: no necesaria en tiempo de compilación, pero sí en tiempo de ejecución. </li>
+    <li>system: similar a provided, aunque indicando el jar explícitamente.</li>
+    <li>import: sólo utilizada en secciones de tipo  <code>&lt;dependencyManagement></code>. Indica la dependencia que se reemplazará según la lista especificada en dicha sección.</li>
+</ul>
+<p class="nivel2">Debido a que son dependencias reemplazadas, ¿no limitan la transitividad de la dependencia?.</p>
+
+<h2>Classifier</h2>
+
+<p class="nivel2">Para la instalación en el repositorio local, si quieremos añadir un nombre para distinguir un paquete concreto, podemos usar el Classifier.</p>
+
+<h2></h2>Plugin Dependency</h2>
+
+<p class="nivel2"></p>Los comandos para trabajar con el plugin <code>Dependency</code> incluyen la opción de plugin <code>dependency</code> y el <code>goal</code> (por ejemplo, dependency-tree o copy-dependencies):</p>
+
+<ul>
+    <li><code>mvn dependency:dependency-tree</code> muestra el árbol de dependencias</li>
+    <li><code>mvn dependency:copy-dependencies</code> copia en una carpeta todas las dependencias que hay que desplegar en el repositorio remoto. Copia dentro de la carpeta <code>target/dependency/</code> las dependencias del proyecto.</li>
+    <li><code>mvn dependency</code> analyze analiza las dependencias en busca de problemas: usadas y declaradas, usadas y no declaradas y no usadas y declaradas.</li>
+</ul>
+=========================
+ACTIVIDAD PROPUESTA
+
+Añadir una dependencia innecesaria en un módulo y analizar el módulo
+=========================
+-->
+<p></p>
+<p></p>
+</div>
+
+</div>
+
+</body>
+</html>

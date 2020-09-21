@@ -1,0 +1,344 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES">
+<head>
+<meta name="description" content="Página con contenidos educativos de informática. Existen materiales a diferentes niveles, como Enseñanza Secundaria Obligatoria (ESO) o el Ciclo de Grado Superior de Administración de Sistemas en Red (ASIR)."/>
+<meta name="google-site-verification" content="YA0qPqDBJQy4kdb-xT8UJV20oAwqD3fd-e5xmB-yWJA" />
+<meta http-equiv="Content-Type" content="text/html; charset="utf-8" />
+
+
+<meta name="description" content="Página con contenidos educativos de informática. Existen materiales a diferentes niveles, como Enseñanza Secundaria Obligatoria (ESO) o el Ciclo de Grado Superior de Administración de Sistemas en Red (ASIR)."/>
+<meta name="google-site-verification" content="YA0qPqDBJQy4kdb-xT8UJV20oAwqD3fd-e5xmB-yWJA" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		
+<title>Git</title>
+
+
+<link rel="stylesheet" type="text/css" media="screen" href="../articulo3.css"/>
+</head>
+<body>
+
+
+<div id="contenedor">
+<div id="caja-articulo">
+
+<h1>Git</h1>
+
+<p class="nivel1">Git es un software de control de versiones. Resulta muy difícil trabajar en la actualidad sin usar control de versiones.</p>
+
+<p class="nivel1">Para este tema introductorio a Git, vamos a utilizar el libro de <a href="https://git-scm.com/book/es/v1">Pro Git</a> escrito por Scott Chacon y Ben Straub</p>
+
+<h1>Introducción al control de versiones</h1>
+
+<ul>
+	<li><a href="https://git-scm.com/book/es/v1/Empezando-Acerca-del-control-de-versiones">Acerca del control de versiones</a></li>
+	<li><a href="https://git-scm.com/book/es/v1/Empezando-Una-breve-historia-de-Git">Una breve historia de Git</a></li>
+	<li><a href="https://git-scm.com/book/es/v1/Empezando-Fundamentos-de-Git">Fundamentos de Git</a></li>
+</ul>
+
+<h1>Instalación y configuración inicial de Git</h1>
+
+<ul>
+	<li><a href="https://git-scm.com/book/es/v1/Empezando-Instalando-Git">Instalación de Git</a></li>
+	<li><a href="https://git-scm.com/book/es/v1/Empezando-Configurando-Git-por-primera-vez">Configuración inicial de Git</a></li>
+	<li><a href="https://git-scm.com/book/es/v1/Empezando-Obteniendo-ayuda">Ayuda de Git</a></li>
+</ul>
+
+<h1>Actividades básicas de Git</h1>
+
+<ul>
+	<li><a href="https://git-scm.com/book/es/v1/Fundamentos-de-Git-Obteniendo-un-repositorio-Git">Crear un nuevo repositorio</a></li>
+	<li><a href="https://git-scm.com/book/es/v1/Fundamentos-de-Git-Guardando-cambios-en-el-repositorio">Guardar cambios en un repositorio</a></li>
+	<li><a href="https://git-scm.com/book/es/v1/Fundamentos-de-Git-Viendo-el-hist%C3%B3rico-de-confirmaciones">Ver el histórico de confirmaciones</a></li>
+	<li><a href="#eliminar_archivos">Eliminar archivos</a></li>
+	<li><a href="#mover_archivos">Mover archivos</a></li>
+	<li><a href="https://git-scm.com/book/es/v1/Fundamentos-de-Git-Deshaciendo-cosas">Deshacer cosas</a></li>
+		<li><a href="https://git-scm.com/book/es/v1/Fundamentos-de-Git-Creando-etiquetas">Creación de etiquetas</a></li>
+	<li><a href="https://git-scm.com/book/es/v1/Fundamentos-de-Git-Consejos-y-trucos">Consejos y trucos</a></li>
+</ul>
+
+<div class="aclaracion">
+	<h2  id="eliminar_archivos">Eliminar archivos</h2>
+	<p class="nivel2">Borrar archivos con Git requiere ciertas consideraciones. ¿Deseamos borrar el archivo del directorio y del repositorio? ¿Deseamos borrar el archivo solamente del repositorio?</p>
+
+	<h3>Borrar un archivo del proyecto y del repositorio</h3>
+
+	<p class="nivel3">El borrado completo del repositorio se puede hacer de dos maneras:</p>
+
+	<ul>
+		<li>Opción a) Borrar usando Git</li>
+		<div class="codigo-fuente">
+git rm nombre_archivo		
+		</div>
+	</ul>
+
+	<ul>
+		<li>Opción b) Borrar primero el archivo del proyecto y luego con Git</li>
+		<div class="codigo-fuente">
+rm nombre_archivo
+git add nombre_archivo
+		</div>
+	</ul>
+
+	<p class="nivel3">Para hacer efectivos los cambios, debemos hacer un <code>commit</code></p>
+
+	<h3>Borrar un archivo solamente del repositorio</h3>
+
+	<p class="nivel3">Supongamos que olvidamos meter un archivo en <code>.gitignore</code>, por ejemplo. Entonces haremos lo siguiente:</p>
+
+	<div class="codigo-fuente">
+git rm --cached nombre_archivo
+	</div>
+
+	<h2 id="mover_archivos">Mover archivos</h2>
+
+	<p class="nivel2">Supongamos que ya hemos hecho <code>git add</code>, pero queremos renombrar un cierto archivo. Entonces podemos renombrar el archivo de dos maneras:</p>
+
+	<ul>
+		<li>Método 1. Renombrar el archivo en el directorio y en el repositorio.</li>
+		<div class="codigo-fuente">
+git mv nombre_original nombre_nuevo
+		</div>
+	</ul>
+
+	<ul>
+		<li>Método 2. Cambiar por separado el archivo en el directorio y en el repositorio</li>
+		<div class="codigo-fuente">
+mv nombre_original nombre_nuevo
+git rm nombre_original
+git add nombre_nuevo
+		</div>
+	</ul>
+</div>
+
+
+<h1>Ramificaciones</h1>
+
+<p class="nivel1">Para este tema, vamos a seguir los siguientes enlaces:</p>
+
+<ul>
+	<li><a href="https://git-scm.com/book/es/v2/Ramificaciones-en-Git-%C2%BFQu%C3%A9-es-una-rama%3F">Introducción al concepto de rama</a></li>
+	<li><a href="https://git-scm.com/book/es/v2/Ramificaciones-en-Git-Procedimientos-B%C3%A1sicos-para-Ramificar-y-Fusionar">Ramificaciones en Git - Procedimientos Básicos para Ramificar y Fusionar</a></li>
+	<li><a href="https://git-scm.com/book/es/v2/Ramificaciones-en-Git-Gesti%C3%B3n-de-Ramas">Consultas sobre ramas</a></li>
+</ul>
+
+<p class="nivel1">Hay mucho más que tratar sobre Git, ramas y entornos distribuidos. Pero eso lo vamos a dejar para el capítulo de GitHub y flujos de trabajo.</p>
+
+
+<h1>Reorganizaciones</h1>
+
+<p class="nivel1">Git permite realizar reorganizaciones entre ramas. El resultado es similar a realizar fusiones, aunque la estructura de ramas resultante es más sencilla. Si no queremos mantener la estructura de las ramas, es una alternativa interesante. Un ejemplo. Supongamos que tenemos la siguiente estructura de confirmaciones:</p>
+
+<div class="codigo-fuente">
+C1 --> C2 --> C3 (master)
+		\---> C4 --> C5 (rama_x)
+</div>
+
+<p class="nivel1">Ahora, vamos a hacer una reorganización:</p>
+
+<div class="codigo-fuente">
+$ git checkout rama_x
+$ git rebase master
+</div>
+
+<p class="nivel1">El resultado es similar a hacer una fusión. Pero en este caso, la primera confirmación de la rama rama_x termina apuntando a la rama master:</p>
+
+<div class="codigo-fuente">
+C1 --> C2 --> C3 (master) --> <span style="color:white">C4' --> C5' (rama_x) </span>
+</div>
+
+<p class="nivel1">Una vez hecho el rebase, fusionamos la rama <code>master</code> con la rama <code>rama_x</code>.</p>
+
+<div class="codigo-fuente">
+$ git checkout master
+$ git merge rama_x
+</div>
+
+<p class="nivel1">Con lo que el árbol de confirmaciones queda como sigue:</p>
+
+<div class="codigo-fuente">
+C1 --> C2 --> C3 --> C4' --> C5' (rama_x, master)
+</div>
+
+<p class="nivel1">Finalmente, podemos eliminar la rama "rama_x" sin perder ninguna confirmación:</p>
+
+<div class="codigo-fuente">
+$ git branch -d rama_x
+</div>
+
+<p class="nivel1">Quedando el árbol de confirmaciones así:</p>
+
+<div class="codigo-fuente">
+C1 --> C2 --> C3 --> C4' --> C5' (master)
+</div>
+
+<div class="destacado">
+	<p class="nivel1">Hay un caso en que no debemos hacer reorganizaciones. Nunca se debe reorganizar sobre cambios que ya han sido confirmados en un repositorio remoto. Podemos encontrar más información sobre este tema en el apartado <strong>Los peligros de la reorganización</strong> en <a href="https://git-scm.com/book/es/v1/Ramificaciones-en-Git-Reorganizando-el-trabajo-realizado">https://git-scm.com/book/es/v1/Ramificaciones-en-Git-Reorganizando-el-trabajo-realizado</a></p>
+</div>
+
+<h2>Otras reorganizaciones</h2>
+
+<p class="nivel2">Se pueden hacer otros tipos de reorganizaciones más específicas:</p>
+<ul>
+	<li>Combinar varias confirmaciones en  una sola</li>
+	<li>Cambiar de base una subrama a otra</li>
+	<li>Eliminar un commit intermedio</li>
+	<li>Eliminar el último commit</li>
+</ul>
+
+<h2>Combinar varias confirmaciones en una sola</h2>
+
+<p class="nivel2">Podemos combinar varios commits en uno solo. Por ejemplo, supongamos que tenemos el siguiente árbol de confirmaciones:</p>
+
+<div class="codigo-fuente">
+c1 --> c2 --> c3 --> c4 (master, HEAD)
+</div>
+
+<p class="nivel2">Supongamos que queremos que c2, c3 y c4 aparezcan como una única confirmación. Entonces haremos lo siguiente:</p>
+
+<div class="codigo-fuente">
+$ git rebase -i HEAD~3
+</div>
+
+<p class="nivel2">Donde en <code>HEAD~n</code>, <code>n</code> indica el número de confirmaciones que queremos unir. Cuando ejecutamos este comando, se nos abrirá un archivo donde aparecerán las acciones a llevar a cabo. Por ejemplo, para el ejercicio anterior, aparecerá algo como lo siguiente:</p>
+
+<div class="codigo-fuente">
+pick 7d50158 mensaje sobre cambios hechos en c2
+pick 65c5d1a mensaje sobre cambios hechos en c3
+pick 329f936 mensaje sobre cambios hechos en c4
+
+[...]
+</div>
+
+
+<p class="nivel2">Nosotros debermos cambiar el comando <code>pick</code> por <code>squash</code> cuando queramos que sea unido a otra confirmación. Por ejemplo, en el caso anterior, podríamos hacer:</p>
+
+<div class="codigo-fuente">
+pick 7d50158 mensaje sobre cambios hechos en c2
+squash 65c5d1a mensaje sobre cambios hechos en c3
+squash 329f936 mensaje sobre cambios hechos en c4
+
+[...]
+</div>
+
+<p class="nivel2">El árbol de confirmaciones resultante incluirá una confirmación <code>c2'</code> con todos los cambios de c2, c3 y c4:</p>
+
+<div class="codigo-fuente">
+c1 --> c2' (master, HEAD)
+</div>
+
+<h2>Cambiar una subrama de base a otra subrama</h2>
+
+<p class="nivel2">Supongamos que tenemos el siguiente árbol de confirmaciones:</p>
+
+<div class="codigo-fuente">
+A -- B -- C -- D -- E (master)
+	 \ -- F -- G -- H (topicA)
+	  \			\-- I -- J -- K (topicB)
+	   \--N -- O (topicC)
+</div>
+
+<p class="nivel2">Y supongamos que queremos cambiar la rama "topicB" de base, para que derive de la rama "topicC". En tal caso, podemos usar el comando <code>rebase</code> del siguiente modo:</p>
+
+<div class="codigo-fuente">
+$ git rebase --onto topicC topicA topicB
+</div>
+
+<p class="nivel2">Donde los parámetros son los siguientes:</p>
+<ul>
+	<li><code>topicC</code> nueva rama base</li>
+	<li><code>topicA</code> anterior rama base</li>
+	<li><code>topicB</code> rama a cambiar de base</li>
+</ul>
+
+<p class="nivel2">El resultado será el siguiente árbol de confirmaciones:</p>
+
+<div class="codigo-fuente">
+A -- B -- C -- D -- E (master)
+	 \ -- F -- G -- H (topicA)
+	  \			
+	   \--N -- O (topicC) -- I' -- J' -- K' (topicB)
+</div>
+
+<p class="nivel2">Después, siempre podemos fusionar "topicC" y "topicB" si fuese necesario.</p>
+
+<h2>Eliminar un commit intermedio</h2>
+
+<p class="nivel2">Supongamos que tenemos el siguiente árbol de confirmaciones:</p>
+
+<div class="codigo-fuente">
+A -- B -- C -- D -- E (master)
+</div>
+
+<p class="nivel2">Y nos damos cuenta de que en el commit C cometimos un error que no queremos conservar. Para eliminar dicho commit, haremos lo siguiente:</p>
+
+<div class="codigo-fuente">
+$ git checkout master
+$ git rebase --onto B HEAD~2
+</div>
+
+<p class="nivel2">Donde <code>HEAD~2</code> hace referencia al commit "D". En realidad estamos diciendo que ahora el commit "D" ahora apuntará a "B" en lugar de a "C", de modo que "C" se pierde.</p>
+
+<h2>Eliminar el último commit</h2>
+
+<p class="nivel2">Si lo que queremos es eliminar el último commit, tenemos dos alternativas: conservar o no conserar los cambios.</p>
+
+<h3>Elminar el último commit conservando los cambios</h3>
+
+<p class="nivel3">Si quiero eliminar el último commit pero quiero que los cambios se sigan manteniendo como cambios pendientes, debemos hacer lo siguiente:</p>
+
+<div class="codigo-fuente">
+$ git reset --soft HEAD~1
+</div>
+
+<h3>Eliminar el último commit descartando los cambios</h3>
+
+<p class="nivel3">Si quiero eliminar el último commit y no mantener ningún los cambios, entonces el comando a realizar es el siguiente:</p>
+
+<div class="codigo-fuente">
+$ git reset --hard HEAD~1
+</div>
+
+
+<div class="actividad">
+	<p class="nivel1">Actividad 1. Crea un repositorio local en una carpeta llamada <code>Act1-git</code>. Supongamos que el dueño de dicha carpeta se llama Juan. La historia de dicha carpeta es la siguiente:</p>
+
+	<ol>
+		<li>Juan crea un archivo llamado <code>README.md</code> y escribe en su interior lo siguiente "Apuntes de Ingeniería del Software"</li>
+		<li>Hace una primera confirmación con el nombre "Inicio del proyecto"</li>
+		<li>Continúa agregando el archivo <code>ingenieria.txt</code> que contiene una descripción de los elementos de la ingeniería del software. También incluye un archivo llamado <code>proceso_cascada.txt</code> que enumera los nombres de las fases de dicho proceso.</li>
+		<li>Después hace otra confirmación más, con el nombre "ingenería del sw y cascada"</li>
+		<li>Añade un archivo más, llamado <code>agilismo.txt</code> incluye el texto del manifiesto ágil. Además, crea una carpeta llamada <code>Scrum</code> donde crea un archivo llamado <code>artefactos.txt</code>, donde enumera los artefactos de Scrum.</li>
+		<li>Después hace una confirmación con el texto "artefactos de Scrum añadidos".</li>
+		<li>A Juan le han dicho que también tiene que crear un archivo llamado <code>ceremonias.txt</code> donde debe enumerar las reuniones que se producen durante el desarrollo de un proyecto con Scrum. Pero como no está seguro, crea una rama llamada <code>temporal</code>. En dicha rama, creará el archivo.</li>
+		<li>Juan vuelve a la rama <code>master</code> y añade un archivo llamado <code>roles.txt</code> donde se enumeran los roles principales en Scrum. Después de esto, confirma el cambio con la descripción "roles de Scrum añadidos".</li>
+		<div class="aclaracion">
+			<p class="nivel1">Al hacer esto, Juan crea un conflicto con la rama <code>temporal</code></p>
+		</div>
+		<li>Juan hace una fusión de la rama <code>temporal</code> con la rama <code>master</code> resolviendo los conflictos. La nueva confirmación se llamará "ceremonias agregadas". Juan decide además etiquetar esta versión como la "0.0"</li>
+		<li>Después de esto, Juan añade a README.md por error un fragmento de Lorem Ipsum, y hace una confirmación llamada "Más detalles en README.md"</li>
+		<li>Tras hacer la confirmación crea un nuevo archivo llamado <code>Autor.txt</code>, donde escribe su nombre.</li>
+		<li>Ahora se acaba de dar cuenta de que el archivo <code>README.md</code> está mal y por eso desea descartar el commit llamado "Más detalles en README.md".</li>
+	</ol>
+
+	<div class="destacado">
+		<p class="nivel1">Una vez que termines la actividad, dentro de la carpeta Act1-git ejecuta el siguiente comando:</p>
+		<div class="codigo-fuente">
+history > history.txt
+		</div>
+	</div>
+
+	<div class="entrega">
+		<p class="nivel1">Comprime el directorio en un archivo llamado Act1-git.zip</p>
+	</div>
+</div>
+
+<br><br>
+	</div>
+	
+
+
+</div>
+
+</body>
+</html>
+

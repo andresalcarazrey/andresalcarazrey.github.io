@@ -1,0 +1,402 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES">
+<head>
+<meta name="description" content="Página con contenidos educativos de informática. Existen materiales a diferentes niveles, como Enseñanza Secundaria Obligatoria (ESO) o el Ciclo de Grado Superior de Administración de Sistemas en Red (ASIR)."/>
+<meta name="google-site-verification" content="YA0qPqDBJQy4kdb-xT8UJV20oAwqD3fd-e5xmB-yWJA" />
+<meta http-equiv="Content-Type" content="text/html; charset="utf-8" />
+
+
+<meta name="description" content="Página con contenidos educativos de informática. Existen materiales a diferentes niveles, como Enseñanza Secundaria Obligatoria (ESO) o el Ciclo de Grado Superior de Administración de Sistemas en Red (ASIR)."/>
+<meta name="google-site-verification" content="YA0qPqDBJQy4kdb-xT8UJV20oAwqD3fd-e5xmB-yWJA" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>UML</title>
+
+
+<link rel="stylesheet" type="text/css" media="screen" href="../articulo3.css"/>
+</head>
+<body>
+
+
+<div id="contenedor">
+	<div id="caja-articulo">
+<h1>Principios que deben guiar la práctica del modelado</h1>
+
+<p class="1">En la fase de modelado podemos crear dos tipos de modelos:</p>
+<ul>
+	<li>Modelos de requerimientos</li>
+	<li>Modelos de diseño</li>
+</ul>
+
+<p class="1">Los modelos de requisitos representan los requisitos del cliente representados en tres niveles diferentes: el dominio de la información, el dominio funcional y el dominio del comportamiento. Por otra parte, los modelos de diseño representan características del software que ayudan a construirlo de manera efectiva: la interfaz, la arquitectura y detalles a nivel de componentes.</p>
+
+<p class="1">Dependiendo del proceso de desarrollo elegido, el peso de la fase de diseño es mayor o menor. La siguiente es una lista de principios de diseño aportada por <em>Scott Ambler</em> y <em>Ron Jeffries</em> en su libro <em>Agile Modeling</em> sobre modelado para procesos ágiles (aunque según <em>Roger S. Pressman</em> son aplicables a todos los procesos de desarrollo):</p>
+<ul>
+	<li>Principio 1. El objetivo principal del equipo de desarrollo es construir software, no crear modelos. Si los modelos aportan poca información sobre lo que ya se sabe sobre el software, debe evitarse.</li>
+	<li>Principio 2. No crear modelos que no son necesarios. Los modelos deben mantenerse actualizados en base a los cambios. Cuantos más modelos se hagan, más habrá que cambiar para cada cambio.</li>
+	<li>Principio 3. Esforzarse por producir el modelo más simple que describa el problema. Manteniendo los modelos simples, el software resultante será simple también. El resultado es software que se integra fácilmente, es fácil de probar y es más fácil de mantener. Además son más fácilmente comprensibles para el resto del equipo.</li>
+	<li>Principio 4. Crea modelos que sean fáciles de cambiar, pero sin ser descuidado.</li>
+	<div class="aclaracion">
+		<p class="2">Para cubrir este principio, existe una tendencia a crear una lista de requisitos simple, con pocos detalles. La razón de ello es que el software cambiará, y por ello, unos requisitos definidos de esta manera, ayudará a crear un software más abierto al cambio. Pero no debe llevarnos a ser descuidados en el diseño.</p>
+	</div> 
+	<li>Principio 5. Encuentra una razón para cada modelo. Si no existe una razón sólida para cerar ese modelo, no debe perderse tiempo en él.</li>
+	<li>Principio 6. Adapta los modelos al sistema con que cuentas. Infórmate sobre la notación y las reglas utilizados en el tipo de sistema de interés (modelar un video juego puede necesitar un modelado diferente a un sistema de tiempo real o a un sistema embebido).</li>
+	<li>Principio 7. Intenta construir modelos útiles, pero no modelos perfectos. Una vez reflejada la idea buscada, no tiene sentido abundar en detalles que consumirán tiempo y no aportarán gran cosa. Los modelos perfectos van en contra de los procesos ágiles.</li>
+	<li>Principio 8. No es preciso ser dogmático sobre la representación. Si la idea es comunicada de manera eficaz, la representación es secundaria.</li>
+	<li>Principio 9. Si tu intuición (basada en la experiencia) te dice que un modelo tiene algo malo, aunque sobre el papel quede bien, probablemente tengas razón.</li>
+	<li>Principio 10. Busca <em>feedbak</em> tan pronto como puedas. Todo modelo debería ser revisado por el resto del equipo. Estas revisiones tienen como propósito corregir errores, malinterpretaciones o añadir características o elementos que se hayan omitido por error.</li>
+</ul>
+
+<h1>Tipos de diagramas</h1>
+
+<p class="nivel1">Como ya se ha explicado, existen dos tipos de diagramas. En primer lugar están los diagramas de modelado de requerimientos. Entre este tipo de diagramas, están los siguientes</p>
+<ul>
+	<li>Diagramas estructurales</li>
+	<ul>
+		<li>Diagramas de casos de uso</li>
+		<li>Diagramas de clases</li>
+		<li>Diagramas de objetos</li>
+	</ul>
+	<li>Diagramos de comportamiento</li>
+	<ul>
+		<li>Diagramas de estados</li>
+		<li>Diagramas de actividad</li>
+	</ul>
+	<li>Diagramas de interacción</li>
+	<ul>
+		<li>Diagramas de secuencia</li>
+		<li>Diagramas de colaboración</li>
+	</ul>
+	<li>Diagramas de datos</li>
+	<ul>
+		<li>Diagramas E/R</li>
+		<li>Diagramas de flujo de datos</li>
+	</ul>
+</ul>
+
+<p class="nivel1">Otro tipo de diagramas, llamados de diseño, suponen un refinamiento de las diagramas de modelado de requermientos, reduciendo el nivel de abstracción (aumentando los detalles) y aproximándose más a la implementación del software. A los diagramas anteriormente expuestos, se unen otros, como los diagramas de interfaz, los diagramas de componentes y de despliegue.</p>
+
+<h1>UML</h1>
+
+<p class="nivel1">UML (Lenguaje de Modelado Unificado) es un lenguaje de modelado de sistemas estándar que se utiliza para modelar sistemas. Los diagramas mencionados anteriormente son parte de UML</p>
+
+<h2>UML y las metodologías ágiles</h2>
+
+<p class="nivel2">Hay una tendencia a pensar que en las metodologías ágiles, el modelado de requerimientos y el diseño están de más, ya que forman parte de metodologías clásicas como, como el proceso en cascada. Sin embargo, esta idea puede llevar a crear diseños y arquitecturas extrañas difíciles de mantener a la larga. En uno de sus artículos, Robert Martin se refiere a este error, indicando que el modelado y el diseño son necesarios para obtener un buen software.</p>
+
+<h2>Diagramas UML</h2>
+
+<p class="nivel2">A continuación analizaremos algunos diagramas UML. Para ello, seguiremos el curso enmarcado en la OCW (Open Course Ware) impartido por la Universidad de La Laguna (Tenerife).</p>
+
+<ul>
+    <li><a href="uml/introduccion.pdf">Introducción a UML</a></li>
+    <li><a href="uml/casos_de_uso.pdf">Diagramas de casos de uso</a></li>
+    <li><a href="uml/clases_y_objetos.pdf">Clases y objetos</a></li>
+    <li><a href="uml/diagramas_de_comportamiento.pdf">Diagramas de comportamiento</a></li>
+    <li><a href="uml/diagramas_de_interaccion.pdf">Diagramas de interacción</a></li>
+    <li><a href="uml/diagramas_de_implementacion.pdf">Diagramas de implementación</a></li>
+</ul>
+
+<h2>Casos de uso</h2>
+<p class="nivel2">Algunos ejemplos de casos de uso:</p>
+
+<img src="uml/ejemplos_casos_uso/ejemplo_caso_uso1.png">
+<img src="uml/ejemplos_casos_uso/ejemplo_caso_uso2.png">
+<img src="uml/ejemplos_casos_uso/ejemplo_caso_uso3.png">
+
+<p class="nivel2">Se proponen para practicar los siguientes ejercicios:</p>
+
+<ul>
+	<li><strong>La máquina de café:</strong> La máquina debe permitir a una perona introducir dinero, escoger uno de los productos de acuerdo a su precio, escoger un nivel de azúcar y entregar el producto y las vueltas. El usuario puede canclar la operación en cualquier momento antes de escoger el azúzar, mediante un botón para dicho fin.</li>
+	<li><strong>Sistema de pago online:</strong> Queremos modelar un sistema de pago en una tienda web. El cliente debe identificarse mediante su dirección de correo. Si es un nuevo cliente se le debe registrar en el sistema previamente, pidéndole los datos personales. Una vez identificado el cliente, éste podrá elegir el medio de pago: por transferencia bancaria o con tarjeta de crédito. Según el medio de pago se le solicitarán unos datos u otros. El cliente también deberá elegir el método de envío. Finalmente se le mostrarán todos los datos del pedido para pedirle que confirme.</li>
+	<li><strong>Usuarios y administradores</strong> Queremos modelar un sistema en el que hay usuarios. Los usuarios pueden iniciar sesión, modificar su contraseña, recuperar su contraseña y cerrar sesión. Los administradores tienen los mismos permisos que los usuarios, pero además, pueden registrar usuarios e instalar programas.</li>
+</ul>
+
+<div class="actividad">
+	<p class="nivel1">Actividad 1. Elabora el diagrama de casos de uso para el problema del hotel.</p>
+</div>
+
+<div class="actividad">
+	<p class="nivel1">Actividad 2. Crea un diagrama de casos de uso para el siguiente problema: Una empresa de taxi quiere supervisar todos los vehículos de los que dispone. Por ello necesita el desarrollo de una aplicación que le permita hacerlo, llamada Ubicuity.</p>
+	<p class="nivel1">En Ubicuity, un operador registra el GPS de los vehículos y les asigna un nombre, consistente en la matrícula del coche. El operador registra para cada coche su horario de inicio y fin cada día de la semana. De esa manera puede obtener un listado de vehículos operativos en un momento determinado. Los GPS de los coches envían cada 5 minutos su localización exacta a la aplicación. El operador puede acceder a un mapa en el que aparecen geolocalizados los taxis operativos. Cuando un cliente utiliza la aplicación, indica su posición geográfica mediante GPS. Los taxis que no llevan un cliente, reciben la notificación, y sólo uno de ellos lo seleccionará y dejará de estar disponible. El operador puede ver si un taxi lleva un cliente o no.</p>
+</div>
+
+<h2>Diagramas de clases</h2>
+
+<p class="nivel2">Se proponen los siguientes ejercicios para practicar los diagramas de clases:</p>
+<ul>
+	<li><strong>Programa de dibujo:</strong> Se desea modelar un programa que pueda almacenar diferentes tipo de figuras geométricas: círculos, triángulos y cuadrados. Todas las figuras tienen un color, y tienen una manera particular de obtener el área.</li>
+	<li><strong>Empleados:</strong>Durante el desarrollo de una aplicación de gestión de personal, surge la necesidad de cubrir esta historia: "Calcular la nómina de cada trabajador, dependiendo de su tipo". Los empleados pueden ser de tres tipos. Los comisionados cobran un sueldo base, y un sueldo extra de 50€ por venta realizada.
+	Los trabajdores por horas cobran una cierta cantidad por cada hora trabajada, multiplicada por el número de horas trabajadas. Los asalariados cobran una cantidad fija al mes.</li>
+</ul>
+<p class="nivel2">Algunos ejemplos de diagramas de clases</p>
+<img src="uml/diagrama-clases-dependencia.png" class="pequena">
+<img src="uml/diagrama-clases1.jpg" class="pequena">
+<img src="uml/diagrama-clases2.jpg">
+<div class="actividad">
+	<p class="nivel1">Actividad 3. Crea un diagrama de clases para el siguiente problema: se desea modelar una tienda online. La tienda almacena información sobre sus clientes. Un cliente tiene un nombre de usuario, una dirección, un teléfono y un email. Todos los clientes tienen asociada una cuenta en la que está la dirección de facturación, la fecha de creación y la fecha de cancelación, en caso de estar cancelada. Cada cliente tiene una cesta de la compra, que puede incluir uno o más productos. Cada producto de la cesta queda descrito por su nombre y su precio. Cuando un cliente procede con una compra, debe decidir ciertas cuestiones sobre la orden de compra, como la dirección de envío. Además, el cliente es informado sobre la cuantía de los portes y la fecha aproximada de entrega.</p>
+</div>
+
+<div class="actividad">
+	<p class="nivel1">Actividad 4. En una empresa queremos guardar información de sus empleados y de los clientes con los siguientes requisitos:</p>
+	<ul>
+		<li>De los empleados queremos guardar un sueldo bruto.</li>
+		<li>De los clientes queremos guardar su teléfono.</li>
+		<li>Los clientes y los empleados tiene las siguientes características comunes: la edad y el nombre</li>
+		<li>Los directivos son un tipo de empleado. De ellos queremos conocer su categoría.</li>
+		<li>Queremos una función que permita imprimir por pantalla todos los datos de cada persona.</li>
+	</ul>
+	<p class="nivel1">Además existe una flota de coches de empresa a disposición de los directivos. Cada coche puede estar asignado a un único directivo y viceversa. De los vehículos necesitamos saber su matrícula y su kilometraje.</p>
+	<p class="nivel1">Crea un diagrama de clases que describa el problema.</p>
+</div>
+
+<h2>Diagramas de objetos</h2>
+
+<img src="uml/diagrama-objetos.png">
+
+<div class="actividad">
+	<p class="nivel1">Actividad 5. Representa mediante un diagrama de objetos, un instante del problema de la tienda online en el que un cliente está a punto de completar la compra de varios productos.</p>
+</div>
+
+<h2>Diagrama de estados</h2>
+
+<p class="nivel1">Cómo crear un diagrama de estados</p>
+<ol>
+<li>Identificar las entidades que tienen un comportamiento complejo o bien clases cuyo ciclo de vida debe ser especificado.</li>
+<li>Determinar los estados inicial y final de una entidad.</li>
+<li>Modelar las transiciones.</li>
+<li>Identificar los eventos que afectan a la entidad.</li>
+<li>Partiendo del estado inicial, determinar el efecto de los eventos e identificar los estados.</li>
+<li>Identificar cualquier entrada y salida de los estados.</li>
+<li>Detallar si es necesario los estados usando subestados.</li>
+<li>Si la entidad es una clase, comprobar que la acción en el estado está recogida por las operaciones o las relaciones de la clase. Si no es así, ampliar la clase para que así sea.</li>
+<li>Refinar y elaborar según sea necesario.</li>
+</ol>
+
+<img src="uml/diagrama-estados1.png" alt="">
+
+<img src="uml/diagrama-estados2.gif">
+
+<img src="uml/diagrama-estados3.gif">
+
+<img src="uml/diagrama-estados4.png">
+
+<img src="uml/diagrama-estados5.png">
+
+<div class="destacado">
+	<p class="nivel1"><strong>Ejemplo para practicar:</strong> Un servicio de reparto de comida a domicilio, emplea una aplicación para recibir los encargos y para realizar las entregas.</p>
+	<ul>
+	<li>Cuando el servicio recibe un pedido, se mentiene en espera hasta alcanzar un mínimo de tres encargos. Si pasan más de 30 minutos desde el primer encargo, se inicia la entrega aunque no se haya llegado al mínimo (3).</li>
+	<li>Durante la entrega, la aplicación calcula el siguiente destino más cercano. El repartidor se dirige a dicho destino.</li>
+	<li>Al entregar el encargo, el repartidor abre un proces de entrega, que cierra el cliente dando un feedback para confirmar la recepción. La aplicación envía entonces la ubicación actual del repartidor.</li>
+	<li>El proceso de entrega continúa hasta que no quedan más encargos.</li>
+	<li>Una vez finalizada la entrega, el repartidor vuelve al punto de salida y confirma su llegada en la aplicación.</li>
+	</p>
+	</div>
+
+<div class="actividad">
+	<p class="nivel1">Actividad 6. Representa mediante un diagrama de estados el proceso de reserva de una habitación de hotel:</p>
+	<p class="nivel2">Se trata de modelar los estados por los que pasa un sistema de reserva hasta que la habitación es finalmente reservada, o bien es denegada. Define textualmente los pasos que incluyen una reserva, y después refléjalos mediante un diagrama de estados. Ten en cuenta que lo que la descripción dada por el cliente es la siguiente:</p>
+	<div class="destacado">
+		<p class="nivel1">Para que se pueda reservar una habitación necesitamos los datos del cliente, que incluyen el nombre, un correo electrónico, un teléfono de contacto y un documento de identificación, que puede ser el DNI u otro documento válido en el país de origen. Cuando se reserva la habitación, hay que abonar como mínimo la mitad del precio de la habitación, que se perderá 24 horas antes de la fecha de la reserva, salvo que se pague el precio completo. Una habitación reservada, no se puede volver a reservar en la misma fecha, hasta que la reserva se cancele o bien hasta que termine la ocupación. Aunque un cliente no se presente en la fecha de la reserva, la habitación seguirá considerándose ocupada (siempre que el cliente haya abonado el precio completo de la habitación). Si se cancela una reserva antes de 24 horas de la fecha de ocupación, el cliente perderá la mitad del precio total.</p>
+	</div>
+</div>
+
+<h2>Diagrama de actividades</h2>
+
+<p class="nivel1">Un diagrama de actividades se puede usar para:</p>
+<ul>
+	<li>Definir la lógica de un algoritmo</li>
+	<li>Describir orden de tareas en casos de uso</li>
+	<li>Detallar el flujo de trabajo entre usuarios</li>
+	<li>Comprender procesos de cierta complejidad</li>
+</ul>
+
+<p class="nivel1">Los pasos para definir un diagrama de actividad son</p>
+<ol>
+	<li>Definir particiones.</li>
+	<li>Establecer los elementos inicial y final.</li>
+	<li>Determinar las actividades implicadas</li>
+	<li>Determinar los objetos implicados</li>
+	<li>Añadir pines de entrada/salida a las actividades para conectarlas con los objetos.</li>
+	<li>Conectar las actividades entre sí y los objetos.</li>
+	<li>Representar la concurrencia insertando fork/join.</li>
+</ol>
+
+
+
+<img src="uml/diagrama-actividad-maquina-cafe.png">
+<img src="uml/diagrama-actividad-particiones.jpg">
+<img src="uml/diagrama-actividad.gif">
+<figure>
+	<img src="uml/diagrama-con-objetos.png">
+	<figcaption>Diagrama de actividad con objetos</figcaption>
+</figure>
+<figure>
+	<img src="uml/diagrama-con-bucles.png">
+	<figcaption>Diagrama de actividad con bucles</figcaption>
+</figure>
+<figure>
+	<img src="uml/diagrama-con-bucles2.png">
+	<figcaption>Diagrama de actividad con bucles (UML 2)</figcaption>
+</figure>
+<figure>
+	<img src="uml/diagrama-con-timeout.png">
+	<figcaption>Diagrama de actividad con timeout</figcaption>
+</figure>
+<figure>
+	<img src="uml/diagrama-con-simbolos-especiales.png">
+	<figcaption>Diagrama de actividad con símbolos especiales</figcaption>
+</figure>
+
+<div class="destacado">
+<p class="nivel1"><strong>Ejemplo para practicar:</strong> modela el siguiente proceso relacionado con la resolución de una incidencia</p>
+<p class="nivel1">Cuando un usuario sufre un problema técnico, genera una ticket describiendo la incidencia.</p> 
+<p class="nivel1">Un helpdesk recibe la notificación, y si puede resolver la incidencia directamente, lo hace y marca el ticket como resuelto. En caso contrario, asigna el ticket a un técnico.</p> 
+<p class="nivel1">El técnico resuelve la incidencia en cuanto le es posible, y marca el ticket indicando que la incidencia ha sido resuelta.</p> 
+<p class="nivel1">El usuario revisa el ticket pudiendo dar por resuelta o no la incidencia. En caso de darla por resuelta, el helpdesk cierra la incidencia y proceso de resolución concluye. En caso contrario, el proceso vuelve a comenzar hasta que quede resuelta.</p>
+</div>
+
+<div class="actividad">
+	<p class="nivel1">Actividad 7. Modela mediante un diagrama de actividades el siguiente problema:</p>
+	<p class="nivel1">Cuando se abre un proyecto con el software <em>InfinityPolitechnics</em>, la aplicación comprueba si el documento de configuración del proyecto pertenece a una versión igual o superior a la versión 4.0. Si es así, se procede con la apertura del documento. En caso contrario se muestra un diálogo de pregunta con el siguiente mensaje: <em>Este proyecto debe ser traducido a la versión 4.0. ¿Desea proceder con la traducción?</em> Si la opción elegida es "No", se muestra un mensaje indicado lo siguiente: "Lo siento, no se puede abrir este proyecto". En caso de indicar "Sí", se ofrece la posibilidad de realizar una copia de seguridad, con las opciones "Aceptar" y "Cancelar". Si se elige "Sí", se realiza una copia de seguridad. Después se prosigue con el proceso de traducción. Si la traducción es exitosa, se muestra un mensaje con el resultado, y se abre el proyecto. En caso contrario, se genera un log, y se muestra un mensaje indicando que no se ha podido abrir el proyecto</p>
+</div>
+
+<img src="uml/diagrama-secuencia-lavadora.png">
+<img src="uml/diagrama-secuencia.png">
+
+<p class="nivel2">Ejemplo 1. Establecimientos más cercanos.</p>
+<ul>
+	<li><strong>Obtener los establecimientos más cercanos que sirven un plato</strong>. Recuerda el enunciado del examen: "Obtener los establecimientos más cercanos a la ubicación actual que sirve un cierto plato". Para conseguirlo, debemos seguir los siguientes pasos:</li>
+	<ul>
+		<li>Obtener la ciudad donde se sirve el plato pedido</li>
+		<li>Obtener los establecimientos de dicha ciudad donde se sirve un cierto plato</li>
+		<li>Repetir para cada establecimiento:</li>
+		<ul>
+			<li>Obtener las coordenadas del establecimiento</li>
+			<li>Pasar las coordenadas a un objeto Coordenadas, calcular la distancia</li>
+		</ul>
+		<li>Devolver el establecimiento más cercano.</li>
+	</ul>
+</ul>
+<p class="nivel2">Ejemplo 2. Realizar un pedido.</p>
+<ul>
+	<li><strong>Describir el diagrama de secuencia del siguiente caso de uso: "Realizar un pedido".</strong> El proceso es como sigue:</li>
+	<ul>
+		<li>Un cliente accede a la interfaz del sistema para realizar un pedido.</li>
+		<li>La interfaz del sistema reenvía la solicitud al controlador de pedidos, que solicita una lista de productos al almacén. Después devuelve dicha lista de productos a la interfaz.</li>
+		<li>El cliente selecciona el producto en el que tiene interés.</li>
+		<li>La interfaz solicita información del producto al almacén.</li>
+		<li>El almacén devuelve los datos del producto solicitado</li>
+		<li>La interfaz muestra los datos del producto.</li>
+		<li>La interfaz muestra la información del producto al cliente.</li>
+		<li>El cliente confirma su selección en la interfaz</li>
+		<li>La interfaz envía la confirmación al controlador del pedido. Éste genera un pedido, y devuelve la ID del mismo a la interfaz.</li>
+	</ul>
+</ul>
+<div class="actividad">
+	<p class="nivel1">Actividad 8. Un diagrama de secuencia describe (con mayor o menor nivel de detalle) un caso de uso (funcionalidad o historia de usuario). Supongamos el problema de la cafetería:</p>
+	<div class="destacado">
+		<p class="nivel2">Se desea crear un programa para administrar una cafetería, en la que tengamos unas mesas establecidas y a estas les podamos agregar productos, que tendrán nombre y precio. Podremos abrir mesas, para añadirles productos, y cerrarlas, es decir cobrándolas. Tendremos un recuento de caja donde se guarda todo el dinero que se han recaudado de las mesas. Las mesas estarán cerradas por defecto.</p>
+		<ul>
+			<li>Consultar mesas abiertas.</li>
+			<li>Consultar mesas cerradas.</li>
+			<li>Consultar el recuento de caja actual.</li>
+			<li>Añadir productos a la lista de productos(Crear nuevo producto).</li>
+			<li>Añadir producto a una mesa.</li>
+			<li>Cerrar mesa (Cobrarla).</li>
+		</ul>
+	</div>
+	<p>Dado el problema anterior, supon que el diagrama de clases obtenido es el siguiente.</p>
+	<img src="uml/cafeteria.jpg"/>
+	<p>Dibuja los diagramas de secuencia de los casos de uso 3. y 5.</p>
+</div>
+<br><br>
+
+
+<div class="actividad">
+<p class="nivel1"><strong>Ejercicio de repaso de UML</strong></p>
+
+<p>Se desea desarrollar una aplicación para organizar competiciones mediante eliminatorias. La descripción del problema es el siguiente:</p>
+
+<p>Los equipos pasarán por diferentes fases eliminatorias, empezando por una fase de grupos. En esta primera fase, los equipos se organizan por grupos formados por varios equipos. Los equipos de cada grupo se enfrentarán por rondas, de forma que todos se enfrentarán con todos. El equipo que gane más competiciones de cada grupo pasará a la siguiente fase.</p>
+
+<p>A partir de esta fase, todas las fases se desarrollan de igual manera. En cada fase, los equipos se enfrentarán por parejas, y sólo los ganadores pasarán a la siguiente.</p>
+
+<p>Se debe asignar un lugar a cada enfrentamiento, de forma que dos enfrentamientos no pueden ocurrir a la vez en el mismo sitio.</p>
+
+<p>Las cosas que un usuario puede hacer en la aplicación son las siguientes:</p>
+
+<ul>
+	<li>Introducir un equipo: los equipos serán introducidos por el usuario. También pueden ser editados o eliminados.</li>
+	<li>Introducir un lugar de enfrentamientos: los lugares serán definidos por el usuario. Se puede además indicar qué lugares están disponibles para una determinada fase.</li>
+	<li>Introducir el tamaño de los grupos y el número de ganadores de cada grupo en la fase de grupos.</li>
+	<li>Abrir la siguiente fase: Abrir la siguiente fase varía dependiendo de si se trata de la primera fase (fase de grupos) o del resto. Cuando la fase de grupos se abre, se procede a realizar el sorteo de grupos, asignando los equipos a un grupo. También se calcula el número de rondas necesarias. En el resto de fases, se seleccionan los equipos ganadores de la fase anterior.</li>
+	<li>Sortear los enfrentamientos: en el sorteo de enfrentamientos, se planifica qué equipos se enfrentarán con cuáles, y dónde lo harán. En la fase de grupos, los enfrentamientos se organizan por rondas, de forma que cada grupo de cada grupo se enfrente con todos los demás.</li>
+	<li>Designar un ganador: para cada enfrentamiento organizado de la fase actual se puede definir un ganador. No se puede definir un ganador sin haber realizado el sorteo de enfrentamientos.</li>
+	<li>Cerrar una fase: Cuando una fase se cierra, se pasa a la siguiente. No es posible cerrar una fase cuando no hay un ganador definido en cada enfrentamiento.</li>
+</ul>
+
+<p class="nivel1">Realiza los siguientes diagramas:</p>
+
+<ul>
+	<li>Diagrama casos de uso.</li>
+	<li>Diagrama de clases.</li>
+	<li>Diagrama de estado de una fase eliminatoria (no de grupos).</li>
+	<li>Diagrama de actividades de la organización de los grupos en la fase de grupos.</li>
+	<li>Diagrama de secuencia del sorteo de un enfrentamiento.</li>
+</ul>
+</div>
+
+<div class="actividad">
+<p class="nivel1">Un sistema requiere gestionar la información relativa a los proyectos de una empresa. Cada uno de los proyectos incluye información variada:</p>
+<ul>
+	<li>Nombre del proyecto</li>
+	<li>Project Manager</li>
+	<li>Equipo</li>
+	<li>Recursos</li>
+	<ul>
+		<li>Servidores</li>
+        <li>Documentos</li>
+        <li>Repositorios</li>
+	</ul>
+    <li>Lista de tareas pendientes</li>
+    <li>Lista de tareas completadas</li>
+</ul>
+
+<p class="nivel1">Las características de los elementos enumerados son:</p>
+<ul>
+	<li>El Proyect Manager es una persona que tiene nombre y apellidos.</li>
+    <li>Los equipos están formados por personas con nombre, apellidos y función, que puede ser “developer” o “sysadmin”.</li>
+    <li>Los servidores incluyen información sobre el servidor, a saber, FQDN, ip y puerto. Un servidor puede tener una IP, pero puede tener más de un FQDN y un puerto.</li>
+    <li>Documentos son documentos de texto plano.</li>
+    <li>De los repositorios nos interesa saber el nombre del repositorio y su URL.</li>
+    <li>La lista de tareas pendientes y de tareas completadas incluyen tareas. Una tarea tiene una descripción, una duración esperada y una lista de personas del equipo responsables. También tiene una duración efectiva, que es el tiempo dedicado hasta el momento a la tarea.</li>
+</ul>
+
+<p class="nivel1">El propietario de la aplicación desea cubrir las siguientes historias de usuario:</p>
+<ul>
+	<li>Crear un nuevo proyecto, donde se puedan añadir las personas y los recursos.</li>
+    <li>Modificar cualquier dato de un proyecto.</li>
+    <li>Añadir nuevas tareas y asignárselas a las personas indicadas.</li>
+    <li>Marcar una tarea como completada una vez que ha terminado.</li>
+    <li>Obtener los proyectos en los que hay tareas completadas en las que la duración efectiva supera la deseada.</li>
+    <li>Obtener los proyectos en los que el total de horas efectivas completadas supera al total de horas esperadas.</li>
+    <li>Cerrar un proyecto. Cuando se define un nuevo proyecto, se considera en espera hasta que se dan las condiciones para poder iniciarlo. Hasta que todas las tareas de un proyecto han sido completadas, no se puede cerrar. Una vez que un proyecto ha sido cerrado, no se pueden añadir tareas, pero puede reabrirse si aparecen nuevas. Cuando un proyecto cerrado ya no recibirá más modificaciones, se considera definitivamente finalizado.</li>
+</ul>
+	
+<ol>
+	<li>Obtener el diagrama de casos de uso.</li>
+	<li>Obtener el diagrama de clases.</li>
+	<li>Obtener el diagrama de estados de la historia “Cerrar un proyecto”</li>
+	<li>Obtener el diagrama de actividad del siguiente enunciado:</li>
+	<p class="nivel3">Al declarar un servidor se comprueba si ya está definida la IP en otro servidor ya declarado. En caso de existir, se añaden los nuevos FQDN y puerto a la lista de FQDN y puertos del mismo. En caso contrario, se crea un nuevo servidor con la información proporcionada.</p>
+	<li>Obtener el diagrama de secuencia de la historia “Obtener los proyectos en los que hay tareas completadas en las que la duración efectiva supera la deseada”</li>
+</ol>
+</div>
+<p></p><p></p>
+</div>
+</div>
+</body>
+</html>
+

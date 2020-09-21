@@ -1,0 +1,859 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES">
+<head>
+<meta name="description" content="Página con contenidos educativos de informática. Existen materiales a diferentes niveles, como Enseñanza Secundaria Obligatoria (ESO) o el Ciclo de Grado Superior de Administración de Sistemas en Red (ASIR)."/>
+<meta name="google-site-verification" content="YA0qPqDBJQy4kdb-xT8UJV20oAwqD3fd-e5xmB-yWJA" />
+<meta http-equiv="Content-Type" content="text/html; charset="utf-8" />
+
+
+<meta name="description" content="Página con contenidos educativos de informática. Existen materiales a diferentes niveles, como Enseñanza Secundaria Obligatoria (ESO) o el Ciclo de Grado Superior de Administración de Sistemas en Red (ASIR)."/>
+<meta name="google-site-verification" content="YA0qPqDBJQy4kdb-xT8UJV20oAwqD3fd-e5xmB-yWJA" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>Introducción al desarrollo de software</title>
+
+
+
+<link rel="stylesheet" type="text/css" media="screen" href="../articulo3.css"/>
+</head>
+<body>
+
+
+<div id="contenedor">
+
+<div id="caja-articulo">
+
+
+<h1>Clasificación del software</h1>
+
+<p class="nivel1">Una posible <a href="https://es.wikipedia.org/wiki/Software#Clasificaci.C3.B3n_del_software">clasificación del software</a> es la que lo divide en tres grandes grupos:</p>
+
+<ul>
+<li><strong>Software de sistemas</strong>: el ciclo de ASIR se centra principalmente en este tipo de software.</li>
+<li><strong>Software de programación</strong>: nosotros nos centraremos principalmente en este software. Estamos hablando de editores de texto, compiladores, intérpretes, enlazadores, depuradores, programas de modelado de software, software de pruebas, gestores de versiones, etc. Y agrupando todo este compendio de utilidades, tenemos también los Entornos de Desarrollo Integrados (IDE). </li>
+<li><strong>Software de aplicación</strong>: es el software que utiliza el usuario final.</p>
+</ul>
+
+<h1>Introducción a los lenguajes de programación</h1>
+
+<p class="nivel1">En el siguiente enlace, podemos encontrar una clasificación de lenguajes de programación: <a href="../ED/lenguajes/lenguajes_de_programacion.pdf">Lenguajes de programación</a></p>
+
+<h2>Ejemplos de lenguajes de bajo nivel</h2>
+
+<img src="../ED/introduccion/codigo_maquina.png"/>
+<p class="pie-imagen">Programa en código máquina (tftp) visualizado con el programa <code>bless</code>.</p>
+<img src="../ED/introduccion/ensamblador.gif"/>
+<p class="pie-imagen">Programa en ensamblador para escribir "Hola mundo".</p>
+
+<h2>Ejemplo de lenguaje de medio nivel</h2>
+
+<p class="nivel2">Suele considerarse de medio nivel el lenguaje C y en ocasiones C++ por la forma de usar punteros y la gestión de memoria.</p>
+
+<img class="pequena" src="../ED/introduccion/ejemplo_c.jpg"/>
+<p class="pie-imagen">Programa en C manejando punteros y gestión de memoria</p>
+
+<h2>Ejemplo de lenguajes de alto nivel (Java)</h2>
+
+<p class="nivel2">Los lenguajes considerados de alto nivel son VB.NET, Ada, Java, Lisp, PHP, PL/SQL, Python, C#, Ruby, etc.</p>
+
+<img class="pequena" src="../ED/introduccion/java.jpg"/>
+<p class="pie-imagen">Ejemplo escrito en Java</p>
+
+<div class="actividad">
+<p class="nivel1">Actividad 1. ¿Qué problemas presentan los lenguajes ensambladores? ¿Qué es un lenguaje de alto nivel? ¿Qué ventajas aportan los lenguajes de programación de alto nivel?</p>
+<p class="nota-nivel1">Entrega la actividad en un archivo de texto llamado Act1-introduccion.</p>
+</div>
+
+
+<h2>Lenguajes de programación según su ejecución</h2>
+
+<h3>Interpretados</h3>
+
+<p class="nivel3"><a href="https://es.wikipedia.org/wiki/Int%C3%A9rprete_(inform%C3%A1tica)">Lenguajes de programación interpretados</a></p>
+<div class="aclaracion">
+<p class="nivel3">Hola mundo en bash</p>
+
+<div class="codigo-fuente">
+	mkdir saludo
+	cd saludo
+	echo "Hola mundo!" > holamundo.txt
+</div>
+<p class="nivel3">Al ser interpretado, si introducimos una línea incorrecta al final, seguirá funcionando.</p>
+</div>
+
+
+<div class="aclaracion">
+<p class="nivel2">Hola mundo en Java</p>
+
+<ul>
+<li>Instalar <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">JDK</a>. Debemos escoger una versión acorde a nuestro sistema operativo. En principio, asumiré que estamos empezando con Windows, así que yo descargaré jdk-8u60-windows-x64.exe. Durante la instalación se nos informará el lugar donde se instalará Java. En mi caso, esa carpeta es <code>C:\Program Files\Java\jdk1.8.0_60</code>.</li>
+<li>Una vez instalado, agregamos la ruta a las herramientas de JDK a la variable de entorno %PATH%. En mi caso, la carpeta de interés es <code>C:\Program Files\Java\jdk1.8.0_60\bin</code>, ya que ahí es donde están las herramientas de desarrollo.</li>
+<li>Abrimos un editor de texto, y escribimos lo siguiente:</li>
+<div class="codigo-fuente">
+class HolaMundo {                              
+ 
+    public static void main(String[] args) {    
+        System.out.println("Hola Mundo");      
+    }
+}
+</div>
+<li>Guardamos el archivo en la carpeta <code>C:\ED\</code> con el nombre <code>holamundo.java</code>.</li>
+<li>A continuación compilamos el código fuente, para obtener el archivo <code>bytecode</code>, mediante el comando siguiente:</li>
+<div class="codigo-fuente">
+javac C:\ED\holamundo.java
+</div>
+<li>Una vez compilado, podremos ver que hay un nuevo archivo <code>holamundo.class</code> en el directorio <code>C:\ed</code>. Para ejecutarlo utilizamos el comando <code>java</code>. A este comando tenemos que indicarle la ruta a los archivos .class mediante el parámetro <code>-classpath ruta_a_archivos_class</code>, así como el nombre de la clase a ejecutar. Así, para nosotros, el comando completo sería:</p>
+<div class="codigo-fuente">
+java -classpath C:\ED holamundo
+</div>
+</ul>
+</div>
+
+<h3>Compilados</h3>
+<p class="nivel3"><a href="https://es.wikipedia.org/wiki/Lenguaje_de_programaci%C3%B3n_compilado">Lenguajes de programación compilados</a></p>
+
+<p class="nivel3">En el proceso de compilación un programa compilador (compiler) traduce el código fuente a código máquina en un proceso que consta de tres fases:</p>
+<ol>
+<li><a href="https://es.wikipedia.org/wiki/Compilador#An.C3.A1lisis_l.C3.A9xico">análisis léxico</a></li>
+<li><a href="https://es.wikipedia.org/wiki/Compilador#An.C3.A1lisis_sint.C3.A1ctico">análisis sintáctico</a></li>
+<li><a href="https://es.wikipedia.org/wiki/Compilador#An.C3.A1lisis_sem.C3.A1ntico">análisis semántico</a></li>
+</ol>
+
+<p class="nivel3">El resultado de este proceso es el <a href="https://es.wikipedia.org/wiki/C%C3%B3digo_objeto">código objeto</a> del programa, es decir, uno o más archivos que contienen la traducción a código máquina del programa almacenado en el código fuente original. Si hay varios códigos objeto interdependientes, es preciso enlazarlos antes de tener un programa ejecutable.</p>
+
+<div class="aclaracion">
+	<p class="nivel2">Hola mundo en C</p>
+	<div class="codigo-fuente">
+	#include <stdio.h>
+	int main(){
+		printf("Hola mundo\n");
+		return 0;
+	}
+	</div>
+	<ul>
+		<li>Una vez escrito el programa lo compilamos:</li>
+		<li>De este modo obtenemos el código máquina listo para ejecutar.</li>
+	</ul>
+	<div class="codigo-fuente">
+		$ gcc holamundo.c -o holamundo
+		$ ./holamundo
+		Hola mundo
+	</div>
+</div>
+
+
+<h2>Lenguajes de programación según su paradigma</h2>
+
+<p class="nivel2">Un paradigma de programación representa un enfoque particular o filosofía para diseñar soluciones. Los paradigmas difieren unos de otros, en los conceptos y la forma de abstraer los elementos involucrados en un problema, así como en los pasos que integran su solución del problema. Existen diversas clasificaciones, aunque una buena opción es la siguiente:</p>
+<ul>
+<li><a href="http://www.dccia.ua.es/dccia/inf/asignaturas/LPP/2010-2011/teoria/tema1.html#sec-5_3">Programación imperativa</a></li>
+<li>Programación declarativa</li>
+	<ul>
+		<li><a href="http://www.dccia.ua.es/dccia/inf/asignaturas/LPP/2010-2011/teoria/tema1.html#sec-5_2">Programación lógica</a></li>
+		<li><a href="http://www.dccia.ua.es/dccia/inf/asignaturas/LPP/2010-2011/teoria/tema1.html#sec-5_1">Programación funcional</a></li>
+	</ul>
+<li><a href="http://www.dccia.ua.es/dccia/inf/asignaturas/LPP/2010-2011/teoria/tema1.html#sec-5_4">Programación orientada a objetos</a></li>
+
+</ul>
+
+<div class="actividad">
+<p class="nivel2">Actividad 3. La sentencia <code>GOTO</code> fue protagonista de cambios importantes en los lenguajes de programación ¿Para qué sirve la sentencia GOTO? ¿Qué problemas puede acarrear el uso de esta sentencia en la escritura de programas? ¿Cómo se denomina el estilo de programación que eliminó por primera vez el uso de GOTO en el código fuente de los programas? Explica dentro de que paradigma se encuentra.</p>
+<p class="nota-nivel2">Entrega la actividad en un archivo llamado Act3-introduccion.odt</p>
+</div>
+
+<div class="actividad">
+<p class="nivel2">Actividad 4. ¿Cuáles son las principales características de la programación estructurada?</p>
+<p class="nota-nivel2">Entrega la actividad en un archivo llamado Act4-introduccion.</p>
+</div>
+
+<div class="actividad">
+<p class="nivel2">Actividad 5. Observa la siguiente lista de lenguajes:</p>
+<ul>
+	<li>Java</li>
+	<li>C</li>
+	<li>C++</li>
+	<li>Haskell</li>
+	<li>Ensamblador</li>
+</ul>
+<p class="nivel2">Confecciona una tabla, donde para cada uno de ellos, indiques:</p>
+<ul>
+	<li>Su nivel de abstracción</li>
+	<li>Si son compilados o interpretados</li>
+	<li>El paradigma de programación que utilizan</li>
+</ul>
+<p class="nota-nivel2">Guarda la actividad en un documento llamado Act5-introduccion.</p>
+</div>
+
+<h2>Listas de lenguajes más utilizados:</h2>
+
+<p class="nivel2"><a href="https://github.blog/2018-11-15-state-of-the-octoverse-top-programming-languages/">GitHub</a> muestra datos sobre los lenguajes más populares.</p>
+	
+</ul>
+
+<h1>Modelos de desarrollo de software</h1>
+
+<p class="nivel1">En el siguiente documento, podemos ver un análisis de diferentes metodologías de desarrollo del software: <a href="../ED/proceso/guia_de_ingenieria_del_software.pdf">Metodologías y ciclos de vida del software</a>.</p>
+
+<h2>Ingeniería del software</h2>
+
+<p class="nivel2">La ingeniería del software ofrece <strong>procesos</strong>, <strong>métodos</strong> y <strong>herramientas</strong> para desarrollar un producto software al menor coste posible, en el menor tiempo posible, buscando la máxima satisfacción del cliente y la calidad del producto.</p>
+
+<ul>
+<li>Proceso (marco de trabajo)</li>
+	<ul>
+	<strong>Da respuesta a...</strong>
+	<li>¿Quién se comunica con quién?</li>
+	<li>¿Cómo se coordinan las actividades interdependientes?</li>
+	<li>¿Quién es responsable de qué trabajo?</li>
+	<li>¿Quién produce qué productos de trabajo, y cómo se evalúan?</li>
+	</ul>
+	<ul>
+	<strong>Determina...</strong>
+	<li>Todas las actividades y tareas de la ingeniería del software (una actividad se compone de tareas)</li>
+	<li>Define el flujo de trabajo entre las actividades y tareas</li>
+	<li>Identifica los productos de trabajo que se producen</li>
+	<li>Especifica los puntos de control de calidad requeridos</li>
+	<li>Mecanismos para monitorizar y medir el avance del proyecto</li>
+	</ul>
+<li>Métodos (cómo llevar a cabo las actividades determinadas en un proceso)</li>
+	<ul>
+	<strong>Las actividades técnicas fundamentales son:</strong>
+	<li>ANÁLISIS: el análisis es el fundamento de todos los trabajos de ingeniería que siguen. Durante el análisis, se crea el modelo de lo que es requerido por el software.</li>
+	<li>DISEÑO: las actividades de diseño siguen el análisis y traducen el modelo del análisis en cómo el producto proporciona estas funciones por medio del software.</li>
+	<li>CODIFICACIÓN: una vez que el diseño es completo, la codificación traduce el modelo de diseño en una forma ejecutable.</li>
+	<li>PRUEBAS: el proceso de pruebas ayuda a destapar errores en el código y el diseño subyacente.</li>
+	</ul>
+<li>Herramientas (automatización de las capas de Proceso y Métodos)</li>
+	<ul>
+	<li>Herramientas de gestión de proyectos</li>
+	<li>Herramientas de control de cambios</li>
+	<li>Herramientas de análisis y diseño</li>
+	<li>Herramientas de generación de código</li>
+	<li>Herramientas de pruebas</li>
+	<li>Herramientas de reingeniería</li>
+	<li>Herramientas de documentación</li>
+	<li>Herramientas de prototipos </li>
+	<li>Etc...</li>
+	</ul>
+<li>Enfoque de calidad</li>
+</ul>
+<p class="nivel2">Un ejemplo de proceso es <a href="https://administracionelectronica.gob.es/pae_Home/pae_Documentacion/pae_Metodolog/pae_Metrica_v3.html#.XX-_b0EzaJA">MÉTRICA</a>. Se trata de un proceso que determina la planificación, desarrollo y mantenimiento de sistemas de información, promovida por el Ministerio de Hacienda y Función Pública (antiguo Ministerio de Administraciones Públicas ) del Gobierno de España para la sistematización de actividades del ciclo de vida de los proyectos software en el ámbito de las administraciones públicas. </p>
+<h2>Ciclo de vida</h2>
+
+<p class="nivel2">Un ciclo de vida o paradigma de desarrollo del software determina lo siguiente:</p>
+
+<ul>
+	<li>El orden de las fases (conjuntos de actividades) del proceso de software</li>
+	<li>Establece los criterios de transición para pasar de una fase a la siguiente</li>
+	<li>Define las entradas y salidas de cada fase</li>
+	<li>Describe los estados por los que pasa el producto</li>
+	<li>Describe las actividades a realizar para transformar el producto</li>
+	<li>Define un esquema que sirve como base para planificar, organizar, coordinar, desarrollar...</li>
+	<li>Define los entregables de cada fase (documentación o software)</li>
+</ul>
+
+
+
+<h3>Modelo en cascada</h3>
+
+<img src="introduccion/cascada.png"/>
+
+<h3>Modelo sashimi</h3>
+
+<img src="introduccion/modelo-sashimi.png"/>
+
+<h3>Modelo en V</h3>
+
+<img src="introduccion/modelo_v.png"/>
+
+<h3>Modelo iterativo</h3>
+
+<img src="http://3.bp.blogspot.com/-6HiwEBD3k1A/T5YoY36dtZI/AAAAAAAAAEk/EQ_Y5eVPo7Y/s1600/iterativo.png">
+
+<h3>Modelo incremental</h3>
+
+<img src="http://3.bp.blogspot.com/-fwY-x5e5GTg/Uhad3GFsC0I/AAAAAAAAAB0/-t1nr3Eu45s/s1600/FasesIterativoIncremental.jpg"/>
+
+<h3>Modelo en espiral</h3>
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/ModeloEspiral.svg/359px-ModeloEspiral.svg.png"/>
+
+<h3>Modelo de prototipado</h3>
+
+<img src="http://1.bp.blogspot.com/-sZ-HLI1hn8g/T60-F0BQSJI/AAAAAAAAALc/M9FtvXOdlqg/s1600/prototipo.png"/>
+
+<div class="actividad">
+<p class="nivel1">Actividad 6. Confecciona un documento con los modelos de ciclo de vida comentados en clase. Dicho documento debe tener la siguiente estructura:</p>
+<ul>
+<li>Una descripción de cada modelo de ciclo de vida, donde se explique en qué consiste y se añada un gráfio explicativo.</li>
+<li>Una tabla comparativa entre los diferentes ciclos de vida, donde se indiquen las ventajas e inconvenientes de cada uno.</li>
+</ul>
+<p class="nota-nivel1">Entrega un documento llamado Act6-introduccion.</p>
+</div>
+
+<h2>Scrum</h2>
+
+<p class="nivel2"> Dentro de las metodologías de desarrollo, cobran fuerza las metodologías ágiles. Pero qué es el <code>agilismo</code> (<a href="../ED/proceso/diseno_agil_con_tdd.pdf"/>Ver. Cap.1 de Diseño Ágil con TDD</a>).</p>
+<p class="nivel2">Una de las metodologías de desarrollo ágil es <a href="http://www.proyectosagiles.org/que-es-scrum">Scrum</a>.</p>
+
+<h3>Qué es Scrum</h3>
+
+<p class="nivel3">Scrum es un <strong>marco de trabajo de procesos</strong> que ha sido usado para gestionar el desarrollo de
+productos complejos desde principios de los años 90. Scrum no es un proceso o una técnica para
+construir productos; en lugar de eso, <strong>es un marco de trabajo dentro del cual se pueden emplear
+varias técnicas y procesos</strong>.</p>
+
+<h3>Qué contiene Scrum</h3>
+
+<p class="nivel3">El marco de trabajo Scrum consiste en los siguientes componentes:</p>
+
+<ul>
+<li>Equipos Scrum</li>
+<li>Roles</li>
+<li>Eventos</li>
+<li>Artefactos</li>
+<li>Reglas que relacionan los Roles, Eventos y Artefactos</li> 
+</ul>
+
+<h3>Empirismo</h3>
+
+<p class="nivel3">Scrum se basa en la idea de que el conocimiento sobre un proyecto se va adquiriendo a partir de la experiencia previa en el mismo.</li>
+<p class="nivel3">Las decisiones se toman en <strong>iteraciones cortas</strong>, que permiten aumentar la <strong>predecibilidad</strong>.</li>
+<p class="nivel3">Para que el control de procesos empírico funcione, se deben dar <strong>tres condiciones</strong>: transparencia, inspección y adaptación.</p>
+<ul>
+<li><strong class="importante">Transparencia</strong>: Los responsables del resultado deben tener una <strong>idea común sobre los aspectos importantes del proceso</strong>. Por ejemplo:</p>
+	<ul>
+	<li>Todos los participantes deben compartir un lenguaje común para referirse al proceso</li>
+	<li>Aquellos que desempeñan el trabajo y aquellos que aceptan el producto de dicho trabajo deben compartir una definición común de <code>Terminado</code>.</li>
+	</ul>
+<li><strong class="importante">Inspección:</strong> Los usuarios implicados en Scrum deben <em>inspeccionar regularmente los artefactos de Scrum</em> y el progreso del proyecto, pero no como para interferir en su trabajo.</li>
+<li><strong class="importante">Adaptación:</strong> Si un inspector determina que uno o más aspectos de <strong>un proceso se desvían de límites aceptables, y que el producto resultante no será aceptable, el proceso o el material que está siendo procesado deben ser ajustados</strong>. Dicho ajuste debe realizarse cuanto antes para minimizar desviaciones mayores.</li>
+</ul>
+
+<p class="nivel3">Scrum prescribe <strong>cuatro eventos formales para la inspección y adaptación</strong>:</p>
+<ul>
+<li>Reunión de Planificación del Sprint (Sprint Planning Meeting)
+<li>Scrum Diario (Daily Scrum)</li>
+<li>Revisión del Sprint (Sprint Review)</li>
+<li>Retrospectiva del Sprint (Sprint Retrospective)</li>
+</ul>
+
+<h3>El equipo Scrum</h3>
+
+<p class="nivel3">Los equipos Scrum están formados por <strong>personas que están directamente relacionadas con el producto</strong>. No deben haber terceras personas que lo dirija externamente.</p>
+<p class="nivel3">Son <strong>autoorganizados</strong>, es decir, deciden internamente la mejor forma de llevar a cabo su trabajo.</p>
+
+<p class="nivel3">El Equipo Scrum consiste en:</p>
+
+<ul>
+<li><strong class="importante">Dueño de Producto (Product Owner)</strong>: Es el cliente. Sus responsabilidades son:</li>
+	<ul>
+		<li>Ser el <strong>representante de todas las personas interesadas en los resultados del proyecto</strong> y actuar como <strong>interlocutor único</strong> ante el equipo, con <strong>autoridad para tomar decisiones</strong>.</li>
+		<li>Definir los <strong>objetivos del producto</strong> o proyecto.</li>
+		<li>Crea y mantiene la <strong>lista priorizada con los requisitos</strong> o <code>Product Backlog</code>. Puesto que <strong>conoce el valor que aportará cada requisito</strong>, los prioriza en base al coste que el Equipo de Desarrollo.</li>
+		<li>Reparte los objetivos/requisitos en iteraciones y <strong>establece un calendario de entregas</strong>.</li>
+		<li>Antes de iniciar cada iteración <strong>replanifica el proyecto en función de los requisitos que aportan más valor en ese momento</strong>, de los requisitos completados en la iteración anterior y del contexto del proyecto en ese momento.</li>
+		<li><strong>Participar en la reunión de planificación de iteración</strong>, proponiendo los requisitos más prioritarios a desarrollar, <strong>respondiendo a las dudas del equipo y detallando los requisitos</strong> que el equipo se comprometer a hacer.</li>
+		<li><strong>Estar disponible</strong> durante el curso de la iteración para responder a las preguntas que puedan aparecer.</li>
+		<li><strong>No cambiar los requisitos</strong> en medio de una iteración</li>
+	</ul>
+<li><strong class="importante">Equipo de Desarrollo (Development Team)</strong>: Es el equipo que desarrolla el producto.</li>
+	<ul>
+
+		<li><strong>Estimar la complejidad de cada requisito</strong> en el <code>Product Backlog</code> (lista priorizada de requisitos priorizada) del producto o proyecto. <li>
+		<li><strong>Seleccionar los requisitos que se compromete a completar en una iteración</strong>, de forma que estén preparados para ser entregados al cliente.</li>
+		<li>En la reunión de planificación de la iteración <strong>subdivide los requisitos en tareas</strong>:</li>
+		<ul>
+			<li><strong>Identificar todas las tareas</strong> necesarias para completar cada requisito.</li>
+			<li><strong>Estimar el esfuerzo necesario</strong> para realizar cada tarea.</li>
+			<li>Cada miembro del equipo se <strong>autoasigna a las tareas</strong>.</li>
+		</ul>
+		<li><strong>Cada especialista lidera el trabajo en su área</strong> y el resto colaboran si es necesario para poder completar un requisito.</li>
+		<li><strong>Demostrar al cliente los requisitos</strong> completados al final de cada iteración.</li>
+		<li><strong>Hacer una retrospectiva la final de cada iteración</strong> para mejorar de forma continua su manera de trabajar.</li>
+		<li>Todos los miembros del equipo trabajan en <strong>la misma localización física</strong>.</li>
+	</ul>
+<li><strong class="importante">Scrum Master</strong>: Trabaja para que <strong>Scrum se aplique correctamente</strong>:</li>
+	<ul>
+		<li>Asegurar que exista un <code>Product Backlog</code> (lista de requisitos priorizada) y que esté preparada antes de la siguiente iteración.</li>
+		<li>Tener claro lo que está pasando en cada momento.</li>
+		<li>Se coordina con el <code>Product Owner</code> para aportar activamente durante la priorización de requisitos, y detectar los riesgos asociados.</li>
+		<li>Interviene en las reuniones de Scrum (planificación de la iteración, reuniones diarias de sincronización del equipo, demostración, retrospectiva), haciendo propuestas que mejoren la productividad y consigan sus objetivos.</li>
+		<li>Actúa de "traductor" entre el <code>Product Owner</code>, que probablemente no tenga conocimientos sobre tecnología, y el Equipo de Desarrollo, que probablemente no tenga conocimientos sobre negocios.</li>
+		<li><strong>Plantea las preguntas adecuadas durante la demostración del sprint y la restrospectiva</strong>, para conseguir respuestas cortas, honestas y valiosas, para aportar valor en la siguiente iteracion</li>
+		<li><strong>Protege al equipo del Product Owner</strong> de cambios durante un sprint, renegociándolos para que afecten lo menos posible al sprint y no haya que cancelar el sprint completo.</li>
+		<li><strong>Resuelve los problemas de cualquier tipo</strong>  que puedan afectar al Equipo de Desarrollo.</li>
+		<li><strong>Forma a los miembros que no conocen Scrum</strong> sobre su funcionamiento (actúa como un coach).</li>
+		<li>Se asegura de que la definición de <code>Terminado</code> se cumple. Por ejemplo, una definición de terminado podría incluir:</li>
+			<ul>
+				<li>Cumplir con los criterios de aceptación definidos en la historia de usuario</li>
+				<li>Las pruebas unitarias, de integración y de aceptación deben haber sido terminadas</li>
+				<li>Deben existir cero defectos de severidad alta</li>
+				<li>La revisión de código por algún colega debe haberse completado.</li>
+			</ul>
+			
+	</ul>
+</ul>
+<h3>Eventos de Scrum</h3>
+
+<p class="nivel3">En Scrum existen eventos predefinidos con el fin de <strong>crear regularidad y minimizar la necesidad de reuniones no definidas</strong> en Scrum. Todos los eventos son bloques de tiempo (<code>time-boxes</code>), de tal modo que todos <strong>tienen una duración máxima</strong>. Los eventos son:</p>
+
+<ul>
+<li><strong class="importante">El Sprint</strong>: El corazón de Scrum es el Sprint, es un bloque de tiempo (<code>time-box</code>) de un mes o menos durante el cual se crea un incremento de producto <code>Terminado</code>, utilizable y potencialmente desplegable.</li>
+	<ul>
+	<li>Su duración es fija, <strong>no puede alargarse ni acortarse</strong>.</li>
+	<li>Su duración suele ser de <strong>1 mes</strong></li>
+	<li>Cada nuevo Sprint comienza <strong>inmediatamente después</strong> de la finalización del Sprint previo.</li>
+	<li><strong>No se realizan cambios</strong> que puedan afectar al Objetivo del Sprint (<code>Sprint Goal</code>)</li>
+	<li>Dentro de un Sprint se producen otros eventos:</li>
+		<ul>
+		<li>Reunión de Planificación del Sprint (<code>Sprint Planning Meeting</code>)</li>
+		<li>Scrums Diarios (<code>Daily Scrums</code>)</li>
+		<li>El trabajo de desarrollo</li>
+		<li>Revisión del Sprint (<code>Sprint Review</code>)</li>
+		<li>Retrospectiva del Sprint (<code>Sprint Retrospective</code>)</li>
+		</ul>
+	<li>El alcance de cada sprint puede ser clarificado y renegociado entre el Dueño de Producto y el Equipo de Desarrollo a medida que se va aprendiendo más sobre el proyecto.</li>
+	<li>Un sprint puede cancelarse bajo la responsabilidad del <code>Producto Owner</code>, porque:</li>
+	<ul>
+		<li>La compañía cambia la dirección</li>
+		<li>Las condiciones del mercado o de la tecnología cambian</li>
+		<li>Si no tuviese sentido seguir con él dadas las circunstancias.</li>
+	</ul>
+</ul>
+
+<li><strong class="importante">Reunión de Planificación del Sprint (<code>Sprint Planning Meeting</code>)</strong>: Es la reunión en la que se planifica lo que se va a hacer durante el Sprint</li>
+	<ul>
+	<li>Tiene una duración de 8 horas, dividas en dos partes de 4 horas cada una.</li>
+	<li>La primera parte de la reunión (de 4 horas) responde a <strong>¿Qué puede ser terminado en este Sprint?</strong>.</li>
+		<ul>
+		<li>El <code>Product Owner</code> presenta al equipo el <code>Product Backlog</code>, pone <strong>nombre a la meta del Sprint</strong> o <code>Sprint Goal*</code>
+		(de manera que ayude a tomar decisiones durante su ejecución) y <strong>propone los requisitos más prioritarios a desarrollar en ella</strong>.</li>
+		<li>El Equipo de Desarrollo <strong>examina la lista y hace lo siguiente:</strong></li>
+			<ul>
+			<li>Pregunta sobre el <strong>alcance</strong> de cada requisito. 
+			Por ejemplo, "¿Borrar 'Artículo' implica borrar todas las facturas relacionadas con ese artículo?"</li>
+			<li>Añade nuevas <strong>condiciones de satisfacción</strong>, del tipo "Dado aaa, cuando se produzca bbb, entonces ccc".</li>
+			<li><strong>Selecciona los requisitos del <code>Product Backlog</code> más prioritarios que se compromete a completar</strong> en el Sprint.</li>
+			</ul>
+		</ul>
+	<li>La segunda parte de la reunión (de 4 horas) responde a <strong>¿Cómo se va a conseguir completar el trabajo?</strong>.</li>
+		<ul>
+		<li>El Equipo de Desarrollo descompone los requisitos en tareas.</li>
+		<li>Realiza una <strong>estimación del coste</strong> necesario para realizar cada tarea.</li>
+			<ul>
+				<li>Estimaciones a mano alzada que hacen los miembros del Equipo de Desarrollo.</li>
+				<li>Cálculos de velocidad teniendo en cuenta la velocidad en de los Sprint anteriores.</li>
+			</ul>
+		<li>El Equipo de desarrollo decide qué requisitos (con todas sus tareas) se incluirán en el Sprint.</li>
+		<li>El <code>Product Owner</code> puede realizar cambios en los requisitos si desea que uno de ellos entre en el Sprint:</li>
+			<ul>
+			<li>Puede <strong>subir la prioridad del requisito de interés</strong> para que suba en el <code>Product Backlog</code> y así entre en el Sprint actual</li>
+			<li>Puede <strong>bajar la prioridad de un requisito</strong> de modo que el requisito de interés se adelante en <code>Product Backlog</code> y entre en el Sprint actual</li>
+			<li>Puede <strong>reducir el alcance del requisito de interés</strong> para que así disminuya su coste y pueda entrar en el Sprint actual</li>
+			<li>Puede <strong>dividir el requisito de interés</strong> en requisitos más pequeños para que así uno de ellos (el de mayor interés) entre en el Sprint</li>
+			<li>
+			</ul>
+		</ul>
+		<li>Finalmente, cada miembro del Equipo de Desarrollo se hace cargo de ciertas tareas.</li>
+	</ul>
+</ul>
+</ul>
+<p class="nota-nivel1"><strong>Sprint Goal</strong>: El objetivo del Sprint debe poder resumir el objetivo del Sprint en una única frase. Por ejemplo, "Los usuarios deben poder hacer transferencias bancarias".</p>
+
+<div class="destacado">
+<p class="nivel3">Una vez que ha terminado el <code>Sprint Meeting</code>, tenemos un <strong>Sprint Backlog</strong>, que es el conjunto de requisitos a cubrir durante el presente Sprint. Normalmente, tanto el el <code>Product Backlog</code> como el <code>Sprint Backlog</code> se almacenan en un documento/software que permite la compartición entre el <code>Product Owner</code>, el <code>Scrum Master</code> y el Equipo de Desarrollo. Esto puede hacerse mediante una hoja de cálculo compartida, o mediante programas específicos, como <a href="https://www.planbox.com/">Planbox</a>, <a href="https://www.targetprocess.com/">Targetprocess</a>, <a href="http://www.yodiz.com/">Yodiz</a>, <a href="https://www.versionone.com/">VersionOne</a>, <a href="http://www.axosoft.com/">Axosoft</a>, etc.</p>
+
+<p class="nivel3">Hay un elemento muy importante que se utiliza durante el <code>Sprint Planning Meeting</code> y durante todo el <code>Sprint</code>, llamado <code>Task Board</code>. El <code>Task Board</code> puede consistir en una simple pizarra, con una estructura como la siguiente:</p>
+
+<img src="../ED/proceso/taskboard.png"/>
+
+<p class="nivel3">A partir del <code>Product Backlog</code> se van colocando los requisitos en la columna <code>TO DO</code>, y es donde se discute sobre qué requisitos y tareas se van a llevar a cabo en el Sprint.</p>
+
+<p class="nivel3">Cuando se van desglosando los requisitos en forma de tareas, se pueden utilizar postits de diferentes colores, como en el siguiente gráfico:</p>
+
+<img src="../ED/proceso/taskboard2.jpg"/>
+</div>
+
+<ul>
+<li><strong class="importante">Daily Scrum</strong>: Es una reunión de 15 minutos donde cada miembro informa a los demás sobre ciertas cuestiones:</li>
+	<ul>
+	<li>¿<strong>Qué hice ayer</strong> desde la última reunión de sincronización? ¿<strong>Pude hacer todo</strong> lo que tenía planeado? ¿Cuál fue el problema?</li>
+	<li>¿<strong>Qué haré hoy</strong>?</li>
+	<li>¿<strong>Qué problemas tengo</strong> para cumplir mis compromisos?</li>
+	<p class="nota-nivel1">En esta reunión se informa únicamente, no se resuelven los problemas, para cumplir el <code>TimeBox</code> de 15 minutos. Después, el resto de miembros se puede ofrecer para ayudar, y en caso de no poder, se derivará al <code>Scrum Master</code>.</p>
+	<li>Todos los miembros <strong>escuchan al que está hablando sin interrumpir</strong>.</li>
+	<li>Mientras un miembro del Equipo de Desarrollo habla, <strong>va modificando el <code>Task Board</code>, moviendo tareas y/o requisitos</strong>, según los cambios que se hayan dado.</li>
+	<li>Se pueden hacer <strong>cambios de estimación de coste de las tareas y requisitos sobre la marcha</strong>, cuando el equipo así lo considere.</li>
+	<li>A veces pueden surgir nuevas <strong>tareas que no se habían planificado</strong> de cierta urgencia. Estas tareas se añaden a la sección <code>No planificadas</code> del <code>Task Board</code>
+	<li>Al final del <code>Daily Scrum</code>, hay que actualizar el <strong>Burn-Down</strong></li>
+	</ul>
+</ul>
+
+<div class="destacado">
+
+<p class="nivel1">El <code>Burn-Down Chart</code> es un gráfico que permite hacer un seguimiento sobre los progresos del proyecto:</p>
+
+<img src="http://blog.axosoft.com/wp-content/uploads/2008/09/scrum_burndown.png"/>
+
+</div>
+
+<ul>
+<li><strong class="importante">Sprint Review</strong>: Es una demostración de lo que se ha conseguido en el <code>Sprint</code>.</li>
+	<ul>
+	<li>Tiene un <code>TimeBox</code> de 4 horas</li>
+	<li>El equipo, junto con el <code>Producto Owner</code> y el <code>Scrum Master</code> se reunen, y el <strong>Equipo hace una demostración de lo conseguido</strong>.</li>
+	<li>El <code>Product Owner</code> hace <strong>preguntas y/o comentarios</strong> sobre el resultado</li>
+	<li>Se plantean cambios sobre el producto para el próximo <code>Sprint Planning Meeting</code>.</li>
+	<li>Se habla informalmente sobre qué hacer a continuación, para incluirlo en el próximo <code>Sprint Planning Meeting</code>.</li>
+	</ul>
+</ul>
+
+<ul>
+<li><strong class="importante">Sprint Retrospective</strong>: Reunión para hablar sobre la productividad y la calidad obtenida en el <code>Sprint</code> anterior.</li>
+	<ul>
+	<li>Es una reunión a la que asisten solamente los miembros del <code>Equipo de Desarrollo</code></li>
+	<li>Se hace siempre después del <code>Sprint Review</code></li>
+	<li>Se cubren los siguientes aspectos:</li>
+		<ul>
+		<li>Qué cosas han funcionado bien.</li>
+		<li>Cuales hay que mejorar.</li>
+		<li>Qué cosas se quieren probar hacer en el siguiente <code>Sprint</code>.</li>
+		<li>Qué se ha aprendido.</li>
+		<li>Cuales son los problemas que podrían impedir progresar adecuadamente. El <code>Scrum Master</code> se encargará de ir eliminando los obstáculos identificados que el propio equipo no pueda resolver por sí mismo.</li>	
+		</ul>
+	</ul>
+</ul>
+
+<ul>
+<li><strong class="importante">Release Planning Meeting</strong>: El propósito es acordar las entregas. <strong>Una entrega puede incluir los productos desarrollados en uno o más Sprints</strong>.</li>
+	<ul>
+	<li>Se necesitan los siguientes elementos para fijar las entregas:</li>
+		<ul>
+		<li>Un <code>Product Backlog</code> donde cada <code>Historia de Usuario</code> tenga asignada <strong>Valor y Coste</strong></li>
+		<li>Una <strong>estimación de la velocidad</strong> del <code>Equipo de Desarrollo</code>, obtenida a partir de los Sprints anteriores.</li>
+		</ul>
+	</ul>
+	<li>Las <code>Entregas</code> son imprecisas, ya que se basan en estimaciones de coste y velocidad aproximados.</li>
+	<li>Se pueden refinar durante el <code>Sprint Planning Meeting</code>, o bien crear una reunión específica.</li>
+	<li><strong>No debe alargarse demasiado</strong>, puesto que siempre se basa en información imcompleta, y no merece la pena gastar demasiado tiempo en una <strong>información que podría cambiar</strong>.</li>
+</ul>
+
+
+
+
+<h3>Artefactos de Scrum</h3>
+
+<p class="nivel3">Scrum utiliza una serie de conceptos y herramientas útiles para conseguir lo que Scrum busca: <strong>Transparencia para que todos los que participan en el proyecto tengan la misma idea</strong> sobre el mismo, y sobre lo que se está haciendo.</p>
+
+<ul>
+<li><strong class="importante">Definición de Trabajo Terminado (<code>Definition of Done</code> o <code>DoD</code></strong>: Es la idea <strong>acordada entre el Equipo de Desarrollo y el <code>Product Owner</code></strong> sobre lo que significa que un requisito ha sido completado.</li>
+	<ul>
+	<li><code>Terminado</code> debe ser <strong>entregable</strong>, para que el <code>Product Owner</code> pueda tomar decisiones en el <code>Sprint Review</code>, como por ejemplo, <strong>cambiar las condiciones de satisfacción</strong> en función de la velocidad del proyecto, reforzar ciertas condiciones, etc.</li>
+	<li>Debe incluir condiciones de satisfacción <strong>claras y concisas</strong>, como por ejemplo:</li>
+		<ul>
+		<li>Código fuente escrito</li>
+		<li>Código fuente probado con pruebas unitarias/de integración</li>
+		<li>Código fuente documentado</li>
+		<li>Código fuente refactorizado para conseguir calidad interna/mantenibilidad</li>
+		<li>etc.</li>
+		</ul>
+	<li>Las condiciones de satisfacción <strong>deben ser utilizadas para identificar las tareas</strong> a realizar durante el <code>Sprint</code></li>
+	</ul>
+</ul>
+
+
+<ul>
+<li><strong class="importante">Pila de Producto (<code>Product Backlog</code>)</strong>: El <code>Product Backlog</code> es una lista ordenada de todo lo que podría ser necesario en el producto</li>
+	<ul>
+	<li><strong>Es propiedad del <code>Product Owner</code></strong>, es decir, es su responsable en cuanto a <strong>su contenido, su disponibilidad y su orden</strong></li>
+	<li>Es la <strong>única fuente de requisitos</strong> para cualquier cambio a realizarse en el producto.</li>
+	<li>La lista no es necesario que sea completa ni que el detalle sea muy alto en todos los requisitos.</li>
+	<p class="nota-nivel1">Es mejor que <strong>el <code>nivel de detalle vaya aumentando y el orden vaya cambiando</code> (<code>refinamiento</code>) conforme el proyecto avanza</strong>. Así, los <strong>requisitos más importantes se tratarán primero</strong>, y los menos importantes se dejarán para <code>Sprints</code> posteriores.</p>
+	</ul>
+</ul>
+
+<img src="../ED/proceso/product-backlog.png"/>
+
+<ul>
+<li><strong class="importante">Historias de usuario/Requisitos (<code>User Stories</code>)</strong>: Son las partes que componen un <code>Product Backlog</code>, y que se utilizarán durante todo el proceso.</li>
+	<ul>
+	<li>Una historia es un requisito de negocios <strong>visto desde el punto de vista de un usuario</strong>.</li>
+	<li>Un ejemplo: <em>Como cliente del banco, quiero pedir un préstamo para poder comprar una casa</em></li>
+	<li>Cuando se trabaja sobre una historia de usuario, hay que definir varios aspectos</li>
+		<ul>
+		<li>La historia en sí</li>
+		<li><strong>Valor</strong> (numérico) que aporta la historia desde el punto de vista del <code>Product Owner</code>.</li>
+		<li><strong>Coste</strong> (numérico) que supone la historia desde el punto de vista del Equipo de Desarrollo.</li>
+		<li><strong>Riesgo</strong> que supone el desarrollo de la historia, en función de las dependencias, estado de la tecnología, nivel de experiencia, etc.</li>
+		<li><strong>Condiciones de satisfacción</strong> de la historia.</li>
+		</ul>
+	<li>Las historias de usuario se suelen plasmar en tarjetas al colocarlas en el <code>Task Board</code></li>
+
+	</ul>
+</ul>
+
+<p class="nivel3">A continuación, algunos ejemplos de Historias de Usuario.</p>
+<img class="mediana" src="../ED/proceso/historia_usuario.jpg">
+<img src="../ED/proceso/historias_usuario.jpg">
+<ul>
+<li><strong class="importante">Pila de Sprint (<code>Sprint Backlog</code>)</strong>:  Es la <strong>lista de tareas</strong> que el equipo elabora en el <code>Sprint Planning Meeting</code> como <strong>plan para completar los objetivos/requisitos seleccionados para el <code>Sprint</code></strong>.</li>
+	<ul>
+	<li>Cada objetivo/requisito está asociado a:</li>
+		<ul>
+		<li>Tareas asociadas</li>
+		<li>Coste por cada tarea</li>
+		<li>Asignación que han hecho los miembros del equipo.</li>
+		</ul>
+	<li>Debe poder verse la <strong>evolución de las tareas según su estado</strong>. Posibles ejemplos de estado pueden ser:</li>
+		<ul>
+		<li>Por hacer</li>
+		<li>En desarrollo</li>
+		<li>En pruebas</li>
+		<li>Completado</li>
+		</ul>
+	<li><strong>Si una tarea depende de otra</strong>, se coloca en algún punto por debajo de la que depende.</li>
+	<li>El <code>Sprint Backlog</code> suele representarse en una <code>Task Board</code>, o <code>Kanban Board</code>.</li>
+	</ul>
+</ul>
+
+<p class="nivel3">Existen diveras maneras de reflejar el <code>Sprint Backlog</code>. A continuación podemos ver algunos ejemplos:</p>
+
+<img src="../ED/proceso/taskboard-target-process.png"/>
+<p class="pie-imagen">Sprint Backlog hecho con Target Process</p>
+
+<img src="../ED/proceso/taskboard.png"/>
+<p class="pie-imagen">Sprint Backlog hecho mediante una pizarra y postits</p>
+
+
+<ul>
+<li><strong class="importante">Gráficos de Trabajo Pendiente (<code>Burndown Chart</code>)</strong>: Es un <strong>gráfico de trabajo pendiente</strong> en el <code>Sprint</code>.</li>
+	<ul>
+	<li><strong>Muestra la velocidad</strong> a la que se está completando los objetivos/requisitos.</li>
+	<li>Permite estimar si el Equipo podrá <strong>completar el trabajo en el tiempo estimado</strong>.</li>
+	<li>La tabla tiene dos ejes:</li>
+		<ul>
+		<li>Vertical: Coste del <code>Sprint</code></li>
+		<li>Horizontal: Días del <code>Spring</code></li>
+		</ul>
+	<li>La evolución ideal del Sprint, viene dada por una línea que une dos puntos de la tabla:</li>
+		<ul>
+		<li>Punto inicial: (Día_0 , Coste_total_Sprint)</li>
+		<li>Punto final: (Día_30 , Coste_0) </li>
+		</ul>
+	<li>Conforme se van completando tareas, se van añadiendo puntos a la gráfica</li>
+	</ul>
+</ul>
+
+<img src="proceso/burndown_chart.jpg"/>
+<img src="proceso/problem_burndown.png"/>
+
+<div class="actividad">
+<p class="nivel1">Actividad 8. Busca información sobre <code>Planning Poker</code>. Después prepara el tuyo propio sobre la marcha, y trata de asignar un coste a las siguientes tareas, poniéndote de acuerdo con otros 3 compañeros, sobre las siguientes tareas:</p>
+<ul>
+<li>Realizar una compra en Internet en Amazon.</li>
+<li>Realizar una compra en Internet mediante transferencia bancaria, con comprobante.</li>
+<li>Instalar el CMS Wordpress desde cero.</li>
+<li>Crear una página web para publicitar nuestro currículum.</li>
+<li>Instalar CentOS 7 una máquina virtual.</li>
+</ul>
+<p class="nivel1">Para cada pregunta, anota los valores obtenidos en las diferentes rondas hasta alcanzar un consenso. Describe también qué argumentos han hecho cambiar de opinión a los miembros del equipo.</p>
+<p class="nota-nivel1">Entrega un documento con lo que se pide, llamado Act8-introduccion.odt. El archivo debe contener los nombres de los componentes del equipo.</p>
+</div>
+
+<h3>Scrum en la práctica</h3>
+
+<p class="nivel3">Un análisis muy interesante sobre lo que es Scrum en la práctica, viene explicado en el <a href="../ED/proceso/scrum-y-xp-desde-las-trincheras.pdf">Scrum y XP desde las trincheras</a>. </p>
+
+<div class="actividad">
+<p class="nivel1">Actividad 9. Observa las siguientes imágenes. Cada una de ellas muestra el estado de un <code>Sprint</code> durante el desarrollo de un proyecto por parte de la empresa <code>PSF</code> (Programadores Sin Fronteras).</p>
+<ul>
+	<li><a href="introduccion/taskboard-dia0.png">Task board (día 0)</a></li>
+	<li><a href="introduccion/taskboard-dia5.png">Task board (día 5)</a></li>
+	<li><a href="introduccion/taskboard-dia12.png">Task board (día 12)</a></li>
+</ul>
+<p class="nivel1">¿Dirías que el proyecto va bien. Edita las imágenes, añadiendo el estado de la gráfica del <code>Burn-Donw chart</code> en cada momento.</p>
+</div>
+
+<div class="actividad">
+<p class="nivel1">Actividad 10. En el proyecto del ejercicio anterior, en el día 5, ¿Podríamos comenzar la tarea 2.2? ¿Por qué?</p>
+<p class="nivel1">En caso de que la actividad 2.2. no pueda comenzar, indica una que sí pueda hacerlo y explica por qué.</p>
+<p class="nota-nivel1">Entrega un documento llamado Act10-introduccion.txt con la respuesta.</p>
+</div>
+
+<div class="actividad">
+<p class="nivel1">Actividad 11. Imagina que en la empresa PSF han decidido incluir las tareas no planificadas en otro color (naranja) en el Taskboard conforme van apareciendo. Observa el estado del proyecto en el día 16. Edita la imagen adjuntada a continuación, teniendo en cuenta las tareas no planificadas.</p>
+<ul>
+	<li><a href="introduccion/taskboard-dia16.png">Task board (día 16)</a></li>
+</ul>
+</div>
+
+<div class="actividad">
+<p class="nivel1">Actividad 12. Escoge uno de los siguientes apartados del libro <a href="../ED/proceso/scrum-y-xp-desde-las-trincheras.pdf">Scrum y XP desde las trincheras</a>:</p>
+
+<ul>
+<li>COMO HACEMOS PILAS DE PRODUCTO....(página 17 - 20)</li>
+<li>COMO NOS PREPARAMOS PARA LA PLANIFICACIÓN DE SPRINT y COMO HACEMOS LA PLANIFICACIÓN DE SPRINT.... (páginas 20 - 27)</li>
+<li>Definiendo la meta del Sprint, Decidiendo qué historias incluir en el Sprint, ¿Cómo puede el Dueño de Producto alterar las historias que se incluyen en el Sprint?, ¿Cómo decide el equipo qué historias incluir en el Sprint? (páginas 27 - 35)</li>
+<li>Por qué usamos tarjetas, Definición de terminado y Clarificando historias (páginas 35 - 42)</li>
+<li>Dividiendo historias en historias más pequeñas, Dividiendo las historias en tareas, Definiendo el sitio y la hora para el Scrum diario, Dónde trazar la línea, Historias técnicas, Sistema de seguimiento de errores vs. Pila de Producto, ¡Por fin acabó la reunión de planificación de Sprint! (páginas 42 a 47)</li>
+<li>COMO COMUNICAMOS LOS SPRINTS, COMO HACEMOS PILAS DE SPRINT, Formato de la Pila de Sprint, Cómo funciona el tablón de tareas, Ejemplo 1 - tras el primer Scrum diario y Ejemplo 2 - tras unos cuantos días (páginas 42 a 53)</li>
+<li>Como funciona el diagrama burn-down, Señales de alarma en el burn-down, Hey, ¿Qué pasa con la trazabilidad?, Estimando en días vs horas (páginas 53 a 57)</li>
+<li>COMO DISTRIBUIMOS LA SALA DEL EQUIPO, la esquina de diseño, ¡Sienta al equipo junto!, Mantén al Dueño de Producto a mano, Mantén a los gerentes y coachs a mano (páginas 57 a 63)</li>
+<li>CÓMO HACEMOS SCRUM DIARIOS, Cómo actualizamos el tablón, Tratando con tardones, Tratando con no se qué hacer hoy, CÓMO HACEMOS LA DEMO DE SPRINT, Por qué insistimos en que todos los Sprints acaben con una demo, Lista de comprobación para demos de Sprint y Tratando con historias indemostrables (páginas 63 a 69)</li>
+<li>CÓMO HACEMOS RETROSPECTIVAS DE SPRINT, Por qué insistimos en que todos los equipos hagan retrospectivas, Cómo organizamos las retrospectivas, Difundiendo las lecciones entre los equipos, Cambiar o no cambiar, Ejemplo de cosas que pueden surgir en las retrospectivas (página 69 a 74)</li>
+<li>DESCANSOS ENTRE SPRINTS, Define tus umbrales de aceptación, Estimación de los elementos más importantes, Estimar la velocidad, Uniéndolo todo en un plan de entregas (release plan), Adaptando el plan de entregas (página 74 a 80)</li>
+</ul>
+
+<p class="nivel1">Lee el apartado escogido y prepara una exposición oral  donde expliques lo que has aprendido sobre lo que has leído.</p>
+
+<p class="nota-nivel1">El profesor pedirá a algunos alumnos elegidos al azar que expongan sus conclusiones.</p>
+</div>
+
+<div class="actividad">
+<p class="nivel1">Actividad 13. Esta práctica busca simular un proyecto desarrollado siguiendo la metodología Scrum. La práctica consistirá en un Sprint completo de un proyecto llamado "Gestión Hotelera".</p>
+<p class="nivel1">Antes de empezar, debes definir quién será el <code>Scrum master</code> del equipo y quienes los desarrolladores.</p>
+<p class="nivel1">Tu equipo y tú trabajais en una empresa que desarrolla aplicaciones de gestión de negocios de diferente índole. Es importante que la cena cumpla los requisitos expresados en el siguiente <a href="introduccion/hotel-product-backlog.pdf">Product backlog</a>.</p>
+<p class="nivel1">Desarrollo del proyecto:</p>
+<ul>
+	<li>El proyecto se desarrollará durante varias clases.</li>
+	<li>La primera hora habrá una <code>Scrum planning meeting</code>.</li>
+		<ul>
+			<li>Durante la primera parte (una media hora) se aclarará el alcance de cada <code>historia de usuario</code>, definiendo uno o más tests de aceptación (<code>DoD</code>).</li>
+			<li>Durante la segunda parte (otra media hora) se devidirá cada <code>historia de usuario</code> en <code>tareas</code>, que se estimarán en coste.</li>
+			<li>Al terminar dicha reunión debe contarse con una cartulina (<code>Task Board</code>) que incluya: </li>
+			<li>Un <code>Sprint backlog</code> con las historias de usuario, sus subtareas y una estimación del coste.</li>
+			<li>Un <code>Burn-down chart</code></li>
+			<li>Una sección de tareas no planificadas</li>
+		</ul>
+	<li>La hora siguiente se dedicará a desarrollar el proyecto, componiendo los elementos para la cena según lo planeado.</li>
+	<li>Cada 10 minutos, se hará un <code>Daily Scrum</code> en la que se compartirán los avances del proyecto.</li>
+	<li>Pasado ese tiempo, habrá una <code>Sprint review</code>, en la que el cliente (el profesor) podrá comprobar los resultados.</li>
+	<li>Finalmente, se hará una <code>Sprint retrospective</code> valorando las cosas que han ido bien, las que han ido mal y la propuesta de mejoras de cara a futuros Sprints.</li>
+</ul>
+<p class="nivel1">Tarea de cada uno de los miembros del equipo:</p>
+<h1>Tarea del <code>Scrum master</code></h1>
+<ul>
+	<li>Confeccionar una <code>Task board</code> que incluya una sección para el <code>Sprint backlog</code>, un <code>Burn-down chart</code> de 6 jornadas (de 10 minutos cada una) y una zona de no planificados</li>
+	<li>Durante la <code>Sprint planning meeting</code> irá añadiendo elementos a la <code>Task board</code>, incluyendo <code>historias de usuario</code> y <code>tareas</code> que vayan proponiendo los miembros del equipo. En función de lo que determine el equipo, irá agregando costes a las tareas.</li>
+	<li>Se encarga de conseguir todo lo que el equipo necesita para desarrollar el proyecto. Por ejemplo, si un desarrollador no sabe cómo ordenar una lista elementos, el <code>Scrum master</code> le ayudará a encontrar esta información mientras el desarrollador puede trabajar en otras cosas</li>
+	<li>Cada 10 minutos, una vez comenzado el <code>Sprint</code>, interrumpirá el desarrollo para hacer un <code>daily scrum</code> (4 o 5 minutos), para que cada miembro del equipo explique sus avances. Una vez comprobado, el <code>Scrum master</code> modificará la <code>Task board</code>, moviendo tareas y haciendo anotaciones sobre el <code>Burn-down chart</code>.</li>
+</ul>
+<h1>Tarea del <code>Equipo de desarrollo</code></h1>
+<ul>
+	<li>Durante la <code>Scrum planning meeting</code>, el equipo de desarrollo discutirá cómo dividir cada <code>historia de usuario</code> en <code>tareas</code> y acordará un coste para cada una. Para que esta reunión no se convierta en un gallinero, es preciso que sólo un miembro hable en cada momento.</li>
+	<li>Una vez que termine la <code>Scrum planning meeting</code> y empiece el <code>Sprint</code>, cada miembro del equipo dirá que tareas va a hacer, para coordinarse con los demás.</li>
+	<li>Cada vez que el <code>Scrum master</code> convoque una <code>daily Scrum</code>, deberá explicar qué ha hecho y qué problemas está teniendo.</li>
+</ul>
+<h1>Sprint review</h1>
+<p class="nivel1">El equipo de desarrollo presentará el producto desarrollado, incluyendo la de mostración de las historias de usuario incluidas en el *Sprint Backlog*</p>
+<h1>Sprint retrospective</h1>
+<p class="nivel1">Después de hacer la *Sprint Review*, los miembros del equipo hablarán sobre los motivos que han llevado al resultado obtenido en el *Sprint*, y qué medidas pueden proponerse para ajustar más el resultado al *Sprint Backlog*</p>
+<div class="destacado">
+<p class="nivel1">Entregar los siguientes elementos:</p> 
+<ul>
+    <li>Una imagen del <code>Task board</code> con todos sus elementos ( <code>Sprint backog</code>, <code>burn-down chart</code> y <code>unplanned tasks</code>).</li>
+    <li>El código obtenido durante el *Sprint*.</li>
+    <li>Un documento de texto que incluya las reflexiones incluidas en el *Sprint Review*</li>
+</ul> 
+</div>
+</div>
+<!--
+<div class="actividad">
+<p class="nivel1">Actividad 10. Esta práctica pretende simular un proyecto de Scrum, pero en lugar de contruir un programa, construiremos una maqueta de papel. Las instrucciones están los siguientes documentos:</p>
+<ul>
+<li>Documento para el <a href="../ED/introduccion/Product-Owner.pdf">Product Owner</a></li>
+<li>Documento para el <a href="../ED/introduccion/Scrum-Master.pdf">Scrum Master</a></li>
+<li>Documento para el <a href="../ED/introduccion/Equipo-desarrollo.pdf">Equipo de Desarrollo</a></li>
+<li><a href="../ED/introduccion/Castello_delle_Roche.pdf">Maqueta a construir</a></li>
+</ul>
+<p class="nota-nivel1">La documentación entregable se puede consultar en los documentos PDF adjuntos.</p>
+<div class="destacado">
+	<p class="nivel1">Si no dispones de un Product Backlog, pudes utilizar <a href="../ED/introduccion/backlog-ed.xlsx">esta sugerencia</a>, importándolo desde Google Docs.</p>
+</div>
+</div>
+-->
+
+<h2>Qué relación hay entre las metodologías tradicionales y las metodologías ágiles</h2>
+
+<p class="nivel2">Partamos de que existe un modelo general que se puede aplicar a cualquier metodología. Es evidente que el resultado
+	del proceso es el software implantado en el sistema en producción, por lo que algo deberían tener en común. ¿Cómo sería ese modelo?</p>
+
+<h3>Según afirma <code>Roger S. Pressman</code> en su libro <code>Software engineering. A practitioner's approach</code>, existen una serie
+de elementos comunes a todos los procesos de desarrollo:</h3>
+
+<div class="destacado">
+	
+<p class="nivel2">Un proceso genérico de ingeniería del software incluye cinco actividades:</p>
+<ul>
+<li><strong>Comunicación:</strong> Antes de que ninguna tarea técnica comience es especialmente importante comunicarse y colaborar con el 
+cliente, con el objetivo de comprender los objetivos del proyecto. En esta fase se recogen los requerimientos y se definen 
+las caracterísitcas y funciones a desarrollar.</li>
+<li><strong>Planificación:</strong> Cuando existe un mapa, el viaje se puede simplificar. Un proyecto de software es un viaje
+complicado, y la actividad de planificación crea un mapa que ayuda al equipo conforme el "viaje" avanza. El "mapa" mencionado
+define las tareas técnicas a realizar, los riesgos más probables, los recursos requeridos, el trabajo a llevar a cabo y la planificación
+temporal.</li>
+<li><strong>Modelado:</strong> Durante la fase de modelado se produce un "esquema" del proyecto de forma que permita ver "a vista de pájaro"
+ la arquitectura, la forma en que encajan unas partes con otras así como otras características. Si es necesario, este modelo se puede
+refinar, aumentando los detalles sucesivamente con el fin de comprender mejor el problema. Esta parte es similar a la que lleva a un 
+arquitecto a realizar una maqueta del edificio que pretende construir.</li>
+<li><strong>Construcción:</strong> esta actividad combina la generación de código y las pruebas requeridas para solucionar los errores en
+el código.</li>
+<li><strong>Despliegue:</strong> El software es entregado al cliente, quien evalua el producto y da <em>feedback</em> en base a 
+	dicha evaluación</li>
+</div>
+
+<p class="nivel2">Existe una serie de tareas que pueden acompañar a estas tareas anteriormente descritas, que según <code>Pressman</code>
+son:</p>
+
+<div class="destacado">
+<p classs="nivel2">Las tareas <em>paraguas</em> son aplicadas a lo largo de un proyecto de software para ayudar al equipo a controlar
+el progreso, la calidad, los cambios y los riesgos. Las actividades <em>paraguas</em> más comunes son:</p>
+<ul>
+	<li><strong>Control del proyecto</strong> permite al equipo comprobar y asegurar el progreso del proyecto de acuerdo al plan, ya
+	y lleva a cabo lo necesario para mantener el calendario.</li>
+	<li><strong>Gestión de los riesgos</strong> evalua y mitiga los riesgos que pudieran afectar al resultado o a la calidad del mismo.</li>
+	<li><strong>Aseguramiento de la calidad</strong> define y guía las actividades requiridas para garantizar la calidad del software</li>
+	<li><strong>Resvisión técnica</strong> evalúa el resultado del proceso de construcción, en un intento por descubrir y eliminar
+	los errores antes de que se propaguen a la siguiente actividad</li>
+	<li><strong>Medición</strong> define y recopila las mediciones que ayudan a cubrir las necesidades del cliente y del equipo. Se puede
+	utilizar junto con el resto de procesos y actividades <em>paraguas</em></li>
+	<li><strong>Gestión de la configuración de software</strong> gestiona los efectos del cambio durante todo el proceso del software.</li>
+	<li><strong>Gestión de reutilización</strong> define los criterios para la reutilización del resultado y establece mecanismos para 
+		lograr componentes reutilizables.</li>
+	<li><strong>Preparación de productos</strong> abarca las actividades necesarias para crear resultados, como modelos, documentos, 
+		registros, formularios, y listas.</li>
+</ul>
+</div>
+
+<div class="actividad">
+	<p class="actividad"><strong>Actividad 14.</strong> Revisa de nuevo el proceso en cascada, y decide qué actividad de las nombradas
+	por Roger S. Pressman (observa la siguiente lista) se ajusta a cada etapa.</p>
+	<ul>
+			<li>Comunicación</li>
+			<li>Modelado</li>
+			<li>Construcción</li>
+			<li>Despliegue</li>
+	</ul>
+	<p class="nota-nivel1">Entrega la actividad con el nombre Act14-introduccion.pdf</p>
+</div>
+
+<div class="aclaracion">
+	<p class="1">según afirma Roger S. Pressman, todos los proccesos de desarrollo incluyen las actividades mencionadas, así como las actividades parabuas. Plantéate en qué momento te parece más adecuado aplicar cada una de ellas a lo largo de un proceso ágil como Scrum.</p>
+</div>
+
+<div class="actividad">
+	<p class="1">Actividad 15. Además de <em>Scrum</em> existen otros procesos de desarrollo ágiles (aunque Scrum sea la más utilizada). Un proceso también popular es <em>eXtrme Programming (XP)</em> definido por <em>Kent Beck</em> durante su trabajo en Chrysler. Infórmate sobre este proceso y describe en qué consiste.</p>
+	<p class="nota-nivel1">Entrega un archivo de texto que contenga una descripción textual del proceso. Explica sus principales características, su valores, sus etapas, y sus roles.</p>	
+</div>
+
+<p class="nivel3"></p>
+</div>
+</div>
+	
+
+</div>
+
+</body>
+</html>
+

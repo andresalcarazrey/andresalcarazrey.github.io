@@ -1,0 +1,1595 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES">
+<head>
+<meta name="description" content="Página con contenidos educativos de informática. Existen materiales a diferentes niveles, como Enseñanza Secundaria Obligatoria (ESO) o el Ciclo de Grado Superior de Administración de Sistemas en Red (ASIR)."/>
+<meta name="google-site-verification" content="YA0qPqDBJQy4kdb-xT8UJV20oAwqD3fd-e5xmB-yWJA" />
+<meta http-equiv="Content-Type" content="text/html; charset="utf-8" />
+
+
+<meta name="description" content="Página con contenidos educativos de informática. Existen materiales a diferentes niveles, como Enseñanza Secundaria Obligatoria (ESO) o el Ciclo de Grado Superior de Administración de Sistemas en Red (ASIR)."/>
+<meta name="google-site-verification" content="YA0qPqDBJQy4kdb-xT8UJV20oAwqD3fd-e5xmB-yWJA" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>JUnit</title>
+
+
+<link rel="stylesheet" type="text/css" media="screen" href="../articulo3.css"/>
+</head>
+<body>
+
+
+<div id="contenedor">
+<div id="caja-articulo">
+
+<br/>
+
+<h1 id="tipos_de_test">1. Tipos de test de software</h1>
+
+<p class="nota-nivel1">El siguiente contenido es un estracto del libro "Diseño Ágil con TDD" de Carlos Blé Jurado y colaboradores.</p>
+
+<p class="nivel1">Existen diferentes test según el modo de clasificarlos.</p>
+
+<h2>Según el propietario</h2>
+
+<ul>
+    <li>Test propiedad del cliente (Product Owner)</li>
+    <ul>
+        <li>Test de aceptación: son escritos con ayuda de un analista durante la fase de planificación. </li>
+        <li>Test funcional: son escritos una vez que el producto ya es usable.</li>
+    </ul>
+    <li>Test propiedad de los programadores</li>
+    <ul>
+        <li>Test unitario.</li>
+        <li>Test de integración.</li>
+        <li>Test de sistema.</li>
+    </ul>
+</ul>
+
+<figure>
+    <img src="junit/tipos_test.png">
+    <figcaption>Tipos de test</figcaption>
+</figure>
+
+<h2>Test de aceptación</h2>
+
+<p class="nivel2">Es un test que permite comprobar que el software cumple con un requisito de negocio. ¿Los tests de aceptación no usan la interfaz de usuario del programa? Podría ser que sí, pero en la mayoría de los casos la respuesta debe ser no. Los tests de carga y de rendimiento son de aceptación cuando el cliente los considera requisitos de negocio. Si el cliente no los requiere, serán tests de desarrollo.</p>
+
+<h2>Test funcionales</h2>
+
+<p class="nivel2">Todos los tests son en realidad funcionales, puesto que todos ejecutan alguna función del SUT (Subject Under Test, o código que se está probando), aunque en el nivel más elemental sea
+un método de una clase. No obstante, cuando se habla del aspecto funcional, se distingue entre test funcional y test no funcional. Un test
+funcional es un subconjunto de los tests de aceptación. Es decir, comprueban alguna funcionalidad con valor de negocio. Los tests
+de aceptación tienen un ámbito mayor porque hay requerimientos de
+negocio que hablan de tiempos de respuesta, capacidad de carga de la
+aplicación, etc; cuestiones que van más allá de la funcionalidad. Un test
+funcional es un test de aceptación pero, uno de aceptación, no tiene por
+qué ser funcional.</p>
+
+
+<h2>Test de sistema</h2>
+
+<p class="nivel2">Es el mayor de los tests de integración, ya que integra varias partes del sistema. Se trata de un test que puede ir, incluso, de extremo a
+extremo de la aplicación o del sistema. Se habla de sistema en referencia a la integración de todos los elementos que componen la aplicación. Así pues, un test del sistema se ejecuta tal cual lo haría el usuario humano, usando los mismos puntos de entrada (aquí sí es la
+interfaz gráfica) y llegando a modificar la base de datos o lo que haya
+en el otro extremo. </p>
+
+<p class="nivel2">Los tests de sistema son muy frágiles en el sentido de que cualquier
+cambio en cualquiera de las partes que componen el sistema, puede
+romperlos. No es recomendable escribir un gran número de ellos por
+su fragilidad. Si la cobertura de otros tipos de tests de granularidad
+más fina, como por ejemplo los unitarios, es amplia, la probabilidad de
+que los errores sólo se detecten con tests de sistema es muy baja. O
+sea, que si hemos ido haciendo TDD, no es productivo escribir tests de
+sistema para todas las posibles formas de uso del sistema, ya que esta redundancia se traduce en un aumento del costo de mantenimiento
+de los tests.</p>
+
+<h2>La diferencia entre los tests de sistema y los funcionales</h2>
+
+<p class="nivel2">Los tests de sistema son diferentes de los tests funcionales y de aceptación. Sin embargo, a veces se pueden confundir. Un test funcional trata de probar que se cumple un cierto requisito de negocio que el cliente considera de valor. Por ejemplo, si estuviésemos creando un cliente para un servicio de correo electrónico, un requisito de negocio podría ser:</p>
+
+<div class="destacado">
+    <p class="nivel1">En el caso de intentar iniciar sesión con una cuenta de correo errónea, la aplicación devuelve un mensaje de respuesta.</p>
+</div>
+
+<p class="nivel2">El requisito de negocio no habla de la GUI en ningún momento. Por tanto, el test funcional no entraría a ejecutar el sistema desde el extremo de entrada que usa
+el usuario (la GUI). Su objetivo es únicamente comprobar que el requisito se cumple.</p>
+
+<p class="nota-nivel1">Si la mayoría de los criterios de aceptación se validan mediante tests funcionales, tan sólo nos harán falta unos pocos tests de sistema para comprobar que la GUI está bien conectada a la lógica de negocio. Esto hará que nuestros tests sean menos frágiles y estaremos alcanzando el mismo nivel de cobertura de posibles errores.</p>
+
+<p class="nivel2">En la documentación de algunos frameworks, llaman test unitarios a tests que en verdad son de integración y, llaman tests funcionales, a tests que son de sistema. Llamar test funcional a un test de sistema no es un problema siempre que adoptemos esa convención en todo el equipo y todo el mundo sepa para qué es cada test.</p>
+
+<p class="nivel2">En casos puntuales, un requisito de negocio podría involucrar la GUI, simpre que lo el requisito lo indique específicamente.</p>
+
+<h2>Test unitario</h2>
+
+<p class="nivel2">Son los tests más importantes para el practicante TDD. Cada test unitario o test unidad (unit test en inglés) es un paso
+que andamos en el camino de la implementación del software. Todo test
+unitario debe ser:</p>
+<ul>
+    <li><strong>Atómico:</strong> el test prueba la mínima cantidad de funcionalidad posible. Esto es, probará un solo comportamiento de un método
+de una clase. El mismo método puede presentar distintas respuestas
+ante distintas entradas o distinto contexto. El test unitario se ocupará
+exclusivamente de uno de esos comportamientos, es decir, de un único
+camino de ejecución. A veces, la llamada al método provoca que internamente se invoque a otros métodos; cuando esto ocurre, decimos
+que el test tiene menor granularidad, o que es menos fino. Lo ideal es
+que los tests unitarios ataquen a métodos lo más planos posibles, es
+decir, que prueben lo que es indivisible. La razón es que un test atómico nos evita tener que usar el depurador para encontrar un defecto en
+el SUT, puesto que su causa será muy evidente. </li>
+    <li><strong>Independiente</strong>: significa que un test no puede depender de otros para producir un resultado satisfactorio. No puede ser parte de una secuencia de tests que se deba ejecutar en un determinado orden. Debe
+funcionar siempre igual independientemente de que se ejecuten otros
+tests o no.</li>
+    <li><strong>Inocuo</strong>: no altera el estado del sistema. Al ejecutarlo una vez, produce exactamente el mismo resultado que al ejecutarlo
+veinte veces. No altera la base de datos, ni envía emails ni crea ficheros, ni los borra. Es como si no se hubiera ejecutado.</li>
+    <li><strong>Rápido</strong>: un test unitario debe ejecutarse en una fracción de segundo, porque grandes pilas de tests se ejecutarán varias veces al día, conforme vayamos haciendo cambios (y refactorizando) nuestro código.</li>
+</ul>
+
+<div class="destacado">
+<p class="nivel1">Las características de un test unitario también quedan descritas por el acrónimo F.I.R.S.T (Fast, Independent, Repeatable, Small y
+Transparent).</p>
+</div>
+
+<h2>Test de integración</h2>
+
+<p class="nivel2">Por último, los tests de integración son la pieza del puzzle que nos
+faltaba para cubrir el hueco entre los tests unitarios y los de sistema.
+Los tests de integración se pueden ver como tests de sistema pequeños. Tienen un aspecto parecido a los tests unitarios, sólo que estos pueden
+romper las reglas. Como su nombre indica, integración significa que
+ayuda a unir distintas partes del sistema. Un test de integración puede
+escribir y leer de base de datos para comprobar que, efectivamente, la
+lógica de negocio entiende datos reales. Es el complemento a los tests
+unitarios, donde habíamos "falseado" el acceso a datos para limitarnos
+a trabajar con la lógica de manera aislada. Un test de integración podría
+ser aquel que ejecuta la capa de negocio y después consulta la base de datos para afirmar que todo el proceso, desde negocio hacia abajo,
+fue bien. Son, por tanto, de granularidad más gruesa y más frágiles que
+los tests unitarios, con lo que el número de tests de integración tiende a
+ser menor que el número de tests unitarios. Una vez que se ha probado
+que dos módulos, objetos o capas se integran bien, no es necesario repetir el test para otra variante de la lógica de negocio; para eso habrán
+varios tests unitarios. Aunque los tests de integración pueden saltarse
+las reglas, por motivos de productividad es conveniente que traten de
+ser inocuos y rápidos. Si tiene que acceder a base de datos, es conveniente que luego la deje como estaba.</p>
+
+<div class="destacado">
+<p class="nivel1">Los tests unitarios deben pertenecer a suites de tests diferentes para poder ejecutarlos por separado.</p>
+</div>
+
+<h1 id="junit">2. JUnit</h1>
+
+<p class="nivel1">JUnit es el framework de prueba más usado en Java. No viene por defecto con las librerías de Java, por lo que hay que añadir la dependencia. La manera más sencilla es utilizando Maven, aunque también se puede añadir la librería como dependencia manualmente.</p>
+
+<p class="nivel1">La versión que vamos a utilizar JUnit 4, aunque la versión 5 está disponible desde hace tiempo. La razón es que hay bastante más documentación disponibles sobre Junit 4, y además, es más sencilla de utilizar.</p>
+
+<h2>Cómo organizar el código con pruebas</h2>
+
+<p class="nivel2">Para cada clase que queramos probar, tendremos una clase donde se realizan las pruebas. La cuestión es, ¿Dónde se deben colocar las clases con las pruebas. Existen dos opciones.Aparentemente, la mejor estructura para organizar el código es la siguiente.</p>
+
+<img src="junit/organizacion1.png" class="pequena"/>
+
+<p class="nivel2">De esta manera mantenemos una separación entre el código y las pruebas.</p>
+<p class="nivel2">Existe otra alternativa, que tiene como ventaja la visibilidad de paquete. Aunque el número de archivos de un paquete se duplica, y esto provoca que examinar el contenido del paquete sea más confuso.</p>
+
+<img src="junit/organizacion2.png" class="pequena"/>
+
+<p class="nivel2">Por defecto, IntelliJ organiza los tests tal y como se muestra en la primera imagen.</p>
+
+<h2>La primera prueba</h2>
+
+<p class="nivel2">Para escribir una primera prueba es necesario contar un proyecto que cuente con JUnit como dependencia. Para empezar, podemos escribir un test para una clase que sencillamente devuelve un número.</p>
+
+<div class="codigo-fuente">
+package com.politecnicomalaga;
+
+public class Suma {
+    public int sumar(int a, int b){
+        return a + b;
+    }
+}
+</div>
+
+<p class="nivel2">El primer test, lo podemos obtener haciedo clic derecho sobre el nombre de la clase, y eligiendo la opción <code>generate -> test</code>. En el diálogo que se abre a continuación, elegimos las opciones que se muestran en la imagen.</p>
+
+<img src="junit/primer_test1.png"/>
+
+<p class="nivel2">El resultado será una clase llamada com.politecnicomalaga.SumaTest en la carpeta test con el código siguiente:</p>
+
+<div class="codigo-fuente">
+    package com.politecnicomalaga;
+
+    import org.junit.Test;
+    
+    import static org.junit.Assert.*;
+    
+    public class SumaTest {
+    
+        @Test
+        public void sumar() {
+        }
+    }    
+</div>
+
+<p class="nivel2">Sólamente nos queda escribir una prueba. El código podría ser como el siguiente:</p>
+
+<div class="codigo-fuente">
+    int valorEsperado = 10;
+        
+    Suma suma = new Suma();
+    int valorObtenido = suma.sumar(5,5);
+        
+    assertEquals(valorEsperado,valorObtenido);
+</div>
+
+<p class="nivel2">Para ejecutar el test, basta con colocarse sobre la carpeta src/test/java, hacer clic con el botón derecho y elegir la opción run all tests.</p>
+
+<img src="junit/primer_test2.png"/>
+
+<h2>Un test fallido</h2>
+
+<p class="nivel2">Vamos a añadir un test dentro del caso de prueba SumaTest que de fallo. El código podría ser el siguiente:</p>
+
+<div class="codigo-fuente">
+    @Test
+    public void sumarMal() {
+        int valorEsperado = 11;
+
+        Suma suma = new Suma();
+        int valorObtenido = suma.sumar(5,5);
+
+        assertEquals(valorEsperado,valorObtenido);
+    }    
+</div>
+
+<img src="junit/primer_test3.png"/>
+
+<div class="actividad" id="actividad1">
+
+    <p class="nivel1">Actividad 1. Crea de nuevo el proyecto de conversión de medidas. El proyecto debe contar con una clase llamada <code>ConversionMedidas</code> que contenga los siguientes métodos:</p>
+    <ul>
+        <li><code>double inchACm(double inches)</code>: toma un valor en pulgadas y devuelve la medida en centímetros equivalente.</li>
+        <li><code>double cmAInch(double cm)</code>: toma un valor en centímetros y devuelve la medida en pulgadas equivalente.</li>
+    </ul>
+    <p class="nivel1">Ten en cuenta que las pruebas de aceptación son las siguientes:</p>
+    <ul>
+        <li>1 inch = 2,54 cm</li>
+        <li>12 inch = 30,48 cm</li>
+        <li>12 cm = 4,72441 inc</li>
+        <li>0 cm = 0 inch</li>
+        <li>0,5 cm = 0,1968 inch</li>
+    </ul>
+</div>
+
+<h1 id="tests_bien_estructurados">3. Tests bien estructurados</h1>
+
+<p class="nivel1">Antes de empezar vamos a definir dos conceptos: <code>caso de prueba</code> y <code>test</code> (o prueba)</p>
+
+<p class="nivel1"><strong>Caso de prueba</strong>: llamamos <code>caso de prueba</code> al conjunto de tests que se deben realizar para comprobar que un requisito funcional se cumple. En nuestro caso, un caso de prueba viene dado por una clase donde se incluyen un conjunto de tests que verifican una cierta funcionalidad.</p> Existen diferentes características que hacen que un caso de prueba esté bien estructurado. Vamos a empezar por la inicialización y cierre.</p>
+
+<p class="nivel1"><strong>Test</strong>: llamamos <code>test</code> (o prueba) a un a prueba individual con una o más comprobaciones, como parte de un caso de prueba. En nuestro caso, llamaremos <code>test</code> a un método en un caso de prueba precedido por la anotación <code>@Test</code></p>
+
+<p class="nivel1">Hay aspectos que hacen que un caso de prueba y un test estén bien estructurados. Los epígramos presentados a continuación, tratan sobre eso.</p>
+
+<h2>Inicialización y cierre</h2>
+
+    <p class="nivel2">Un test bien estructurado incluye una parte de inicialización, llamada <code>fixture</code>. Esta inicialización suele coincidir en todos los tests, y consiste en crear el objeto de interés, asignar ciertos valores, conectar a una base de datos, etc.</p>
+    
+    <p class="nivel2">Esta inicialización se puede llevar a cabo manualmente, incluyendo un método que realice las tareas de inicialización específicas de un test. Vamos a ver un ejemplo</p>
+
+    <div class="codigo-fuente">
+     private ArrayList<String> lista;
+     
+     public void inicializarLista() throws Exception {
+            lista = new ArrayList<String>();
+            lista.add("CERO");
+            lista.add("UNO");
+            lista.add("DOS");
+     }
+     
+     @Test
+     public void probarInsercionEnLista() {
+        inicializarLista();
+            lista.add("TRES");
+            assertEquals(4,lista.size());
+            assertEquals("TRES",lista.get(lista.size()-1));
+     }
+    </div>
+
+    <p class="nivel2">En el ejemplo anterior, el método de inicialización se llamada <code>inicalizarLista</code>. En dicho método se realizan las tareas de inicialización de de una lista llamada <code>lista</code>. Una inicialización manual como esta, afecta únicamente al test que ejecute el método <code>inicializarLista</code>.</p>
+
+    <p class="nivel2">Una segunda manera de inicializar un test, es mediante un método específico del framework (en nuestro caso JUnit) destinado a la inicialización. En JUnit, existe el método <code>setUp</code> para este tipo de tareas. Vamos a ver un ejemplo:</p>
+    <div class="codigo-fuente">
+     private ArrayList<String> lista;
+     
+     @Before
+        public void setUp() throws Exception {
+            lista = new ArrayList<String>();
+            lista.add("CERO");
+            lista.add("UNO");
+            lista.add("DOS");
+        }
+        
+    @Test
+     public void probarInsercionEnLista() {
+        inicializarLista();
+            lista.add("TRES");
+            assertEquals(4,lista.size());
+            assertEquals("TRES",lista.get(lista.size()-1));
+     }
+    </div>
+
+    <p class="nivel2">Se puede usar una u otra opción según interese. Para inicializaciones generales que se pueden aplicar a todos los tests, <code>setUp</code> es más adecuado. Para una inicialización específica por test, es preferible un método específico.</p>
+    
+    <div class="aclaracion">
+        <p class="nivel1">Existe una diferencia importante entre utilizar un método específico y el método <code>setUp</code>. El método <code>setUp</code> se ejecuta delante de cada test, mientras que un método específico (escrito a mano) sólo se ejecuta cuando es llamado explícitamente. Aunque en realidad, lo que hace al método <code>setUp</code> ejecutarse antes de cada test no es su nombre, sino la anotación <code>@Before</code></p>
+    </div>
+
+    <p class="nivel2">Los tests tambień incluyen un cierre. Durante cada test se puede crear un estado persistente, y es preciso eliminarlo para que todo quede igual que estaba antes de ejecutarse. Al igual que con los métodos de apertura, se puede utilizar cualquiera de los métodos comentados anteriormente:</p>
+    
+    <ul>
+        <li>Utilizar un método específico para un cierto test, donde se realizan las tareas de cierre. Dicho método debe ejecutarse al final del test</li>
+        <li>Utilizar un método predefinido en el framework para realizar el cierre. En JUnit, este método se llama <code>tearDown</code>. Al igual que <code>setUp</code> se ejecuta al finalizar cada test del caso de prueba.</li>
+    </ul>
+
+    <p class="nivel2">El siguiente ejemplo muetra el método <code>tearDown</code>.</p>
+    <div class="codigo-fuente">
+        @After
+        public void tearDown() throws Exception {
+            lista.clear();
+        }
+    </div>
+
+    <div class="aclaracion">
+        <p class="nivel1">Al igual que ocurre con el método <code>setUp</code>, lo que hace que <code>tearDown</code> se ejecute después de cada test es la anotación <code>@After</code></p>
+    </div>
+
+    <h2>Verificación de un concepto</h2>
+
+    <p class="nivel2">Otro aspecto que fomenta una correcta estructuración de los casos de prueba y sus test, es la verificación de un único concepto por test. A este tipo de test (que verifica un único concepto o idea) se le llama <code>test unitario</code>.</p>
+    
+    <p class="nivel2">Un test unitario debe verificar un comportamiento a la vez. ¡OJO! no se debe confundir esto con sólo escribir un aserto por test, sino tantos como hagan falta para verificar un cierto aspecto del comportamiento de un componente.</p>
+    
+    <div class="aclaracion">
+        <p class="nivel1">Un test puede contener más de un aserto.</p>
+    </div>
+    
+    <p class="nivel2">Las fases por las que pasa un test unitario son las siguientes:</p>
+    
+    <img src="junit/pasos_verificacion.png" class="pequena">
+
+    <p class="nivel2">Por ejemplo, en el caso de una lista, supongamos el siguiente concepto: "Añadir un nuevo elemento". Entonces tendremos:</p>
+    
+    <ul>
+        <li>Estado inicial: la lista tiene varias entradas.</li>
+        <li>Transición: se añade un nuevo elemento.</li>
+        <li>Resultado: el componente tiene todas las antiguas entradas y la nueva.</li>
+    </ul>
+
+    <div class="codigo-fuente">
+    @Test
+     public void probarInsercionEnLista() {
+        inicializarLista();
+            lista.add("TRES");
+            String[] esperado = {"CERO","UNO","DOS","TRES"};
+            assertArrayEquals(esperado,lista.toArray());
+     }
+    </div>
+
+    <div class="actividad" id="actividad2">
+        
+    <p class="nivel2"><strong>Actividad 2.</strong> Existe una clase llamada <code>PodaExtremos</code> que incluye los siguientes métodos:</p>
+    <ul>
+        <li><code>int podarMasProximo(int numero, List&lt;Integer> listaNumeros)</code>: dada una lista de números, encuentra el elemento de la lista cuya diferencia con el el parámetro <code>numero</code> tiene una menor diferencia, y lo elimina de la lista. En caso de haber más de una opción, se elimina el más pequeño.</li>
+        <li><code>int podarMasLejano(int numero, List&lt;Integer> listaNumeros)</code>: dada una lista de números, devuelve el elemento que tiene la mayor diferencia con el perámetro <code>numero</code>, y lo elimina de la lista. En caso de haber más de una opción, se elimina el más pequeño.</li>
+    </ul>
+
+    <p class="nivel2">Escribe la clase <code>PodaExtremos</code> y después escribe un caso de prueba que verifique los siguientes test de acepación:</p>
+
+    <p class="nivel2">Dada la lista {1,21,55,1,5,8,13,3,2,34}</p>
+    <ul>
+        <li>La poda del número más próximo a 9 elimina el número 8 de la lista</li>
+        <li>La poda del número más próximo a 49 elimina el número 55 de la lista</li>
+        <li>La poda del número más lejano a 10 elimina el número 55 de la lista</li>
+        <li>La poda del número más lejano a 30 elimina el número 1 de la lista</li>
+    </ul>
+
+    <p class="nivel2">Utiliza los métodos <code>setUp</code> y <code>tearDown</code> volver a crear la lista delante de cada test.</p>
+    
+ </div>
+
+<h1 id="clase3">4. Cuando se desarrolla un proyecto ¿Cuál debe ser la siguiente funcionalidad a probar?</h1>
+
+<p class="nivel1">Conforme se va desarrollando un proyecto van apareciendo nuevas funcionalidades. ¿En qué orden deben ir probándose para evitar atascos?</p>
+
+<h2>El camino feliz</h2>
+
+<p class="nivel2">El orden sugerido por <em>Gerard Meszaros</em> en el libro <em>xUnit Test Patterns: Refactoring Test Code</em> es <strong>El camino feliz</strong> (<em>Happy path</em>). El camino feliz describe las condiciones normales de ejecución, sin nada que se salga de lo normal y lo esperado. Las primeras pruebas en escribirse deben ser estas, ya que son las que más valor aportan al negocio.</p>
+
+<h2>De las funcionalidades más simples a las más complejas</h2>
+
+<p class="nivel2">Dado que un componente puede tener varias funcionalidades a ofrecer, es posible que haya más de un camino feliz. El orden debe ir desde las funcionalidades más simples a las más complejas. Hacerlo al revés puede llevarnos a bloqueos, por las dependencias con otras funcionalidades más simples que aun no han sido probadas (y que tengan algún fallo).</p>
+
+<h2>Terminar con los casos límite</h2>
+
+<p class="nivel2">Los componentes a ser probados tienen valores límite. Fuera de estos valores, el funcionamiento no está definido. Por ejemplo, en el ejercicio de programación de envío de mensajes, un caso límite es intentar enviar un mensaje a un usuario que no existe. En general la mejor decisión con los valores límite es lanzar una excepción (siguiendo las recomendaciones del patrón <code>Fail fast</code>).</p>
+
+<div class="aclaracion">
+<p class="nivel1">El patrón <code>Fail Fast</code> es una propuesta de Martin Fowler. Algunas personas recomiendan construir programas que solucionan los problemas automáticamente. Esto resulta en un software que falla lentamente. El programa continúa funcionando correctamente justo después del error, pero falla de una manera extraña más tarde. Los sistemas que fallan de manera inmediata hacen exactamente lo contrario: cuando un problema ocurre, el software falla de manera inmediata y visible. Inicialmente puede parecer contraintuitivo, porque aparentemente el software es más frágil. Sin embargo el software termina siendo más robusto, ya que los bugs son más fáciles de encontrar y solucionar, y por lo tanto, el número de fallos que van a producción es menor.</p>
+</div>
+
+<h2>Si no lo has tenido en cuenta, ocurrirá</h2>
+
+<p class="nivel2">Si hay algún problema que no hemos tenido en cuenta, terminará ocurriendo. Cuando esto pasa, hay que añadir un nuevo test que reproduzca el problema, corregir el software y poner los tests en verde.</p>
+
+<h1>5. Legibilidad de los tests</h1>
+<p class="nivel1">Existen dos alternativas a la hora de poner nombres a los tests:</p>
+<ul>
+    <li>Nombres descriptivos</li>
+    <li>Nombres inspirados en BDD</li>
+</ul>
+
+<h2>Nombres descriptivos</h2>
+<p class="nivel2">Los nombres de los tests deben describir lo que hace el test de la manera más precisa posible. <a href="https://osherove.com/blog/2005/4/3/naming-standards-for-unit-tests.html">Roy Osherove</a> propone lo siguiente: <em>[UnitOfWork_StateUnderTest_ExpectedBehavior]</em>. Según esta idea, un nombre podría ser: <code>addItem_tieneListasOrdenadaDeItems_listaContieneItemsAdicionalesYEstaOrdenada</code>.</p>
+
+<h2>Nombres inspirados en las especificaciones de comportamiento de BDD</li>
+    
+<p class="nivel2">Otra alternaiva viene como influencia del tipo de especificaciones que se hacen en BDD (Behaviour Driven Development), donde los tests se describen mediante frases:</p>
+
+    <ul>
+        <li><strong>Given</strong> la lista tiene dos elementos ordenados</li>
+        <li><strong>When</strong> una nueva entrada se añade a la lista</li>
+        <li><strong>Then</strong> la lista contiene las antiguas entradas</li>
+        <li><strong>And</strong> la lista contiene la nueva entrada</li>
+        <li><strong>And</strong> lista está ordenada</li>
+    </ul>
+    
+<p class="nivel2">Siguiendo este esquema, los tests pueden ser escritos del siguiente modo:</p>
+    
+<div class="codigo-fuente">
+    @Test
+    public void incrementoDelNumeroDeElementosDeUnaLista() {
+        // given
+        int numeroInicialElementos = lista.size();
+        
+        // when
+        lista.add(nuevoElemento);
+        
+        // then
+        assertEquals(numeroInicialElementos + 1,lista.size());
+    }
+</div>
+    
+<p class="nivel2">Si se sigue esta propuesta, los nombres no tienen que ser tan largos, ya que la documentación está dentro del test, y no en el nombre.</p>
+
+<h1>6. Asertos usualmente utilizados</h1>
+
+<p class="nivel1">Los asertos son el núcleo de los tests. Nos permiten verificar cosas. Algunos de los más importantes son:</p>
+
+<ul>
+    <li><code>void assertEquals(boolean expected, boolean actual)</code>: Comprueba que dos objetos (o tipos primitivos) son iguales. En caso de ser objetos, la comparación recaerá sobre la implementación de <code>equals</code> de la clase en cuestión.</li>
+
+    <li><code>void assertTrue(boolean condition)</code>: Comprueba que una condición es cierta.</li>
+    
+    <li><code>void assertFalse(boolean condition)</code>: Comprueba que una condición es falsa.</li>
+    
+    <li><code>void assertNotNull(Object object)</code>: Comprueba que un objeto no es null.</li>
+    
+    <li><code>void assertNull(Object object)</code>: Comprueba que un objeto es null.</li>
+    
+    <li><code>void assertSame(object1, object2)</code>: Comprueba si dos variables apuntan al mismo objeto.</li>
+    
+    <li><code>void assertNotSame(object1, object2)</code>: Comprueba que dos variables no apunten al mismo objeto.</li>
+    
+    <li><code>void assertArrayEquals(expectedArray, resultArray)</code>: Comprueba que dos arrays tienen el mismo contenido.</li>
+</ul>
+
+<div class="actividad">
+<p class="nivel1"><strong>Actividad 3.</strong> Escribe una clase llamada Carrera, para gestionar los aspectos de una carrera. Internamente, la clase Carrera contiene una lista. La clase Carrera contiene los siguientes métodos:</p>
+<ul>
+    <li><code>boolean addParticipante(String nombreParticipante)</code>: permite añadir un nuevo participante, salvo que ya exista. Devuelve true si se consigue añadir y false en caso contrario.</li>
+    <li><code>List&lt;String> getListadoParticipantes()</code>: devuelve una lista de participantes. Si aun no hay participantes, devuelve null</li>
+    <li><code>int getTotalParticipantes()</code>: devuelve el número de participantes.</li>
+    <li><code>List&lt;String> cloneCarrera()</code>: devuelve una copia de la lista de participantes.</li>
+    <li><code>boolean setPosicion(String nombreParticipante, int posicionDestino)</code>: cambia la posición de un participante</li>
+    <li><code>String getParticipantePorPosicion(int posicion)</code></li>
+</ul>
+
+<p class="nivel1">Después escribe un caso de prueba que realice los siguientes tests:</p>
+<ol>
+    <li>Antes de añadir ningún participante, la lista de participantes es null.</li>
+    <li>Después de añadir un participante, la lista de participantes no es null.</li>
+    <li>Se pueden añadir 4 participantes diferentes</li>
+    <li>Si se insertan 4 participantes, y después se intenta insertar un participante repetido, el método <code>addParticipante</code> devuelve false, y el número de participantes sigue siendo 4.</li>
+    <li>Si se inserta en segundo lugar un objeto String llamado <code>wick</code> con el nombre "John Wick", y se ejecuta la llamada <code>setPosicion("John Wick",1)</code>, el objeto obtenido mediante la llamada <code>getParticipantePorPosicion(1)</code> es el mismo que <code>wick</code>.</li>
+    <li>La lista obtenida por <code>getListadoParticipantes</code> y por <code>cloneCarrera</code> no son el mismo objeto</li>
+    <li>Dada una Carrera con 4 participantes, la lista obtenida al principio de la carrera y la lista obtenida después de cambiar varios participantes de posición contiene los mismos elementos (utiliza el aserto <code>assertArrayEquals</code>)</li>
+</ol>
+
+<p class="nivel1">Utiliza una nomenclatura basada en tests descriptivos para los tests 1, 2 y 3. Utiliza una nomenclatura basada en BDD para los tests 4, 5 y 6.</p>
+</div>
+
+<h1 id="clase4">7. Comprobar que una excepción se lanza</h1>
+
+<p class="nivel1">Existen varias maneras de comprobar que una excepción ha sido lanzada cuando se esperaba.</p>
+
+<h2>Opción 1. Try/Catch</h2>
+
+<p class="nivel2">Esta opción hace uso de una estructura try/catch junto con el método <code>fail</code>. La idea es la siguiente: si la línea que debe generar una excepción no la lanza, entonces se ejecutará la siguiente línea. Por ello, la siguiente línea, en caso de ejecutarse, debe considerarse un fallo. Por eso se usa el método <code>fail</code> que siempre genera fallo.</p>
+
+<p class="nivel2">En caso de que la excepción se lance correctamente, para comprobar que el problema es el esperado, se puede usar el método <code>assertEquals</code>, para comprobar que la excepción lanzada es la esperada.</p>
+
+<div class="codigo-fuente">
+@Test
+public void testExceptionMessage() {
+  List&lt;Object> list = new ArrayList&lt;>();
+    
+  try {
+    list.get(0);
+    fail("Expected an IndexOutOfBoundsException to be thrown");
+  } catch (IndexOutOfBoundsException anIndexOutOfBoundsException) {
+    assertThat(anIndexOutOfBoundsException.getMessage(), is("Index: 0, Size: 0"));
+  }
+}
+</div>
+
+<h2> Opción 2. Anotación @Test</h2>
+
+<p class="nivel2">La anotación <code>@Test</code> tiene el parámetro <code>expected</code> que acepta como valor subclases de <code>Throwable</code>. </p>
+
+
+<div class="codigo-fuente">
+    @Test(expected = IndexOutOfBoundsException.class) 
+    public void empty() { 
+      new ArrayList&lt;Object>().get(0); 
+    }
+</div>
+
+
+<div class="actividad">
+    <p class="nivel1">
+        <p>
+            <strong>Actividad 4.</strong> Crear un caso de prueba para la siguiente clase:
+        </p>
+    </p>
+    
+    <div class="codigo-fuente">
+        public class Multiplicador {
+          public int multiplicar(int x, int y) {
+            if (x > 999) {
+              throw new IllegalArgumentException("X debe ser menor que 1000");
+            }
+            return x / y;
+          }
+        }
+    </div>
+</div>
+
+<h1 id="mocks">8. Dobles o Mocks</h1>
+
+<div class="aclaracion">
+<p class="nivel1">Para trabajar con Dobles, es preciso conocer dos términos:</p>
+<ul>
+    <li><code>SUT</code>: Subject Under Test, es el componente que está siendo probado.</li>
+    <li><code>DOC</code>: Depended-On Component, es un componente externo al probado, del que se depende para poder llevar a cabo el test.</li>
+</ul>
+</div>
+
+<p class="nivel1">Un doble es un término genérico para cualquier objeto que finge otro con propósitos de testeo. Según Robert Martin, una suite de tests que usa mocks, puede tener los siguientes problemas:</p>
+
+<ul>
+    <li>La ejecución puede ser lenta, especialmente si depende de servicios externos</li>
+    <li>El nivel de cobertura de los tests puede ser baja. Existen condiciones de error y execepciones que son imposibles de testear sin que un doble lo simule. Por ejemplo, funciones que llevan a cabo tareas arriesgadas como borrar archivos, borrar tablas de una base de datos, no serían llevadas a cabo sin el uso de dobles. También puede ser complicado alcanzar cada uno de los estados de la aplicación que se desean probar, como por ejemplo un fallo de red.</li>
+    <li>Los tests pueden ser sensibles a fallos en partes del sistema que no tienen relación con el SUT. Por ejemplo, una base de datos que contiene filas de más o de menos, puede hacer que un test de un componente correcto falle</li>
+</ul>
+
+<p class="nivel1">Es decir, sin dobles, los tests pueden ser lentos, incompletos y frágiles.</p>
+
+<p class="nivel1">Por otra parte, usar dobles para todo test donde haya un DOC conlleva problemas también. Algunos de ellos son:</p>
+
+<ul>
+    <li>El código de los tests se complica.</li>
+    <li>Duplicar el comportamiento de los componentes reales puede conllevar fallos cuando éste cambie. Es decir, a cada cambio del componente real, hay que modificar también el comportamiento del doble.</li>
+</ul>
+
+<p class="nivel1">Es decir, demasiados dobles lleva a tests complicados y frágiles</p>
+
+<h2>¿Cuándo usar un doble?</h2>
+
+<p class="nivel2">La respuesta está entre pocos y demasiados. De nuevo, Robert Martin afirma que su estrategia es <strong>utilizar dobles en las fronteras arquitectónicas</strong>. Por ejemplo, bases de datos, servicios web o cualquier otro servicio externo.</p>
+
+<h2 id="tipos_dobles">Tipos de dobles</h2>
+
+<p class="nivel2">Existen diferentes tipos de dobles:</p>
+
+<ul>
+    <li><strong>Dummy</strong>: es un objeto que se pasa como argumento, pero que nunca es usado. Su única función es la necesidad de que exista, aunque en el test no llegue a ser usado. Por ejemplo, un objeto que es usado para rellenar la lista de parámetros de un método.</li>
+    <li><strong>Fake</strong>: es un objeto que, a diferencia de un objeto <code>dummy</code>, sí funciona, aunque su comportamiento está muy simplificado. Por ejemplo, una clase que usa una base de datos en memoria, en lugar de una base de datos real.</li>
+    <li><strong>Stub</strong>: implementación parcial de una interfaz o clase con el propósito de usar una instancia de dicho stub durante el testeo. Los stubs sencillamente devuelven una respuesta preprogramada, y no responden a nada fuera de lo que se ha programado para el test.</li>
+    <li><strong>Mock</strong>: es una extensión de un doble <code>dummy</code>, en el que se define la salida para ciertas llamadas. Los objetos <code>mock</code> están configurados para mostrar cierto comportamiento durante un test. Normalmente almacenan información sobre lo que se hace con ellos y además, se puede hacer comprobaciones sobre ello.</li>
+    <li><string>Spy</string>: es un objeto que suplanta de manera parcial a otro que sí funciona. Suplanta sólo aquellos métods que le interesan y el resto funcionan igual que en la clase original. Además almacena información sobre las interacciones con el objeto.</li>
+</ul>
+
+<div class="destacado">
+    <p class="nivel1">Los objetos <code>mock</code> son los más versátiles y que requieren menos código de configuración, por lo que suelen ser los dobles más utilizados</p>
+</div>
+
+<h2>Objetos Mock caseros o por framework</h2>
+
+<p class="nivel2">Un objeto <code>mock</code> puede ser creado manualmente, o biene usar un framework específico de mocks. Lo bueno que tiene usar un framework, es que se pueden definir nuevos objetos en tiempo de ejecución, definir sobre la marcha su comportamiento.</p>
+
+<h1>9. Framework de prueba: Mockito.</h1>
+
+<p class="nivel1">El framework que vamos a utilizar es <code>Mockito</code>. Se puede obtener desde <a href="https://mvnrepository.com/artifact/org.mockito/mockito-core">https://mvnrepository.com/artifact/org.mockito/mockito-core</a>. </p>
+
+<h2>Crear un objeto mock (como stub)</h2>
+
+<p class="nivel2">Para crear un objeto <code>mock</code>, se puede usar el método <code>mock(MiClase.class)</code>. Este método devuelve un objeto de clase <code>MyClass</code>, sobre el que se puede definir el comportamiento mediante sentencias de tipo <code>when(....).thenReturn(....)</code>. Vamos a ver unos ejemplos:</p>
+
+<h3>Simular la devolución de un valor: <code>when.thenReturn</code></h3>
+
+<p class="nivel3">En este ejemplo tenemos una clase llamada <code>Cortesia</code> que cuenta con los métodos <code>saludo</code> y <code>despedida</code>, con el código siguiente:</p>
+
+<div class="codigo-fuente">
+public class DOC {
+    public String getSaludo(){
+        return "Hola";
+    }
+
+    public String getDespedida(){
+        return "Adiós";
+    }
+}
+</div>
+
+<p class="nivel3">También tenemos una clase llamada <code>CortesiaPersonalizada</code> que cuenta con los métodos <code>saludoPersonalizado</code> y <code>despedidaPersonalizada</code>, cuyo código es el siguiente:</p>
+
+<div class="codigo-fuente">
+public class CortesiaPersonalizada {
+    public Cortesia cortesia;
+
+    public CortesiaPersonalizada(Cortesia cortesia){
+        this.cortesia = cortesia;
+    }
+
+    public String saludoPersonalizado(String nombre){
+        return cortesia.saludo() + ", " + nombre;
+    }
+
+    public String despedidaPersonalizada(String nombre){
+        return cortesia.despedida() + ", " + nombre;
+    }
+}
+</div>
+
+<p class="nivel3">Vamos a usar un <code>mock</code> de <code>Cortesia</code> para mostrar mensajes en inglés:</p>
+
+<div class="codigo-fuente">
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+public class CortesiaPersonalizadaTest {
+
+    @Test
+    public void saludoPersonalizado() {
+
+        // Given
+        Cortesia cortesia = mock(Cortesia.class);
+        when(cortesia.saludo()).thenReturn("Hello");
+
+        CortesiaPersonalizada cortesiaPersonalizada = new CortesiaPersonalizada(cortesia);
+
+        // When
+        String saludoEnInglésAJohnWick = cortesiaPersonalizada.saludoPersonalizado("John Wick");
+
+        // Then
+        String resultadoEsperado = "Hello, John Wick";
+        assertEquals(resultadoEsperado,saludoEnInglésAJohnWick);
+    }
+}
+</div>
+
+<div class="aclaracion">
+
+<p class="nivel1"><strong>Una aclaración sobre el test anterior</strong></p>
+
+<p class="nivel1">La parte donde <code>Mockito</code> entra en acción está en las siguientes líneas:</p>
+
+<div class="codigo-fuente">
+    Cortesia cortesia = mock(Cortesia.class);   // Creación del mock
+    when(cortesia.saludo()).thenReturn("Hello"); // Configuración del mock
+</div>
+
+<p class="nivel1">En ellas creamos un <code>mock</code> de la clase <code>Cortesia</code>, y definimos el resultado de llamar al método <code>saludo()</code></p>
+</div>
+
+<h3>Simular la devolución de varios valores: <code>when.thenReturn.thenReturn</code></h3>
+
+<p class="nivel3">En este ejemplo tenemos tres clases:</p>
+
+<ul>
+    <li><code>Persona</code> encapsula a una persona.</li>
+    <li><code>PersonaDAO</code> realiza consultas a una base de datos.</li>
+    <li><code>BrechaSalarial</code> calcula diferencias de sueldo</li>
+</ul>
+
+<p class="nivel3">La clase <code>Persona</code> tiene el siguiente código</p>
+
+<div class="codigo-fuente">
+public class Persona {
+    public final static int COMERCIAL = 1;
+    public final static int TESORERIA = 2;
+    public final static int MARKETING = 3;
+    public final static int ADMINISTRACION = 4;
+
+    private String nombre;
+    private double sueldo;
+    private int departamento;
+    public Persona(String nombre, int departamento, double sueldo) {
+        this.nombre = nombre;
+        this.sueldo = sueldo;
+        this.departamento = departamento;
+    }
+
+    // Getters y setters
+}
+</div>
+
+<p class="nivel3">La clase <code>PersonaDAO</code> con varios métodos, entre los que están:</p>
+<ul>
+    <li><code>void selectPersonasPorDepartamento(int departamento)</code> que selecciona las personas de un departamento</li>
+    <li><code>boolean hasNext()</code> que devuelve true si quedan objetos <code>Persona</code> por devolver o false en caso contrario</li>
+    <li><code>Persona next()</code> que devuelve la siguiente persona de una consulta.</li>
+</ul>
+
+<p class="nivel3">Supongamos también que <code>PersonaDAO</code> no ha sido implementado todavía. Su código podría ser así:</p>
+
+<div class="codigo-fuente">
+public class PersonaDAO {
+    public Persona next(){
+        // Sin implementación
+        return null;
+    }
+
+    public void selectPersonasPorDepartamento(int departamento) {
+        // Sin implementación
+    }
+
+    public boolean hasNext() {
+        // Sin implementación
+        return false;
+    }
+}
+</div>
+
+<p class="nivel3">Finalmente, la clase <code>BrechaSalarial</code> contiene un método llamado <code>double calcularBrechaSalarial(int departamento)</code>, que devuelve la máxima diferencia entre los sueldos de un departamento. Su implementación es la siguiente:</p>
+
+<div class="codigo-fuente">
+public class BrechaSalarial {
+    private PersonaDAO personaDAO;
+    public BrechaSalarial(PersonaDAO personaDAO){
+        this.personaDAO = personaDAO;
+    }
+
+    public double calcularBrechaSalarial(int departamento){
+        personaDAO.selectPersonasPorDepartamento(departamento);
+        List&lt;Persona> personas = new ArrayList&lt;>();
+        while (personaDAO.hasNext())
+            personas.add(personaDAO.next());
+        if (personas.size() > 1)
+            return personas.get(0).getSueldo() - personas.get(personas.size()-1).getSueldo();
+        else return 0;
+    }
+}
+</div>
+<p class="nivel3">Entonces, si deseamos crear un test para ver si <code>calcularBrechaSalarial</code> funciona correctamente, podemos hacer lo siguiente:</p>
+
+<div class="codigo-fuente">
+public class BrechaSalarialTest {
+    @Test
+    public void calcularBrechaSalarial() {
+        // Given
+        PersonaDAO personaDAO = mock(PersonaDAO.class);
+
+        when(personaDAO.hasNext()).thenReturn(true)
+                                  .thenReturn(true)
+                                  .thenReturn(false);
+
+        when(personaDAO.next()).thenReturn(new Persona("John Wick",Persona.MARKETING,2000))
+                               .thenReturn(new Persona("Carl Winslow",Persona.MARKETING,1800));
+
+        // When
+        BrechaSalarial brechaSalarial = new BrechaSalarial(personaDAO);
+
+        // Then
+        double mayorDiferenciaSueldo = 200;
+        assertEquals(mayorDiferenciaSueldo,brechaSalarial.calcularBrechaSalarial(Persona.MARKETING),0);
+    }
+}
+</div>
+
+<div class="aclaracion">
+<p class="nivel1"><strong>Una aclaración sobre lo que ocurre en el test anterior</strong></p>
+
+<p class="nivel1">El método <code>calcularBrechaSalarial</code> llama al método <code>hasNext</code> de <code>personaDAO</code> hasta éste devuelve false, momento en que sabe que ya no quedan más personas por devolver. Por otra parte, mientras <code>hasNext</code> devuelva true, llamará a continuación a <code>next</code> para obtener la siguiente persona.</p>
+
+<p class="nivel1">En una primera parte, se indica al <code>mock</code> de <code>PersonaDAO</code> que el método <code>hasNext</code> debe devolver dos veces true y una false (es decir, hay dos personas):</p>
+
+    <div class="codigo-fuente">
+        when(personaDAO.hasNext()).thenReturn(true)
+                                  .thenReturn(true)
+                                  .thenReturn(false);
+    </div>
+
+<p class="nivel1">En una segunda parte, se indica al <code>mock</code> de <code>PersonaDAO</code> que el método <code>next()</code> devuelve dos personas:</p>
+
+    <div class="codigo-fuente">
+        when(personaDAO.next()).thenReturn(new Persona("John Wick",Persona.MARKETING,2000))
+                               .thenReturn(new Persona("Carl Winslow",Persona.MARKETING,1800));
+    </div>
+
+<p class="nivel1">De esta forma, la clase <code>BrechaSalarial</code> no llega a ser consciente de que <code>personaDAO</code> es un <code>mock</code>, y nos permite comprobar la funcionalidad.</p>
+</div>
+
+<h3 id="devolucion_segun_entrada">Simular la devolución de un valor basándose en la entrada</h3>
+
+<p class="nivel3">Supongamos que la clase <code>BrechaSalarial</code> debe calcular la diferencia de sueldo entre dos personas cualesquiera. Así que necesitamos que la clase <code>PersonasDAO</code> devuelva una u otra persona dependiendo de un parámetro de entrada con el siguiente método:</p>
+
+<ul>
+    <li><code>Persona leer(String nombre)</code></li>
+</ul>
+
+<p class="nivel3"><em>Mockito</em> permite devolver un valor en función del parámetro, como en el siguiente test:</p>
+
+<div class="codigo-fuente">
+    @Test
+    public void calcularBrechaSalarialEntrePersonas(){
+        // Given
+        PersonaDAO personaDAO = mock(PersonaDAO.class);
+        when(<span style="color:white">personaDAO.getPersonaPorNombre("John Wick")</span>).thenReturn(new Persona("John Wick",Persona.CRIMEN,12000));
+        when(<span style="color:white">personaDAO.getPersonaPorNombre("Anibal Lecter")</span>).thenReturn(new Persona("Anibal Lecter",Persona.ADMINISTRACION,4000));
+
+        BrechaSalarial brechaSalarial = new BrechaSalarial(personaDAO);
+
+        // When
+        double brechaSalarialEntreDosPersonas = brechaSalarial.calcularBrechaSalarial("John Wick","Anibal Lecter");
+
+        // Then
+        double resultadoEsperado = 8000;
+        assertEquals(resultadoEsperado,brechaSalarialEntreDosPersonas,0.01);
+    }
+</div>
+
+<p class="nivel3">Observa cómo la clase <code>BrechaSalarial</code> cree que utiliza un auténtico objeto de tipo <code>PersonaDAO</code>:</p>
+
+<div class="codigo-fuente">
+    public double calcularBrechaSalarial(String nombrePersona1, String nombrePersona2){
+        Persona persona1 = <span style="color:white">personaDAO.getPersonaPorNombre(nombrePersona1);</span>
+        Persona persona2 = <spna style="color:white">personaDAO.getPersonaPorNombre(nombrePersona2);</spna>
+
+        return Math.abs(persona1.getSueldo() - persona2.getSueldo());
+    }
+</div>
+
+<h3>Simular la devolución de un valor independientemente de la entrada (<em>Argument Matchers</em>)</h3>
+
+<p class="nivel3"><em>Mockito</em> posee una clase llamada <code>ArgumentMatchers</code> que permite verificar argumentos pertenecientes a un conjunto de valores, y no un valor concreto. Por ejemplo, supongamos que <code>personaDAO</code> tiene un método llamado <code>List&lt;Persona> getPersonasEnRangoDeSueldo(double umbralMinimo, double umbralMaximo)</code> que devuelve una lista de personas cuyo sueldo está en un rango especificado. Supongamos también que la clase <code>BrechaSalarial</code> tiene un método llamado <code>double calcularBrechaSalarialEnRango(double umbralMinimo, double umbralMaximo)</code> que devuelve la brecha salarial entre las personas de un cierto rango especificado. Queremos asegurarnos de que cuando el rango está vacío, no se producen errores.</p>
+
+<p class="nivel3">En el siguiente test probamos qué ocurre cuando no hay ningún empleado en el rango pedido, y la lista devuelta es <code>null</code>. Para ello, podemos utilizar un <code>ArgumentMatcher</code> para asegurarnos de que el método <code>getPersonasEnRangoDeSueldo</code> devuelve <code>null</code> para cualquier número de tipo <code>Double</code></p>
+
+<div class="codigo-fuente">
+    @Test
+    public void calcularSueldoEnRangoNulo(){
+        // Given
+        PersonaDAO personaDAO = mock(PersonaDAO.class);
+        when(personaDAO.getPersonasEnRangoDeSueldo(<span style="color:white">anyDouble(),anyDouble()</span>)).thenReturn(null);
+
+        // When
+        BrechaSalarial brechaSalarial = new BrechaSalarial(personaDAO);
+        double brechaSalarialEnRangoVacío =  brechaSalarial.calcularBrechaSalarialEnRango(3000,Double.MAX_VALUE);
+
+        // Then
+        double valorEsperado = 0;
+        assertEquals(valorEsperado,brechaSalarialEnRangoVacío,0);
+    }
+</div>
+
+<p class="nivel3">Este tipo de herramienta (<code>argument matcher</code>) es especialmente útil cuando no es posible saber en tiempo de compilación el valor que tomarán los argumentos. En el ejemplo puesto, los argumentos son fijos (3000 y <code>Double.MAX_VALUE</code>), pero surgirán ocasiones en que los datos puedan variar.</p>
+
+<p class="nivel3">Existen diferentes argument matchers predefinidos. La lista está en <a href="https://javadoc.io/static/org.mockito/mockito-core/3.3.3/org/mockito/ArgumentMatchers.html">https://javadoc.io/static/org.mockito/mockito-core/3.3.3/org/mockito/ArgumentMatchers.html</a>.</p>
+
+<h3><code>Argument Matchers</code> definidos por el usuario</h3>
+
+<p class="nivel3"><em>Mockito</em> cuenta con un mecanismo para definir <code>Argument Matchers</code> a medida. Esto aporta gran flexibilidad frente a los <code>Argument Matchers</code> de tipo <code>any</code> (como <code>anyBoolean</code>, <code>anyDouble</code> o <code>anyInt</code>). Para esto, existe una interfaz llamada <code>ArgumentMatcher</code>. Vamos a ver un ejemplo.</p>
+
+<p class="nivel3">Supongamos que tenemos un objeto <code>List&lt;boolean></code> de tamaño 10000 que contiene <code>true</code> en las primeras 5000 posiciones, y <code>false</code> en las siguientes 5000. En este caso, debemos tener un <code>argument matcher</code> que identifique argumentos en los rangos [0,4999] y [5000,9999]. Vamos a ver un test:</p>
+
+<div class="codigo-fuente">
+   @Test
+    public void testListaDeBooleans(){
+        List&lt;Boolean> listaBooleanos = mock(List.class);
+
+        <span style="color:white">IntEnRango intEntre0y4999 = new IntEnRango(0,4999);</span>
+        <span style="color:white">IntEnRango intEntre5000y9999 = new IntEnRango(5000,9999);</span>
+
+        when(listaBooleanos.get(<span style="color:white">intThat(intEntre0y4999)</span>)).thenReturn(true);
+        when(listaBooleanos.get(<span style="color:white">intThat(intEntre5000y9999)</span>)).thenReturn(false);
+
+        assertTrue(listaBooleanos.get(322));
+        assertFalse(listaBooleanos.get(6242));
+    }
+</div>
+
+<p class="nivel3">Como se puede observar en el ejemplo, existe una clase llamada <code>IntEnRango</code> que es de tipo <code>ArgumentMatcher</code>. El código de dicho <code>ArgumentMatcher</code> es el siguiente:
+
+<div class="codigo-fuente">
+public class <span style="color:white">IntEnRango implements ArgumentMatcher&lt;Integer></span> {
+    private Integer min;
+    private Integer max;
+
+    public IntEnRango(Integer min, Integer max){
+        this.min = min;
+        this.max = max;
+    }
+
+    <span style="color:white">@Override
+    public boolean matches(Integer integer)</span> {
+        return (integer >= min) && (integer <= max);
+    }
+}
+</div>
+
+<p class="nivel3">En el ejemplo anterior, usamos <code>intThat</code>, porque <code>IntEnRango</code> implementa <code>ArgumentMatcher&lt;Integer></code>, pero existen más de estos métodos:</p>
+
+<ul>
+    <li><code>argThat(ArgumentMatcher&lt;T> matcher)</code> permite utilizar un <code>ArgumentMatcher</code> a medida. Este método <strong>no debe utilizarse con tipos primitivos</strong> (ver siguiente nota aclaratoria), como Integer o Double, sino con objetos.</li>
+    <div class="aclaracion">
+        <p class="nivel3">En la documentación de <em>Mockito</em> se puede leer lo siguiente en la definición de <code>argThat</code>:</p>
+        <blockquote> NullPointerException auto-unboxing caveat. In rare cases when matching primitive parameter types you *must* use relevant intThat(), floatThat(), etc. method. This way you will avoid NullPointerException during auto-unboxing. Due to how java works we don't really have a clean way of detecting this scenario and protecting the user from this problem. Hopefully, the javadoc describes the problem and solution well. If you have an idea how to fix the problem, let us know via the mailing list or the issue tracker.</blockquote>
+        <p class="nivel3">Es decir, no saben por qué <code>argThat</code> devuelve <code>NullPointerException</code> al usar tipos primitivos, pero recomiendan usar los métodos específicos <code>intThat</code>, <code>floatThat</code>, etc.</p>
+    </div>
+    <li><code>booleanThat(ArgumentMatcher&lt;Boolean> matcher)</code> permite utilizar un <code>ArgumentMatcher</code> a medida para argumentos booleanos.</li>
+    <li><code>byteThat(ArgumentMatcher&lt;Byte> matcher)</code> permite utilizar un <code>ArgumentMatcher&lt;Byte></code> a medida para argumentos de tipo <code>Byte</code></li>
+    <li><code>doubleThat(ArgumentMatcher&lt;Double> matcher)</code> permite utilizar un <code>ArgumentMatcher&lt;Double></code> a medida para argumentos de tipo  <code>Double</code></li>
+    <li><code>floatThat(ArgumentMatcher&lt;Float> matcher)</code> permite utilizar un <code>ArgumentMatcher&lt;Float></code> a medida para argumentos de tipo <code>Float</code></li>
+    <li><code>intThat(ArgumentMatcher&lt;Integer> matcher)</code> permite utilizar un <code>ArgumentMatcher&lt;Integer></code> a medida para argumentos de tipo <code>Integer</code></li>        
+    <li><code>longThat(ArgumentMatcher&lt;Long> matcher)</code> permite utilizar un <code>ArgumentMatcher&lt;Long></code> a medida para argumentos de tipo <code>Long</code></li>
+</ul>
+
+<h3 id="when-throw">Simular la generación de una excepción</h3>
+
+<p class="nivel3">Supongamos que tenemos una clase llamada <code>PersonaDAO</code> encargada de gestionar las consultas a una tabla <code>Persona</code> de una base de datos que no existe todavía (o simplemente queremos utilizar un doble). Supongamos una clase llamada <code>GestionPersonas</code> que incluye el método <code>Persona getPersonaPorDNI(String DNI)</code>.</p>
+
+<p class="nivel3">Supongamos también que queremos simular que el DNI no tiene un formato correcto, ante lo cual el método <code>readPersona(String DNI)</code> de la clase <code>PersonaDAO</code> genera una excepción de tipo <code>IllegalFormatException</code>.</p>
+
+<p class="nivel3">Cuando se genera este tipo de excepción, el método <code>getPersonaPorDNI</code> de la clase <code>GestionPersonas</code> devuelve una <code>persona nula</code>.</p>
+
+<div class="aclaracion">
+    <h3>Nota sobre los <em>objetos nulos</em></h3>
+    <p class="nivel1">En ciertas circunstancias, devolver <code>null</code> no es una opción posible. En estos casos, se puede utilizar un objeto nulo con datos predefinidos que representen <code>null</code>.</p>
+</div>
+
+<p class="nivel3">A modo aclaratorio, el código de la aplicación es el siguiente:</p>
+
+<div class="codigo-fuente">
+    public class Persona {
+        private String nombre;
+        private String apellidos;
+        private String DNI;
+    
+        public Persona(String nombre, String apellidos, String DNI) {
+            this.nombre = nombre;
+            this.apellidos = apellidos;
+            this.DNI = DNI;
+        }
+
+        ... 
+
+        <span style="color:gray">// Getters y Setters</span>
+    }
+</div>
+
+<div class="codigo-fuente">
+    public class PersonaNula extends Persona{
+        public PersonaNula() {
+            super("","","0");
+        }
+    }
+</div>
+
+<div class="codigo-fuente">
+    public class GestionPersonas {
+        private PersonaDAO personaDAO;
+    
+        public GestionPersonas(PersonaDAO personaDAO){
+            this.personaDAO = personaDAO;
+        }
+    
+        public Persona getPersonaPorDNI(String DNI){
+            try{
+                Persona persona = personaDAO.readPersona(DNI);
+                return persona;
+            } catch (IllegalFormatException e){
+                return new PersonaNula();
+            }
+        }
+    }
+</div>
+
+<div class="codigo-fuente">
+    public class PersonaDAO {
+        <span style="color:gray">// Sin implementar todavía</span>
+        public Persona readPersona(String DNI) throws IllegalFormatException {
+            return null;
+        }
+    }    
+</div>
+
+<p class="nivel3">El test para comprobar que cuando el DNI tiene un formato incorrecto, el método <code>getPersonaPorDNI</code> devuelve una persona nula puede ser como el siguiente:</p>
+
+<div class="codigo-fuente">
+    @Test
+    public void getPersonaPorDNI() {
+        PersonaDAO personaDAO = mock(PersonaDAO.class);
+        <span style="color:white">when(personaDAO.readPersona("dni_no_válido")).thenThrow(IllegalFormatException.class);</span>
+
+        GestionPersonas gestionPersonas = new GestionPersonas(personaDAO);
+
+        assertEquals(PersonaNula.class,gestionPersonas.getPersonaPorDNI("dni_no_válido").getClass());
+    }
+</div>
+
+<div class="actividad">
+    <p class="nivel1"><strong>Actividad 5.</strong> Existe una máquina con una matriz de 60 depósitos de diferentes sustancias, que inyecta para obtener un cierto producto. Estamos escribiendo una aplicación que genere alertas dependiendo del estado del sensor que tiene cada depósito. De forma que existen 60 sensores, encapsulados por una clase llamada <code>MatrizSensores</code>. La clase <code>MatrizSensores tiene la siguiente interfaz:</code></p>
+
+    <img class="pequena" src="junit/act_mock_1.1.jpg"/>
+
+    <p class="nivel1">El método <code>getEstadoSensor</code> devuelve el estado de un cierto sensor. Cada sensor puede tener los siguientes estados:</p>
+
+    <ul>
+        <li><code>ESTADO_VACIO</code>: el depósito está vacío</li>
+        <li><code>ESTADO_CASI_VACIO</code>: el depósito está por debajo de 25%</li>
+        <li><code>ESTADO_MITAD</code>: el depósito está entre el 25% y el 50%</li>
+        <li><code>ESTADO_CASI_LLENO</code>: el depósito está entre el 50% y el 75%</li>
+        <li><code>ESTADO_LLENO</code>: el depósito está por encima del 75%</li>
+    </ul>
+
+    <p class="nivel1">Por tanto, cuando se ejecuta el método <code>getEstadoSensor</code> se devuelve una de las constantes anteriores.</p>
+
+    <div class="aclaracion">
+        <p class="nivel1">Cuando un sensor no está operativo, la ejecución del método <code>getEstadoSensor</code> devuelve una excepción <code>IllegalStateException</code>.</p>
+    </div>
+
+    <p class="nivel1">Para tomar decisiones sobre qué acción recomendar dependiendo del estado del sensor, existe una clase llamada <code>AccionSensor</code> con la siguiente interfaz:</p>
+
+    <img class="pequena" src="junit/act_mock_1.2.jpg"/>
+
+    <p class="nivel1">El método <code>evaluar(int numeroSensor)</code> devuelve un valor, que puede ser uno de los siguientes:</p>
+
+    <ul>
+        <li><code>ACCION_REPOSICION</code>: significa que la acción a tomar para el sensor evaluado es "reponer producto". Devolver este valor dependerá del valor del nivel de demanda.</li>
+        <li><code>ACCION_REVISION</code>: significa que la acción recomendada la revisión del sensor, ya que está en estado <code>NO_INICIADO</code></li>
+        <li><code>ACCION_INNECESARIA</code>: significa que no hay que hacer nada.</li>
+    </ul>
+
+    <p class="nivel1">Pare elegir la acción a devolver, el método <code>evaluar</code> tiene en cuenta el valor del atributo <code>nivelDemanda</code>. El valor de este atributo se puede establecer mediante el método <code>setNivelDemanda</code>, y puede aceptar tres niveles de demanda:</p>
+    
+    <ul>
+        <li><code>DEMANDA_BAJA</code>: significa que sólo hay que reponer en caso de que el nivel sea <code>ESTADO_CASI_VACIO</code> o inferior</li>
+        <li><code>DEMANDA_MEDIA</code>: significa que sólo hay que reponer en caso de que el nivel sea <code>ESTADO_MEDIO</code> o inferior</li>
+        <li><code>DEMANDA_ALTA</code>: significa que hay que reponer en caso de que el nivel sea <code>ESTADO_CASI_LLENO</code> o inferior</li>
+    </ul>
+
+    <p class="nivel1">Las clases <code>MatrizSensores</code> y Sensor no están desarrolladas aún, y sólamente contamos con su interfaz. Por tanto, necesitamos usar <code>mocks</code> en su lugar. Como configuración de prueba, consideraremos que el estado de los sensores e el siguiente:</p>
+    
+    <img src="junit/act_mock_1.3.png"/>
+
+    <h3>Inicialización de los tests</h3>
+
+    <p class="nivel1">Crea un método que prepare un objeto de tipo <code>MatrizSensores</code>, para que al ejecutar <code>getEstadoSensor</code> delvuelva:</p>
+    <ul>
+        <li>Los sensores 0 a 9 generan una excepción del tipo <code>IllegalStateException</code> </code></li>
+        <li>Los sensores 10 a 19 devuelven <code>ESTADO_VACIO</code></li>
+        <li>Los sensores 20 a 29 devuelven <code>ESTADO_CASI_VACIO</code></li>
+        <li>Los sensores 30 a 39 devuelven <code>ESTADO_MEDIO</code></li>
+        <li>Los sensores 40 a 49 devuelven <code>ESTADO_CASI_LLENO</code></li>
+        <li>Los sensores 50 a 59 devuelven <code>ESTADO_LLENO</code></li>
+    </ul>
+
+    <div class="aclaracion">
+        <p class="nivel1">Utiliza un <code>Argument Matcher</code> para las instrucciones <code>when-then</code>, de forma que devuelva <code>true</code> para un conjunto de sensores. Por ejemplo, supón que el <code>Argument Matcher</code> se llama <code>GrupoSensores</code>. Entonces puede ser utilizado del siguiente modo:</p>
+
+        <div class="codigo-fuente">
+            GrupoSensores grupoSensoresVacios = new GrupoSensores(Sensor.ESTADO_VACIO);
+            <span style="color:gray">
+            /*
+                grupoSensoresVacios.matches(1) => false
+                grupoSensoresVacios.matches(13) => true  (devuelve true si el parámetro es 10 .. 19)
+                grupoSensoresVacios.matches(35) => false
+                grupoSensoresVacios.matches(57) => false
+            */
+           </span>
+        </div>
+    </div>
+
+    <p><strong>Escribe tres tests:</strong></p>
+    
+    <h3>AccionesCorrectasParaLosSensoresEnDemandaBaja</h3>
+
+    <p class="nivel1">En este test, debes crear un objeto de tipo <code>AccionSensor</code>, y asignarle una demanda <code>DEMANDA_BAJA</code>. Debes comprobar que cuando se ejecuta el método <code>evaluar</code> para cada sensor:</p>
+    <ul>
+        <li>Si <code>getEstadoSensor</code> genera una excepción, devuelve la acción <code>ACCION_REVISION</code></li>
+        <li>Si <code>getEstadoSensor</code> devuelve <code>ESTADO_VACIO</code> devuelve la acción <code>ACCION_REPOSICION</code></li>
+        <li>Si <code>getEstadoSensor</code> devuelve <code>ESTAD_CASI_VACIO</code>, devuelve la acción <code>ACCION_REPOSICION</code></li>
+        <li>En cualquier otro caso, devuelve la acción <code>ACCION_INNECESARIA</code></li>
+    </ul>
+
+    <h3>AccionesCorrectasParaLosSensoresEnDemandaMedia</h3>
+
+    <p class="nivel1">En este test, debes crear un objeto de tipo <code>AccionSensor</code>, y asignarle una demanda <code>DEMANDA_MEDIA</code>. Debes comprobar que cuando se ejecuta el método <code>evaluar</code> para cada sensor:</p>
+    <ul>
+        <li>Si <code>getEstadoSensor</code> genera una excepción, devuelve la acción <code>ACCION_REVISION</code></li>
+        <li>Si <code>getEstadoSensor</code> devuelve <code>ESTADO_VACIO</code> devuelve la acción <code>ACCION_REPOSICION</code></li>
+        <li>Si <code>getEstadoSensor</code> devuelve <code>ESTADO_CASI_VACIO</code>, devuelve la acción <code>ACCION_REPOSICION</code></li>
+        <li>Si <code>getEstadoSensor</code> devuelve <code>ESTADO_MEDIO</code>, devuelve la acción <code>ACCION_REPOSICION</code></li>
+        <li>En cualquier otro caso, devuelve la acción <code>ACCION_INNECESARIA</code></li>
+    </ul>
+
+    <h3>AccionesCoorectasParaLosSensoresEnDemandaAlta</h3>
+
+    <p class="nivel1">En este test, debes crear un objeto de tipo <code>AccionSensor</code>, y asignarle una demanda <code>DEMANDA_ALTA</code>. Debes comprobar que cuando se ejecuta el método <code>evaluar</code> para cada sensor:</p>
+    <ul>
+        <li>Si <code>getEstadoSensor</code> genera una excepción, devuelve la acción <code>ACCION_REVISION</code></li>
+        <li>Si <code>getEstadoSensor</code> devuelve <code>ESTADO_VACIO</code> devuelve la acción <code>ACCION_REPOSICION</code></li>
+        <li>Si <code>getEstadoSensor</code> devuelve <code>ESTADO_CASI_VACIO</code>, devuelve la acción <code>ACCION_REPOSICION</code></li>
+        <li>Si <code>getEstadoSensor</code> devuelve <code>ESTADO_MEDIO</code>, devuelve la acción <code>ACCION_REPOSICION</code></li>
+        <li>Si <code>getEstadoSensor</code> devuelve <code>ESTADO_CASI_LLENO</code>, devuelve la acción <code>ACCION_REPOSICION</code></li>
+        <li>En cualquier otro caso, devuelve la acción <code>ACCION_INNECESARIA</code></li>
+    </ul>
+
+    <p class="nota-nivel1">El código fuente lo tienes aquí: <a href="junit/ActividadMockito_sensores.zip">ActividadMockito_sensores</a></p>
+</div>
+
+<div class="actividad" id="act5facil">
+<p class="nivel1"><strong>Actividad 5.1 (alternativa fácil).</strong> Existe una clase llamada <code>Calificacion</code> con un método llamado <code>String obtenerCalificacion(int puntos)</code>. Configura un doble de <code>Calificacion</code> forma que:</p>
+
+<ul>
+    <li>Cuando <code>puntos</code> está entre 0 y 499, devuelva la cadena "INSUFICIENTE".</li>
+    <li>Cuando <code>puntos</code> está entre 500 y 599, devuelva la cadena "SUFICIENTE".</li>
+    <li>Cuando <code>puntos</code> está entre 600 y 699, devuelva la cadena "BIEN".</li>
+    <li>Cuando <code>puntos</code> está entre 700 y 849, deuvleva la cadena "NOTABLE".</li>
+    <li>Cuando <code>puntos</code> está entre 850 y 1000, devuelva la cadena "SOBRESALIENTE".</li>
+    <li>Cuando <code>puntos</code> tiene cualquier otro valor, genera una excepción "IllegalArgumentException"</li>
+</ul>
+
+<p class="nivel1">Crea un test para cada rango de datos. Utiliza en cada test un bucle for, para recorrer el rango de datos completo. Por ejemplo:</p>
+
+<div class="codigo-fuente">
+    @Test
+    public void cuandoPuntosEstaEntre0y500LaCalificacionEsInsuficiente(){
+
+        // ...
+
+        for (int i=0; i&lt;500; i++){
+            assertEquals("INSUFICIENTE",calificacionObtenida);
+        }
+    }
+</div>
+</div>
+
+<div class="actividad">
+    <p class="nivel1"><strong>Actividad 5.2. (alternativa fácil al 5)</strong>. Existe una clase llamada <code>Turno</code> que contiene un método llamado <code>int siguiente()</code> que va generando el siguiente número de caja de una cola de supermercado</p>
+    <p class="nivel1">Observa el siguiente fragmento de prueba:</p>
+
+    <div class="codigo-fuente">
+        siguiente = turno.siguiente();
+        assertEquals(1, siguiente);
+        siguiente = turno.siguiente();
+        assertEquals(5, siguiente);
+        siguiente = turno.siguiente();
+        assertEquals(2, siguiente);
+    </div>
+
+    <p class="nivel1">Crea un test que contenga un doble de la clase <code>Turno</code>. Define los valores devueltos por el método <code>siguiente()</code> para que el bloque de código anterior esté en verde.</p>
+</div>
+
+<h2 id="verify">Mocks</h2>
+
+<p class="nivel2">Hasta ahora hemos utilizado el método <code>mock</code>, aunque el uso que hemos hecho, se ha restringido a dobles de tipo <code>stub</code> (ver <a href="#tipos_dobles">tipos de dobles</a>). Los dobles de tipo <code>mock</code> tienen capacidades de verificación sobre las pruebas realizadas. Si usamos <code>mockito</code>, se trata únicamente de usar los métodos <code>verify</code>.</p>
+
+<p class="nivel2">Mockito lleva la cuenta de las llamadas a los métodos y sus parámetros en cada objeto <code>mock</code>. Por ejemplo, podemos usar el método <code>verify()</code> sobre el objeto mock para comprobar que se han hecho ciertas llamadas con ciertos parámetros. Este tipo de testing se denomina <code>testing de comportamiento</code>. El <code>testing de comportamiento</code> no comprueba el resultado de un resultado, sino si el método se llamado el número correcto de veces y con los parámetros correctos. Vamos a ver unos ejemplos:</p>
+
+<h3>Verificar una única invocación</h3>
+
+<div class="codigo-fuente">
+List&lt;String> mockedList = mock(MyList.class);
+mockedList.size();
+verify(mockedList).size();
+</div>
+
+<h3>Verificar un número de interacciones sobre un mock</h3>
+
+<div class="codigo-fuente">
+List&lt;String> mockedList = mock(MyList.class);
+mockedList.size();
+mockedList.size();
+verify(mockedList, times(2)).size();
+</div>
+
+<h3>Verificar que no se ha interactuado con el mock</h3>
+
+<div class="codigo-fuente">
+List&lt;String> mockedList = mock(MyList.class);
+verifyZeroInteractions(mockedList);
+</div>
+
+<h3>Verificar que no se interactuado con un cierto método</h3>
+
+<div class="codigo-fuente">
+List&lt;String> mockedList = mock(MyList.class);
+verify(mockedList, times(0)).size();
+</div>
+
+<h3>Verificar que ya no habrán más interacciones con el mock.</h3>
+
+<p class="nivel3">Cualquier interacción posterior, daría fallo.</p>
+
+<div class="codigo-fuente">
+List&lt;String> mockedList = mock(MyList.class);
+mockedList.size();
+mockedList.clear();
+
+verify(mockedList).size();
+verifyNoMoreInteractions(mockedList); // falla
+</div>
+
+<h3>Verificar el orden de las interacciones</h3>
+
+<div class="codigo-fuente">
+List&lt;String> mockedList = mock(MyList.class);
+mockedList.size();
+mockedList.add("a parameter");
+mockedList.clear();
+ 
+InOrder inOrder = Mockito.inOrder(mockedList);
+inOrder.verify(mockedList).size();
+inOrder.verify(mockedList).add("a parameter");
+inOrder.verify(mockedList).clear();
+</div>
+
+<h3>Verificar que una interacción no ha ocurrido</h3>
+
+<div class="codigo-fuente">
+List&lt;String> mockedList = mock(MyList.class);
+mockedList.size();
+
+verify(mockedList, never()).clear();
+</div>
+
+<h3>Verificar que una interacción ha ocurrido al menos un cierto número de veces</h3>
+
+<div class="codigo-fuente">
+List&lt;String> mockedList = mock(MyList.class);
+mockedList.clear();
+mockedList.clear();
+mockedList.clear();
+ 
+verify(mockedList, atLeast(1)).clear();
+verify(mockedList, atMost(10)).clear();
+</div>
+
+<h3>Verificar la interacción con un argumento concreto</h3>
+
+<div class="codigo-fuente">
+List&lt;String> mockedList = mock(MyList.class);
+mockedList.add("test");
+verify(mockedList).add("test");
+</div>
+
+<h3>Verficar la interacción con argumentos indeterminados</h3>
+
+<div class="codigo-fuente">
+List&lt;String> mockedList = mock(MyList.class);
+mockedList.add("test");
+verify(mockedList).add(anyString());
+</div>
+
+<p class="nivel3">Para comprobar argumentos indeterminados se puede usar cualquier clase del paquete <code>org.mockito.ArgumentMatchers</code> (como <code>anyInt()</code> o <code>any(MiClase.class)</code>) o bien nuestro propio <code>ArgumentMatcher</code></p>
+
+<div class="actividad">
+<p class="nivel1"><strong>Actividad 6.</strong> Descarga el código fuente en <a href="junit/ActividadMockVerificaciones.zip">ActividadMockVerificaciones</a>. En dicho código hay varias clases:</p>
+<ul>
+    <li><strong>Persona</strong>: describe los datos de una persona (nombre y DNI)</li>
+    <li><strong>Vehiculo</strong>: describe los datos de un vehículo (matrícula y DNI del propietario</li>
+    <li><strong>TraficoDAO</strong>: interactúa con una base de datos. Contiene dos métodos</li>
+    <ul>
+        <li><strong>getVehiculoByMatricula</strong>: devuelve un objeto <code>Vehiculo</code> a partir de su matrícula</li>
+        <li><string>getPropietarioByDNI</string>: devuelve un objeto <code>Persona</code> a partir de su DNI</li>
+    </ul>
+    <li><strong>ControlVehiculos</strong>: contiene operaciones de tráfico habituales. Contiene el método <code>getPropietarioVehiculo</code> que devuelve un objeto <code>Persona</code> a partir de la matrícula de un vehículo. Su constructor toma como parámetro un objeto de tipo <code>TraficoDAO</code>.</li>
+</ul>
+<p class="nivel1">Actualmente la clase <code>TraficoDAO</code> sólo devuelve <code>null</code>. Queremos comprobar que el método <code>getPropietarioVehiculo</code> funciona correctamente. Para ello vamos a usar los siguientes datos:</p>
+
+<div class="aclaracion">
+    <p class="nivel2">Vehículo con matrícula 1234ABC y propietario con DNI 12345678A.</p>
+    <p class="nivel2">Persona con DNI 12345678A y se llama José Pérez.</p>
+</div>
+
+<p class="nivel1">Queremos hacer las siguientes comprobaciones cuando ejecutamos el método <code>getPropietarioVehiculo</code> de la clase <code>ControlVehiculos</code></p>
+<ul>
+    <li>En primer lugar se ejecuta el método <code>getVehiculoByMatricula("1234ABC")</code> del objeto de tipo <code>TraficoDAO</code> en <code>ControlVehiculos</code></li>
+    <li>En segundo lugar se ejecuta <code>getPropietarioByDNI("12345678A")</code> del objeto de tipo <code>TraficoDAO</code> en <code>ControlVehiculos</code></li>
+    <li>Después no se producen más interaciones con el objeto de tipo <code>TraficoDAO</code> en <code>ControlVehiculos</code></li>
+    <li>El objeto devuelto por <code>getVehiculoByMatricula</code> es el esperado.</li>
+</ul>
+</div>
+
+<h2 id="espias">Espías</h2>
+
+<p class="nivel2">El último tipo de doble que vamos a ver son los espías. Al igual que con <code>mock</code> se puede redefinir el comportamiento de los métodos de una clase, pero <strong>manteniendo el comportamiento de la clase de los métodos que no sean modificados</strong>. Vamos a ver un ejemplo:</p>
+
+<div class="codigo-fuente">
+    import java.util.ArrayList;
+    import java.util.List;
+     
+    public class Empleado {
+        private String nombre;
+        private String apellido;
+        private int edad;
+     
+        public Empleado(String nombre, String apellido, int edad) {
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.edad = edad;
+        }
+     
+        public int getEdad() {
+            return edad;
+        }
+     
+        public String getNombreCompleto() {
+            return getNombre() + " " + getApellido();
+        }
+     
+        public String getApellido() {
+            return apellido;
+        }
+     
+        public String getNombre() {
+            return nombre;
+        }   
+         
+        public void setEdad(int edad) {
+            this.edad = edad;
+        }
+    }
+</div>
+
+<p class="nivel2">Podemos crear un espía usando el método estático <code>spy</code> de la clase <code>Mockito</code> del siguiente modo:</p>
+
+<div class="codigo-fuente">
+    Empleado empleado = new Empleado(NOMBRE_EMPLEADO,APELLIDO_EMPLEADO,EDAD_EMPLEADO);
+    Empleado espiaEmpleado = <span style="color:white">spy(empleado);</span>
+</div>
+
+<p class="nivel2">Al hacerlo, <code>espiaEmpleado</code> contiene una copia (no una referencia) del objeto original <code>empleado</code>, de forma que cuando trabajamos sobre los métodos del objeto espía, el estado del objeto original se mantiene inalterado. Del mismo modo, al interactuar con el objeto original, el espía no es modificado.</p>
+
+<p class="nivel2">El siguiente ejemplo muestra el comportamiento de un espía:</p>
+
+<div class="codigo-fuente">
+    public class EmpleadoTest {
+        private Empleado empleado;
+        private Empleado espia;
+    
+        @Before
+        public void setUp(){
+            empleado = new Empleado("José","Pérez",33);
+            espia = spy(empleado);
+        }
+
+        @Test
+        public void <span style="color:white">unEspiaManieneUnaCopiaNoUnaReferenciaAlObjetoOriginal</span>(){
+            when(espia.getApellido()).thenReturn("González");
+            
+            assertNotEquals(espia.getApellido(),empleado.getApellido());
+            assertEquals("Pérez",empleado.getApellido());
+            assertEquals("González",espia.getApellido());
+        }
+        
+        @Test
+        public void <span style="color:white">unEspiaMantieneElComportamientoPorDefectoDeLaClaseOriginal</span>(){
+            assertEquals(espia.getNombre(),empleado.getNombre());
+            assertEquals(espia.getApellido(),empleado.getApellido());
+            assertEquals(espia.getEdad(),empleado.getEdad());
+        }
+    }
+</div>
+
+<p class="nivel2">Sobre un espía se pueden aplicar las mismas verificaciones que sobre un <code>mock</code> explicadas en el apartado anterior.</p>
+
+<h2 id="do-when">doReturn-When y doThrow-When</h2>
+
+<p class="nivel2">La sentencia <code>doReturn(...).when(...).methodCall</code> es similar a <code>when(...).thenReturn(...)</code>, aunque tiene un comportamiento diferente. A diferencia de <code>thenReturn</code>, el parámetro de <code>doReturn</code> es un <code>Object</code>, por lo que no hay comprobación de tipos en tiempo de compilación. Esto no es una ventaja, ya que si el tipo devuelto por <code>doReturn</code> no es el esperado, obtendremos una excepción <code>WrongTypeOfReturnValue</code>. En general es preferible usar una sentencia <code>when(...).thenReturn(...)</code> si es posible.</p>
+
+<p class="nivel2">La ventaja de <code>doReturn(...).when(...)</code> es que no tiene efectos laterales. Veamos un ejemplo: Supongamos que añadimos un par de métodos nuevos a la clase <code>Empleado</code> relacionados con sus habilidades:</p>
+
+<div class="codigo-fuente">
+import java.util.ArrayList;
+import java.util.List;
+ 
+public class Empleado {
+    private String nombre;
+    private String apellido;
+    private int edad;
+    private List habilidades;
+
+ 
+    public Empleado(String nombre, String apellido, int edad) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.edad = edad;
+    }
+ 
+    public int getEdad() {
+        return edad;
+    }
+ 
+    public String getNombreCompleto() {
+        return getNombre() + " " + getApellido();
+    }
+ 
+    public String getApellido() {
+        return apellido;
+    }
+ 
+    public String getNombre() {
+        return nombre;
+    }   
+     
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+    
+    public String getHabilidad(int index) {
+        return habilidades.get(index);
+    }
+     
+    public void addHabilidades(String habilidad1, String habilidad2, String habilidad3) {
+        if (habilidades == null) {
+            habilidades = new ArrayList(3);
+        }
+        habilidades.add(0, habilidad1);
+        habilidades.add(1, habilidad2);
+        habilidades.add(2, habilidad3);
+    }
+}
+</div>
+
+<p class="nivel2">Supongamos que queremos que el espía devuelva "ESPIAR" cuando se llama a <code>getHabilidad(0)</code>. Si se utiliza <code>when()</code> obtendremos un <code>NullPointerException</code>:</p>
+
+<div class="codigo-fuente">
+when(spyEmp.getHabilidad(0)).thenReturn("SPY");
+</div>
+
+<p class="nivel2">Esto ocurre porque dentro de <code>when</code> se ejecuta el método <code>getSkill(0)</code>, cosa que no queríamos que ocurriera. Simplemente queríamos decir que si se ejecutaba <code>getSkill(0)</code> se devuelva "SPY", no que se ejecutara. En este punto, <code>doReturn</code> es la solución:</p>
+
+<div class="codigo-fuente">
+doReturn("SPY").when(spyEmp).getHabilidad(0);
+</div>
+
+<p class="nivel2">De este modo, evitamos que se ejecute el método <code>getHabilidad(0)</code> sobre el objeto <code>Empleado</code>. Veamos un ejemplo:</p>
+
+<div class="codigo-fuente">
+package com.javacodegeeks.mockito;
+ 
+import static org.mockito.Mockito.*;
+import static org.testng.Assert.*;
+ 
+import org.mockito.InOrder;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+ 
+public class MockitoSpyExample {
+    private Employee spyEmp;
+    private Employee emp;
+    private static final String FIRST_NAME = "Joe";
+    private static final String LAST_NAME = "M";
+    private static final int AGE = 35;
+     
+    @Before
+    public void setUp() throws Exception {
+        emp = new Empleado(NOMBRE, APELLIDO, EDAD);
+        spyEmp = spy(emp);
+    }
+     
+    // ... 
+    
+    @Test
+    public void spyHabilidadesUsandoWhenThenReturn() {
+        when(spyEmp.getSkill(0)).thenReturn("SPY"); 
+        // Esto no funcionará porque se ejecuta spyEmp.getSkill(0) (que no tiene valor)
+        
+        assertEquals("SPY", spyEmp.getSkill(0));
+    }
+     
+    @Test
+    public void spyHabilidadesUsandoDoWhen() {
+        doReturn("SPY").when(spyEmp).getSkill(0); // Esto sí funcionará
+        assertEquals("SPY", spyEmp.getSkill(0));
+    }
+}
+</div>
+
+<p class="nivel2">Otro ejemplo acerca de la utilidad de *doReturn* puede ser el siguiente:</p>
+
+<div class="codigo-fuente">
+@Test
+public void testLinkedListSpyWrong() {
+    // Creamos un doble de una LinkedList
+    List&lt;String> list = new LinkedList&lt;>();
+    List&lt;String> spy = spy(list);
+
+    // Esto no funciona
+    // El método llamado es real, por lo que se llama a spy.get(0)
+    // que genera IndexOutOfBoundsException (la lista está vacía)
+    when(spy.get(0)).thenReturn("foo");
+
+    assertEquals("foo", spy.get(0));
+}
+
+@Test
+public void testLinkedListSpyCorrect() {
+    // Lets mock a LinkedList
+    List&lt;String> list = new LinkedList&lt;>();
+    List&lt;String> spy = spy(list);
+
+    // Es necesario utilizar doReturn para que no se genere la execepción.
+    doReturn("foo").when(spy).get(0);
+
+    assertEquals("foo", spy.get(0));
+}
+</div>
+
+<div class="actividad">
+    <p class="nivel1"><strong>Actividad 7</strong>. Observa el siguiente test, y explica por qué puede fallar:</p>
+
+    <div class="codigo-fuente">
+    @Test
+    public void esteTestTieneUnProblema(){
+        Temperaturas temperaturas = new Temperaturas();
+        Temperaturas espiaTemperaturas = spy(temperaturas);
+        when(espiaTemperaturas.diferenciaMaxima()).thenReturn(30);
+        assertEquals(30,espiaTemperaturas.diferenciaMaxima());
+    }
+    </div>
+
+    <p class="nivel1">Donde la clase <code>Temperaturas</code> es como sigue:</p>
+
+    <div class="codigo-fuente">
+        public class Temperaturas {
+            ArrayList&lt;Integer> registro;
+        
+            public Temperaturas(){
+                registro = new ArrayList&lt;>();
+            }
+        
+            public void addTemperatura(int temperatura){
+                registro.add(temperatura);
+            }
+        
+            public int diferenciaMaxima(){
+                ArrayList&lt;Integer> clon = (ArrayList&lt;Integer>) registro.clone();
+                Collections.sort(clon);
+                return Math.abs(clon.get(0) - clon.get(clon.size()-1));
+            }
+        }
+    </div>
+
+    <p class="nivel1">¿Cómo podría solucionarse?</p>
+</div>
+<br><br><br>
+</div>
+</div>
+
+</body>
+</html>
+
+

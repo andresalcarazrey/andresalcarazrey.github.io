@@ -1,0 +1,553 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES">
+<head>
+<meta name="description" content="Página con contenidos educativos de informática. Existen materiales a diferentes niveles, como Enseñanza Secundaria Obligatoria (ESO) o el Ciclo de Grado Superior de Administración de Sistemas en Red (ASIR)."/>
+<meta name="google-site-verification" content="YA0qPqDBJQy4kdb-xT8UJV20oAwqD3fd-e5xmB-yWJA" />
+<meta http-equiv="Content-Type" content="text/html; charset="utf-8" />
+
+
+<meta name="description" content="Página con contenidos educativos de informática. Existen materiales a diferentes niveles, como Enseñanza Secundaria Obligatoria (ESO) o el Ciclo de Grado Superior de Administración de Sistemas en Red (ASIR)."/>
+<meta name="google-site-verification" content="YA0qPqDBJQy4kdb-xT8UJV20oAwqD3fd-e5xmB-yWJA" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>GitHub</title>
+
+
+<link rel="stylesheet" type="text/css" media="screen" href="../articulo3.css"/>
+</head>
+<body>
+
+
+<div id="contenedor">
+<div id="caja-articulo">
+
+<h1>GitHub</h1>
+
+<p class="nivel1">GitHub es un servicio de hosting para <code>git</code>. Está pensado para el trabajo colaborativo entre varios programadores.</p>
+
+<h1>Clonar un repositorio</h1>
+
+<p class="nivel1">Para clonar un repositorio nos basta con conocer su url. Por ejemplo, imaginemos que queremos descargar el proyecto <a href="https://github.com/chef/chef.git">https://github.com/chef/chef.git</a>. En tal caso, solo es necesario que hagamos lo siguiente:</p>
+
+<div class="codigo-fuente">
+git clone https://github.com/chef/chef.git
+</div>
+
+<h1>Crear una cuenta en GitHub</h1>
+
+<p class="nivel1">Necesitamos crearnos una cuenta en GitHub. Crear una cuenta en GitHub no tiene nada de particular. Especificamos nuestro correo electrónico y una contraseña.</p>
+
+<p class="nivel1">Además, necesitamos al menos un repositorio donde subir nuestras fuentes.</p>
+
+<p class="nivel1">Para subir el proyecto solo tenemos que hacer lo siguiente, para compartirlo con el resto del equipo:</p>
+
+<div class="codigo-fuente">
+git remote add origin git@github.com:fulanito/repositorio
+</div>
+
+<h1>Crear un nuevo repositorio</h1>
+
+<p class="nivel1">Para crear un nuevo repositorio, podemos seguir la ayuda de GitHub en <a href="https://help.github.com/articles/create-a-repo/">https://help.github.com/articles/create-a-repo/</a>. Sólo hay un punto que aclarar, que es la opción "Intialize this repository with a README".</p>
+
+<p class="nivel1">Tenemos dos maneras de crear un nuevo repositorio:</p>
+<ul>
+<li>Opción 1: Crear primero un nuevo repositorio en GitHub, seleccionando la opción "Initialize this repository with a README". Una vez creado, clonamos localmente el repositorio, añadimos los nuevos archivos y lo volvemos a subir.</li>
+<li>Opción 2: Crear un repositorio en GitHub, y NO seleccionar la opción "Initialize this repository with a README", lo que creará un repositorio vacío en GitHub. Inicializamos nuestro proyecto localmente como un repositorio Git, y después los subimos a GitHub.</li>
+</ul>
+<p class="nivel1">Según ya tengamos un repositorio creado localmente o no, marcaremos la opción "Initialize this repository with a README". En nuestro caso, no vamos a marcarla, puesto que tenemos ya un repositorio creado localmente.</p>
+
+<p class="nivel1">Una vez que creamos el repositorio, GitHub nos ofrece ayuda sobre qué hacer. En nuestro caso, vamos a suponer que ya tenemos hecho al menos un "commit" en nuestro respositorio local. Así que para subir a GitHub nuestro repositorio, hacemos lo siguiente:</p>
+
+<div class="codigo-fuente">
+$ git remote add origin git@github.com:<span style="color:white">cuenta_usuario/repositorio.git</span>
+$ git push origin master
+</div>
+
+<p class="nivel1">Después de hacer esto, podremos ver algo como lo siguiente (si todo ha ido bien):</p>
+
+<div class="codigo-fuente">
+Counting objects: 15, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (11/11), done.
+Writing objects: 100% (15/15), 2.15 KiB | 0 bytes/s, done.
+Total 15 (delta 3), reused 0 (delta 0)
+To git@github.com:cuenta_usuario/repositorio.git
+ * [new branch]      master -> master
+Branch master set up to track remote branch master from origin.
+</div>
+
+<p class="nivel1">De hecho ya podemos ver nuestros archivos en el repositorio.</p>
+
+<div class="aclaracion">
+<p class="nivel1"><code>origin</code> es similar a <code>master</code>, pero refiriéndolos al repositorio remoto. De este modo, podemos hablar de la rama <code>origin/master</code> para referirnos al último commit del repositorio remoto que tenemos en nuestro repositorio local. Por ejemplo, en el siguiente código podemos ver un repositorio en el que la rama <code>master</code> tiene ciertos cambios que <code>origin/master</code> no.</p>
+
+<div class="codigo-fuente">
+$ git log --oneline --decorate --graph --all
+* cd78ae4 (HEAD, master) Añadiendo el archivo TODO
+* f763def (origin/master, origin/HEAD) Initial commit
+</div>
+</div>
+
+<h1>Comprobar nuestros repositorios remotos</h1>
+
+<p class="nivel1">Para poder ver qué repositorios remotos tenemos configurados, podemos ejecutar el siguiente comando:</p>
+
+<div class="codigo-fuente">
+git remote -v
+</div>
+
+<h1>Confirmando las ramas de nuestro repositorio</h1>
+
+<p class="nivel1">Supongamos que tras clonar nuestro repositorio remoto, hemos hecho algunas modificaciones localmente. También vamos a suponer quen nadie ha modificado nada en el repositorio remoto. Ahora queremos subir los nuevos cambios. En este momento tenemos lo siguiente:</p>
+
+<ul>
+<li>En el repositorio remoto, la rama master sigue en el sitio donde lo descargamos</li>
+<li>En el repositorio local, la rama origin/master sigue apuntando al commit descargada.</li>
+<li>En el repositorio local, la rama master apunta al último commit realizado localmente</li>
+</ul>
+
+<p class="nivel1">Para subir los nuevos cambios al repositorio remoto, haremos los siguiente:</p>
+
+<div class="codigo-fuente">
+$ git push origin nombre_rama
+</div>
+
+<p class="nivel1">Supongamos que el árbol de nuestro repositorio y su contenido es el siguiente:</p>
+
+<div class="codigo-fuente">
+$ git log -p --decorate
+commit cd78ae4904c0302d4a8253e5b0d869c8f93a4da8 <span style="color:white">(HEAD, master)</span>
+Author: Mauricio Matamala &lt;mauriciomatamala@hotmail.com>
+Date:   Wed Jan 13 14:11:23 2016 +0100
+
+    Añadiendo el archivo TODO
+
+diff --git a/TODO b/TODO
+new file mode 100644
+index 0000000..359a564
+--- /dev/null
++++ b/TODO
+@@ -0,0 +1,4 @@
++Actividades que quedan por hacer
++================================
++
++1. Actividad 1.
+
+commit f763deff8c5e4863467cf863ef35bf027f126069 <span style="color:white">(origin/master, origin/HEAD)</span>
+Author: mmatpein &lt;mmatpein@users.noreply.github.com>
+Date:   Tue Jan 12 18:57:11 2016 +0100
+
+    Initial commit
+
+diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..ddc9403
+--- /dev/null
++++ b/README.md
+@@ -0,0 +1 @@
++# clase_github
+</div>
+
+<p class="nivel1">Ahora supongamos que quiero hacer una propuesta de una idea en una rama nueva, para que el resto de componentes del equipo puedan verla. Para ello, creo primero una nueva rama.</p>
+
+<div class="codigo-fuente">
+$ git branch idea_feliz
+$ git checkout idea_feliz
+</div>
+
+<p class="nivel1">Hago las modificaciones precisas, y luego subo la nueva rama.</p>
+
+<div class="codigo-fuente">
+$ git push git@github.com:mmatpein/clase_github.git idea_feliz
+</div>
+
+<p class="nivel1">Si compruebo el estado del repositorio en GitHub, podré ver que hay una nueva rama llamada "idea_feliz"</p>
+
+<h1>Actualizaciones de colaboradores en el repositorio</h1>
+
+<p class="nivel1">Supongamos un usuario colaborador descarga nuestro repositorio, realiza una modificación en la rama "master" y vuelve a subir el repositorio a GitHub. De forma que nosotros queremos actualizar la rama "origin/master". Entonces usaremos el siguiente comando:</p>
+
+
+<div class="codigo-fuente">
+$ git fecth origin
+</div>
+
+<p class="nivel1">Con este comando obtenemos la rama "origin/master" así como el resto de ramas del repositorio. Pero "origin/master" todavía no coincide con "master". Para que esta rama sea también nuestra rama "master", tendremos que fusionar:</p>
+
+<div class="codigo-fuente">
+$ git merge origin/master
+</div>
+
+<p class="nivel1">En este momento nuestro repositorio "master" ya coincide con "origin/master"</p>
+
+<div class="aclaracion">
+<p class="nivel1">El comando <code>git pull origin</code> es una forma abreviada de hacer:</p>
+
+<div class="codigo-fuente">
+$ git fetch origin
+$ git merge origin
+</div>
+</div>
+
+<h1>Fusionando ramas en github</h1>
+
+<p class="nivel1">Supongamos que tenemos la rama "idea_feliz" sin fusionar en GitHub. Hemos hablado y estamos de acuerdo en que podemos fusionarla con la rama "master". Si queremos fusionar estas dos ramas, podemos hacerlo desde GitHub, o bien utilizando Git en nuestro repositorio local y luego subiendo los cambios. Los pasos a seguir son:</p>
+
+<p class="nivel1">Paso 0: Asegurarnos de que tenemos la última versión de origin</p>
+<div class="codigo-fuente">
+$ git fetch origin
+$ git merge origin
+</div>
+
+<p class="nivel1">Paso 1: Fusionar la rama "idea_feliz" con "master".</p>
+<div class="codigo-fuente">
+$ git checkout master
+$ git merge idea_feliz
+</div>
+
+<p class="nivel1">Paso 2: Subir los cambios</p>
+
+<div class="codigo-fuente">
+$ git push origin master
+</div>
+
+<p class="nivel1">Hecho esto, podremos ver en GitHub cómo se han fusionado los cambios, indicando la etiqueta "Merged" en la rama "idea_feliz".</p>
+
+<h1>Flujo de trabajo en proyectos con GitHub</h1>
+
+
+
+<p class="nivel1">En Git (y en GitHub) existe mucha libertad en la forma de trabajar. Por eso mismo, cuando el trabajo es entre varias personas, es necesario ponerse de acuerdo en cómo se va a utilizar. A estos acuerdos es a lo que llamamos <code>workflow</code>.</p>
+
+<p class="nivel1">Existe más de un workflow, aunque los más aceptados son <code>git-flow</code> y <code>github-flow</code>. </p>
+
+<h2>Git-Flow</h2>
+
+<p class="nivel2">Podemos consultar sobre GitFlow en <a href="http://nvie.com/posts/a-successful-git-branching-model/">http://nvie.com/posts/a-successful-git-branching-model/</a>. A grandes rasgos, el workflow propuesto por Vincent Driessen dice lo siguiente:</p>
+<ul>
+<li>Cada desarrollador descarga y sube confirmaciones a un repositorio "origin", pero detrás de este modelo centralizado, se pueden formar subequipos que trabajen sobre ciertas ramas concretas, dejando a un lado las otras.</li>
+<li>Las ramas principales son <code>master</code> y <code>develop</code>.</li>
+	<ul>
+	<li>origin/master contiene solamente versiones estables.</li>
+	<li>origin/develop contiene versiones con los últimos cambios añadidos. De esta rama saldrán las versiones estables. Cuando el código en esta rama alcanza un punto estable que puede ser liberada, llega el momento de fusionar con la rama origin/master y etiquetado correctamente.</li>
+	</ul>
+<p class="nota-nivel1">La rama master contiene únicamente versiones de producción, ya que solo se fusiona con origin/develop cuando el commit se hace para una versión estable.</p>
+<li>Las ramas adicionales tiene tiempos de vida limitados, y su objetivo será hacer cosas como desarrollo coordinado entre varios miembros del equipo, fácil seguimiento del desarrollo de características concretas, preparar versiones de producción, solución rápida a problemas del software de producción, etc. Diferenciamos entre los siguientes tipos de ramas:</li>
+	<ul>
+	<li><code>Ramas feature</code>: derivan de la rama <code>develop</code> y se vuelven a fusionar con ella. Tienen nombres del tipo <code>feature-nombre_de_la_caracerística</code>. Estas ramas suelen existir únicamente en el repositorio del programador.</li>
+	<li><code>Ramas release</code>: derivan de la rama <code>develop</code> y se fusiona con <code>develop</code> o con <code>master</code>. Tienen nombres del tipo <code>release-nombre_de_la_versión</code>. Esta rama se utiliza para  preparar un versión de producción. Se crean cuando la rama <code>develop</code> está CASI a punto. Permiten hacer cosas como:</li>
+		<ul>
+		<li>Ultimar detalles de última hora</li>
+		<li>Resolver bugs menores</li>
+		<li>Asignar números de versión. Hasta este momento la rama <code>release</code> no deja claro si estamos hablando de la versión 0.3 o la versión 1.0.</li>
+		</ul>
+	<li><code>Ramas hotfix</code>: derivan de la rama <code>master</code> y se fusionan con <code>develop</code> o con <code>master</code>. Tienen nombres como <code>hotfix-nombre_de_la_revisión</code>. Este tipo de ramas se crean cuando hay un problema crítico que hay que resolver inmediatamente en una versión de producción. Se crea la rama para este problema crítico, mientras el resto del equipo sigue trabajando por otro lado. Cuando se cierra una rama <code>hotfix</code> es importante <strong>fusionar con la rama <code>master</code> y con la rama <code>develop</code></strong> para que la siguiente versión de desarrollo incluya esta revisión (si no, volveríamos en el futuro a tener el mismo problema crítico al liberar la versión de desarrollo).</li>
+	<p class="nota-nivel1">Es importante recordar que cuando está abierta una rama <code>release</code>, la rama <code>hotfix</code> debe ser fusionada con la rama <code>release</code>.</p>
+	</ul>
+</ul>
+
+<h2>GitHub flow</h2>
+
+<p class="nivel1">El modelo propuesto por GitHut para GitHub puede consultarse en <a href="https://guides.github.com/introduction/flow/">https://guides.github.com/introduction/flow/</a>. A grandes rasgos, propone lo siguiente:</p>
+
+<ul>
+<li>Cualquier cosa en la rama <code>master</code> es siempre desplegable en producción. Por eso, las ramas de trabajo deben derivarse de ésta.</li>
+<li>Cuando se crea una nueva rama, avanzar por ella creando nuevos commits. Es importante cuidar los "commit messages", para que los demás sepan qué estamos haciendo.</li>
+<li>Crear un <code>pull request</code> cuando queramos recibir feedback del resto del equipo. Lo podemos hacer en cualquier momento durante la existencia de la rama.</li>
+<li>Una vez que se ha creado el <code>pull request</code>, podemos seguir creando commits conforme la conversación va avanzando.</li>
+<li>Cuando el <code>pull request</code> ha dado lugar a un commit que pasa todos nuestros tests, podemos desplegar los cambios para comprobarlos en producción. Si la rama crea problemas, siempre podemos volver a desplegar la rama <code>master</code></li>
+<li>Una vez que hemos visto que el commit de nuestra rama es estable (ya que no ha dado problemas en producción), podemos fusionar con la rama master. Cada pull request conserva un histórico que permite entender que se hizo en su momento.</li>
+</ul>
+
+<div class="actividad">
+<p class="nivel1">Actividad 1. Crea un grupo con otras dos personas. Uno de vosotros gestionará la rama <code>develop</code>, <code>release</code> y <code>master</code></p>
+	<p class="nivel1">Cada componente creará una nueva rama "feature", donde creará varios commits con cambios sencillos (como añadir un nuevo archivo, por ejemplo).</p>
+	<p class="nivel1">Cada componente creará un <code>pull request</code> una vez que su rama "feature" esté lista para fusionar con la rama <code>develop</code></p>
+	<p class="nivel2">El responsable de las ramas <code>develop</code>, <code>release</code> y <code>master</code> realizará las fusiones de las ramas "feature" con la rama <code>develop</code></p>
+	<p class="nivel2">Una vez que la rama <code>develop</code> se haya fusionado con las diferentes rama "feature", deberá aplicarse el flujo de trabajo <code>git-flow</code>, de forma que se utilizarán las ramas <code>release</code> y <code>master</code> para liberar la primera versión (v0.0) del proyecto.</p>
+
+	<div class="aclaracion">
+		<p class="nivel1">En la rama release añade cualquier cambio menor, simulando cambios de última hora.</p>
+	</div>
+
+	<div class="entrega">
+		<p class="nivel1">El objetivo de este ejercicio es poder ver que los diferentes repositorios locales contienen información coherente con lo que contiene el repositorio en GitHub. Entrega la actividad en un archivo llamado Act1-github.zip, donde se debe incluir lo siguiente:</p>
+		<ul>
+			<li>Un archivo de texto con el nombre del repositorio.</li>
+			<li>Una captura llamada <code>&lt;nombre_repositorio>_grafo.png</code> con el resultado de ejecutar el comando <code>git log --graph --all --oneline --decorate</code> en tu repositorio local una vez que hayas terminado el ejercicio</li>
+			<li>La misma captura obtenida por tus otros compañeros.</li>
+		</ul>
+	</div>
+</div>
+
+<div class="actividad">
+	<p class="nivel1">Actividad 2. Continua con el ejercicio anterior. Cada componente debe crear un parche de seguridad (hacer algún cambio sobre uno de los archivos) y seguir el modelo de GitFlow propuesto. Se debe partir de la última versión de master, y crear una nueva versión a cada corrección.</p>
+</div>
+<!--
+<h1>Trabajando con forks</h1>
+
+<p class="nivel1">Otra forma de trabajar en equipo con git y con GitHub es usando forks. La palabra fork se traduce al castellano, dentro del contexto que nos ocupa, como bifurcación. Cuando hacemos un fork de un repositorio, se hace una copia exacta en crudo (en inglés “bare”) del repositorio original que podemos utilizar como un repositorio git cualquiera. Después de hacer fork tendremos dos repositorios git idénticos pero con distinta URL. Justo después de hacer el fork, estos dos repositorios tienen exactamente la misma historia, son una copia idéntica. Finalizado el proceso, tendremos dos repositorios independientes que pueden cada uno evolucionar de forma totalmente autónoma. De hecho, los cambios que se hacen el repositorio original NO se transmiten automáticamente a la copia (fork). Esto tampoco ocurre a la inversa: las modificaciones que se hagan en la copia (fork) NO se transmiten automáticamente al repositorio original.</p>
+
+<p class="nivel1">La ventaja de usar forks es que se puede contribuir a un proyecto de forma segura. Cada repositorio es independiente y solo se incluirá una nueva característica a través de un <code>pull request</code></p>
+
+<h2>Creando el fork</h2>
+
+<p class="nivel2">Suponiendo que <code>mmatpein</code> ha creado ya el repositorio <code>aprendiendofork</code>, <code>karelrubi</code> busca el repositorio.</p>
+
+<figure>
+	<img src="../ED/git/karelrubi-busca-repo.png"/>
+	<figcaption>
+		Karelrubi busca el repositorio para crear una bifurcación.
+	</figcaption>
+</figure>
+
+<p class="nivel2">Una vez que ha encontrado el repositorio, crea un fork, presionando el botón <code>fork</code></p>
+
+<figure>
+	<img src="../ED/git/karelrubi-crea-fork.png"/>
+	<figcaption>
+		Karelrubi crea un fork del proyecto <code>aprendiendofork</code>
+	</figcaption>
+</figure>
+
+<p class="nivel2">Al crear el fork, karelrubi ya puede ver el repositorio en su cuenta de GitHub</p>
+
+<figure>
+	<img src="../ED/git/karelrubi-fork-aprendiendoforks.png"/>
+	<figcaption>
+		Karelrubi tiene su propio proyecto <code>karelrubi/aprendiendoforks</code>, que es un fork del proyecto <code>mmatpein/aprendiendoforks</code>
+	</figcaption>
+</figure>
+
+<h2>mmatpein trabaja en su proyecto</h2>
+
+<p class="nivel2">Por ejemplo, supongamos que mmatpein realiza las siguientes tareas:</p>
+
+<ul>
+	<li>Crea una rama <code>develop</code></li>
+	<li>Crea un rama <code>feature_m1</code></li>
+	<li>Añade varios commits a la rama <code>feature_m1</code></li>
+	<li>Fusiona la rama <code>feature_m1</code> con la rama <code>develop</code></li>
+</ul>
+
+<div class="aclaracion">
+	<p class="nivel1"><code>mmatpein</code> lleva a cabo todos estos cambios en su repositorio local.</p>
+</div>
+
+<p class="nivel2"><code>mmatpein</code> puede ver lo siguiente al ejecutar el comando <code>git log --all --oneline --decorate --graph</code></p>
+
+<figure>
+	<img src="../ED/git/mmatpein-feature_m1-aprendiendofork.png"/>
+	<figcaption>
+		<code>mmatpein</code> ha hecho cambios sobre su repositorio local.
+	</figcaption>
+</figure>
+
+<p class="nivel2">Después de esto, sincroniza su repositorio local con GitHub con los comandos siguientes:</p>
+
+<div class="codigo-fuente">
+$ git fetch origin
+$ git merge origin
+$ git push origin feature_m1
+$ git push origin develop
+</div>
+
+<p class="nivel2">Lo que <code>mmatpein</code> puede ver es lo siguiente:</p>
+
+<figure>
+	<img src="../ED/git/mmatpein-aprendiendoforks-tras-push-feature_m1.png"/>
+	<figcaption>
+		mmatpein puede ver el repositorio al día, con las distintas ramas sincronizadas con el repositorio.
+	</figcaption>
+</figure>
+
+<h2>karelrubi trabaja en el fork</h2>
+
+<p class="nivel2">Por su parte <code>karelrubi</code> realiza las siguientes acciones sobre su repositorio:</p>
+
+<ul>
+	<li>karelrubi crea una nueva rama llamada <code>feature_k1</code></li>
+	<li>Añade algunos commits a la rama</li>
+</ul>
+
+<p class="nivel2">La imagen que <code>karelrubi</code> tiene de su fork es la siguiente:</p>
+
+<figure>
+	<img src="../ED/git/karelrubi_freature_k1_aprendiendoforks.png"/>
+	<figcaption>
+		Lo que <code>karelrubi</code> ve del fork es muy diferente a lo que <code>mmatpein</code> ve del proyecto original
+	</figcaption>
+</figure>
+
+<h2>Añadir un repositorio remoto</h2>
+
+<p class="nivel2">Al ejecutar el comando <code>git remote -v</code>, karelrubi solamente ve un repositorio remoto. Con el comando <code>git remote add upstream https://github.com/mmatpein/aprendiendoforks.git</code> añade el repositorio original con el nombre <code>upstream</code></p>
+
+<figure>
+	<img src="../ED/git/karelrubi-remote-add-upstream.png"/>
+	<figcaption>
+		karelrubi añade el repositorio original como repositorio remoto.
+	</figcaption>
+</figure>
+
+<h2>Crear un pull request</h2>
+
+<p class="nivel2"><code>karelrubi</code> ya tiene lista su rama <code>feature_k1</code> y desea incorporarla al proyecto principal. Para ello, en primer lugar debe actualizar los cambios que se han producido en el repositorio <code>upstream</code> (que es el nombre que le hemos dado a repositorio principal).</p>
+
+<p class="nivel2">Los pasos que va a dar son:</p>
+<ol>
+	<li>descargar los cambios desde <code>upstream</code></li>
+	<li>fusionar con <code>upstream</code> para que las ramas locales y remotas coincidan</li>
+	<li>actualizar el repositorio del fork</li>
+	<li>crear un <code>pull request</code> sobre la rama develop</li>
+</ol>
+
+<figure>
+	<img src="../ED/git/karelrubi_pull_upstream.png"/>
+	<figcaption>
+		karelrubi actualiza los cambios hechos en el repositorio <code>upstream</code>. Se puede ver como queda el grafo del repositorio tras hacer esto.
+	</figcaption>
+</figure>
+
+<figure>
+	<img src="../ED/git/karelrubi_sincroniza_repolocal_con_fork.png"/>
+	<figcaption>
+		Karelrubi sincroniza su repositorio local con su repositorio remoto (fork).
+	</figcaption>
+</figure>
+
+<p class="nivel2">Ahora, <code>karelrubi</code> quiere que su rama <code>feature_k1</code> se integre con la rama <code>develop</code> del proyecto principal. Para ello, hace un <code>pull request</code>.</p>
+<figure>
+	<img src="../ED/git/karelrubi_hace_pull_request.png"/>
+	<figcaption>
+		Para hacer un <code>pull request</code> hay que hacer clic sobre el botón <code>New pull request</code>
+	</figcaption>
+</figure>
+
+<p class="nivel2">Tras solicitar el nuevo <code>pull request</code> karelrubi tiene que indicar sobre qué rama quiere fusionar la rama <code>feature_k1</code></p>
+
+<figure>
+	<img src="../ED/git/karelrubi_configurando_pull_request.png"/>
+	<figcaption>
+		karelrubi indica el repositorio base (mmatpein/aprendiendoforks), la rama donde se desea fusionar (develop), el repositorio del fork (karelrubi/aprendiendoforks) y por último la rama que deseamos fusionar (feature_k1)
+	</figcaption>
+</figure>
+
+<h2>mmatpein gestiona el pull request</h2>
+
+<p class="nivel2">Después de que <code>karelrubi</code> haya creado el <code>pull request</code>, mmatpein puede verlo.</p>
+
+<figure>
+	<img src="../ED/git/mmatpein_ve_pullrequest.png"/>
+	<figcaption>
+		mmatpein ve el nuevo pull request
+	</figcaption>
+</figure>
+
+<p class="nivel2">Podría comenzar una conversáción sobre el contenido de la rama <code>feature_k1</code>, que incluyese algunos commits más. Cuando todo estuviese listo, mmatpein ya podría fusionar con la rama develop.</p>
+
+<figure>
+	<img src="../ED/git/tras_algunos_cambios_se_fusiona_rama_fork.png"/>
+	<figcaption>
+		En la imagen se puede ver cómo se ha hecho algún cambio sobre la rama <code>feature_k1</code> a propuesta de mmatpein.
+	</figcaption>
+</figure>
+
+
+<p class="nivel2">Una vez que <code>mmatpein</code> considera que la rama <code>feature_k1</code> está lista para ser incorporada al proyecto, en primer lugar hace lo siguiente:</p>
+
+<ol>
+	<li>mmatpein crea una nueva rama llamada <code>karelrubi-feature_k1</code> a partir de la rama develop.</li>
+	<li>Después trae y fusiona la rama <code>feautre_k1</code> del repositorio de karelrubi con la rama <code>karelrubi-feature_k1.</code></li>
+</ol>
+
+<figure>
+	<img src="../ED/git/mmatpein_trae_feature_k1_a_su_repositorio.png"/>
+	<figcaption>
+		mmatpein crea la rama <code>karelrubi-feature_k1</code> y se trae el contenido de la rama desde el repositorio de <code>karelrubi</code>
+	</figcaption>
+</figure>
+
+<p class="nivel2">Lo siguiente que hace <code>mmatpein</code> es fusionar la rama <code>develop</code> con la rama <code>karelrubi-feature_k1</code></p>
+
+<figure>
+	<img src="../ED/git/mmatpein_fusiona_develop_con_feature_k1.png"/>
+	<figcaption>
+		Como se puede apreciar, tras la fusión, la rama <code>develop</code> incluye los cambios de <code>karelrubi-feature_k1</code>
+	</figcaption>
+</figure>
+
+<p class="nivel2">Finalmente, <code>mmatpein</code> sube a GitHub los cambios.</p>
+
+<figure>
+	<img src="../ED/git/mmatpein_push_karelrubi_feature_k1-develop.png"/>
+	<figcaption>
+		mmatpein sube al repositorio remoto en GitHub los cambios. Como se puede ver, <code>origin/develop</code> y <code>develop</code> apuntan a la misma confirmación.
+	</figcaption>
+</figure>
+
+<p class="nivel2">En GitHub podremos ver cómo se ha cerrado el <code>pull request</code> tras realizar la fusión.</p>
+
+<figure>
+	<img src="../ED/git/pull-request_cerrado_por_merge.png"/>
+	<figcaption>
+		GitHub nos advierte de que se ha fusionado la rama <code>karelrubi:feature_k1</code> con la rama <code>mmatpein:develop</code>
+	</figcaption>
+</figure>
+
+<h2>karelrubi atualiza su repositorio</h2>
+
+<p class="nivel2">Desde el punto de vista de <code>karelrubi</code>, se ha fusionado la rama <code>feature_k1</code> con la rama <code>upstream/develop</code>. Pero hasta que <code>karelrubi</code> no atualice su repositorio, no podrá ver estos cambios.</p>
+
+<figure>
+	<img src="../ED/git/karelrubi-acutaliza-repositorio-tras-pullrequest.png"/>
+	<figcaption>
+		karelrubi puede ver la rama <code>upstream/develop</code>, y cómo la rama <code>feature_k1</code> se fusiona con esta.
+	</figcaption>
+</figure>
+
+<figure>
+	<img src="../ED/git/karelrubi_head_apunta_upstream_develop.png"/>
+	<figcaption>
+			Si karelrubi ejecuta el comando <code>git checkout upstream/develop</code>, el puntero <code>HEAD</code> apunta a dicho repositorio, de forma que podemos seguir trabajando desde el estado actual del proyecto.
+		</figcaption>
+	</figure>
+
+<p class="nivel2">Lo que <code>karelrubi</code> y <code>mmatpein</code> ven difiere ligeramente, ya que <code>mmatpein</code> no ve la rama <code>feature_k1</code>. Por lo demás, los proyectos son similares.</p>
+
+<figure>
+	<img src="../ED/git/diferencias_entre_matpein_karelrubi_fork.png"/>
+	<figcaption>
+		En el grafo de confirmaciones de <code>mmatpein</code> no se puede ver la rama <code>feature_k1</code>, aunque sí se puedan ver sus commits.
+	</figcaption>
+</figure>
+
+<h2>El proceso vuelve a empezar</h2>
+
+<p class="nivel2">Si <code>karelrubi</code> quisiera crear una nueva característica, se desplazará hasta la rama <code>upstream/develop</code> y creará una nueva rama. El proceso se repite del mismo modo una y otra vez.</p>
+
+<div class="actividad">
+	<p class="nivel1">Actividad 2. Crea un grupo con otras dos personas. Uno de vosotros tendrá el repositorio base, y los otros dos componentes crearán un fork a partir de él.</p>
+	<p class="nivel1">Cada componente creará una nueva rama "feature", donde creará varios commits con cambios sencillos (como añadir un nuevo archivo, por ejemplo).</p>
+	<p class="nivel1">El propietario del repositorio base fusionará su rama "feature" con la rama "develop".</p>
+	<p class="nivel1">Los otros dos componentes crearán un <code>pull request</code> para que el propietario del repositorio base fusione los cambios en la rama <code>develop</code></p>
+
+	<div class="entrega">
+		<p class="nivel1">El objetivo de este ejercicio es poder ver que los diferentes repositorios, tanto el base como los fork contienen información coherente. Entrega la actividad en un archivo llamado Act2-github.zip, donde se debe incluir lo siguiente:</p>
+		<ul>
+			<li>Un archivo de texto con el nombre de tu repositorio, ya sea base o fork</li>
+			<li>Una captura llamada <code>&lt;nombre_repositorio>_grafo.png</code> con el resultado de ejecutar el comando <code>git log --graph --all --oneline --decorate</code> en tu repositorio local</li>
+			<li>La misma captura obtenida por tus otros compañeros.</li>
+		</ul>
+	</div>
+</div>
+
+<p style="text-align:center"><iframe src="https://docs.google.com/forms/d/1WxWS8h3HTnqWq_h06PrM7bp2p0b6JOWBv5IwJPAhjks/viewform?embedded=true" width="760" height="700" frameborder="0" marginheight="0" marginwidth="0">Cargando...</iframe></p>
+-->
+<br><br>
+
+</div>
+
+</body>
+</html>
+
