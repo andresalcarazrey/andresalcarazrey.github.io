@@ -1,29 +1,28 @@
 # Programación
 
-Este documento servirá como guión para los alumnos de la asignatura Implantación de Aplicaciones Web del ciclo Administración de Sistemas Informáticos en Red. El profesor será Mauricio Matamala.
+Este documento servirá como guión para los alumnos de la asignatura Implantación de Aplicaciones Web del ciclo Administración de Sistemas Informáticos en Red. El profesor será Andrés Alcaraz Rey.
 
 ## Índice
 
 - [Página del IES Jesús Marín](https://politecnicomalaga.com/)
-- [Currículo de la asignatura](docs/curriculo.md)
-- [Unidades de la asignatura](unidades)
+- [Currículo de la asignatura](docs/curriculo.txt)
 
 ### Unidades
 
 Las unidades didácticas se irán añadiendo conforme se vaya avanzando en el temario. Inicialmente, serán las expuestas a continuación. Esta lista estará sujeta a cambios durante el curso.
 
-#### 1. [Preparación del entorno de desarrollo](EntornoLAMP/README.md)
+#### 1. [Preparación del entorno de desarrollo](T1-EntornoLAMP/README.md)
 
 - Servidor web. Instalación y configuración
 - SGBD. Instalación y configuración
 - Entorno LAMP
 
-#### 2. [Introducción a los lenguajes de scripting en cliente y servidor. PHP](IntroduccionPHP/README.md)
+#### 2. [Introducción a los lenguajes de scripting en cliente y servidor. PHP](T2-IntroduccionPHP/README.md)
 - PHPStorm
 - Introducción a PHP
 - PHP Orientado a objetos
 
-#### 3. Introducción a los lenguajes de Scripting. javascript
+#### 3. Introducción a los lenguajes de Scripting. javascript(T3-IntroduccionJavaScript/README.md)
 
 - Introducción a javascript
 - Javascript O.O.
