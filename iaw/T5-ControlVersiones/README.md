@@ -9,6 +9,7 @@ Para este tema introductorio a Git, vamos a utilizar el libro de Pro Git escrito
 - [Acerca del control de versiones](https://git-scm.com/book/es/v1/Empezando-Acerca-del-control-de-versiones)
 - [Una breve historia de Git](https://git-scm.com/book/es/v1/Empezando-Una-breve-historia-de-Git)
 - [Fundamentos de Git](https://git-scm.com/book/es/v1/Empezando-Fundamentos-de-Git)
+- [Git: resumen fácil](https://rogerdudler.github.io/git-guide/index.es.html)
 
 ## Instalación y configuración inicial de Git
 
@@ -71,7 +72,7 @@ Supongamos que ya hemos hecho git add, pero queremos renombrar un cierto archivo
     git add nombre_nuevo
 ``` 		
 
-## Ramificaciones
+### Ramificaciones
 
 Para este tema, vamos a seguir los siguientes enlaces:
 
