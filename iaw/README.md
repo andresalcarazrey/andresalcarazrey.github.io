@@ -6,10 +6,16 @@ Este documento servirá como guión para los alumnos de la asignatura Implantaci
 
 - [Página del IES Jesús Marín](https://politecnicomalaga.com/)
 - [Currículo de la asignatura](docs/curriculo.txt)
+- [Introducción](intro/index.html)
 
 ### Unidades
 
 Las unidades didácticas se irán añadiendo conforme se vaya avanzando en el temario. Inicialmente, serán las expuestas a continuación. Esta lista estará sujeta a cambios durante el curso.
+
+#### 0. [Introducción]
+
+- [Evolución de la web](T0-Inicio/Evolucion_Web.pdf)
+- [Páginas web estáticas vs páginas web dinámicas](T0-Inicio/pwe_pwd.md)
 
 #### 1. [Preparación del entorno de desarrollo](T1-EntornoLAMP/README.md)
 
@@ -53,7 +59,7 @@ Las unidades didácticas se irán añadiendo conforme se vaya avanzando en el te
 - Un primer ejemplo
 - PHPUnit se integra con los IDE. PHPUnit en PHPStorm
 
-### 8. Jenkins
+#### 8. Jenkins
 - Instalación del servidor Tomcat, Apache y PHP
 - Despliegue de Jenkins
 - Configurar un usuario con permisos de administrador
