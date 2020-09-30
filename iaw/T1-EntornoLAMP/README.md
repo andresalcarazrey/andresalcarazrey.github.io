@@ -5,7 +5,11 @@ Las siglas LAMP responden a **L**inux, **A**pache, **M**ariaDB/MySQL y **P**HP/P
 
 Usaremos como sistema operativo Ubuntu Server, por ser el [más usado](https://w3techs.com/technologies/details/os-linux/all/all) de entre las distribuciones de Linux como servidor web.
 
+
 ## [Reconfigurar interfaces de red](https://www.ostechnix.com/how-to-configure-ip-address-in-ubuntu-18-04-lts/)
+
+        NOTA: Este es un ejemplo de como configurar "a mano" la ip o ips que tenga vuestra máquina, para que no cambie por DHCP.
+        Si no queréis hacerlo, no lo hagáis y volveremos aquí en caso necesario.
 
 	$ cp /etc/netplan/50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml.bak
 	
@@ -109,7 +113,7 @@ Para aplicar la configuración, reiniciamos Apache
 
 	$ sudo systemctl restart apache2
 
-## Instralar módulos PHP adicionales
+## Instalar módulos PHP adicionales
 
 Listado de módulos disponibles
 
@@ -195,7 +199,7 @@ Podemos usar el usuario  *root* o bien el recién creado *phpmyadminuser*
 	
 ![Contraseña con htaccess](https://www.ostechnix.com/wp-content/uploads/2019/02/phpmyadmin-10-1024x334.png)
 
-**Actividad 1.** Prepara un entorno LAMP similar al expuesto en una máquina virtual con Ubuntu Server.
+**Actividad 1.** Prepara un entorno LAMP similar al expuesto en una máquina virtual con Ubuntu.
 
 **Actividad 2.** Crea un usuario llamado *MiCMS_user* que tenga permisos para realizar operaciones *CRUD* sobre la base de datos *MiCMS*
 
@@ -210,6 +214,7 @@ Podemos usar el usuario  *root* o bien el recién creado *phpmyadminuser*
 	
 **Actividad 4.** phpMyAdmin muestra un warning (*Warning in ./libraries/sql.lib.php#613 count(): Parameter must be an array or an object that implements Countable*) cuando se accede al contenido de una tabla. Encuentra el motivo del problema y soluciónalo.
 
+Lo siguiente por si alguién quiere dar un vistazo más profundo a Apache. Lo veréis en profundidad igualmente en SRI.
 [Ajustes adicionales de Apache](docs/Ajustes_Apache.md)
 
 # Vsftp
