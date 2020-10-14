@@ -290,3 +290,5 @@ Utilizando estas clases, obtén por pantalla una tabla como la de la actividad 2
     - Un método llamado *hasNext* que devuelve verdadero o falso dependiendo de si se han devuelto o no todas las noticias.
     - Un método *reset* que reestablece el índice de consulta al principio.
 - Debes utilizar el archivo *noticias_controller.php* que se encargue de cargar los datos en una instancia de la clase *Noticias*, y después importe el archivo *mostrar_noticias.php*, que se encarga de mostrar las noticias.
+
+**Ejercicio Guiado 1.** Seguir las indicaciones de la [siguiente web](https://blog.desdelinux.net/como-tener-tu-sistema-resultados-de-futbo-software-libre/) para implementar una pequeña aplicación web en PHP que nos muestre resultados de las distintas competiciones de futbol existentes en todo el planeta.
