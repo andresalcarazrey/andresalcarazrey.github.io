@@ -42,7 +42,7 @@ Se puede desplegar una aplicación en más de un servidor. Hay [varias configura
     ?>
 
 ## Comentarios
-Ver [documentación de referencia](https://www.w3schools.com/php/php_comments.asp
+Ver [documentación de referencia](https://www.w3schools.com/php/php_comments.asp)
 
 ## Variables
 Ver [documentación de referencia](https://www.w3schools.com/php/php_variables.asp)
@@ -62,11 +62,11 @@ Ver [documentación de referencia](https://www.w3schools.com/php/php_arrays.asp)
 ## Multidimensional arrays
 Ver [documentación de referencia](https://www.w3schools.com/php/php_arrays_multi.asp)
 
-## is_array
+## is_array: [documentación de referencia](https://www.w3schools.com/php/func_var_is_array.asp)
 
     echo (is_array($fred)) ? "Is an array" : "Is not an array";
 
-## count
+## count: [documentación de referencia](https://www.w3schools.com/PHP/func_array_count.asp)
 
     echo count($fred);
     echo count($fred, 1); // 1 -> cuenta recursivamente todos los elementos de los subarrays
@@ -153,6 +153,7 @@ Ver [documentación de referencia](https://www.w3schools.com/php/php_looping.asp
 Ver [documentación de referencia](https://www.w3schools.com/php/php_looping_for.asp)
 
 ## foreach
+Ver [documentación de referencia](https://www.w3schools.com/php/php_looping_foreach.asp)
 
 ## Break y continue
 Ver [documentación de referencia](https://www.w3docs.com/learn-php/php-break-continue-and-goto.html)
@@ -163,29 +164,16 @@ Ver [documentación de referencia](https://www.w3schools.com/php/php_functions.a
 ## Ámbito de variables
 Ver [documentación de referencia](http://docs.php.net/manual/es/language.variables.scope.php)
 
-## Variables globales
+## Variables globales y Variables estáticas
+Ver [documentación de referencia](https://www.w3schools.com/php/php_variables.asp)
+Apartado Global and Locals. Global. Stati
 
-## Variables estáticas
 
-## Devolviendo un resultado mediante variables globales
-
-## Include
+## Include y require
 Ver [documentación de referencia](https://www.w3schools.com/php/php_includes.asp)
-
-## Require
 
 ## Clases
 Ver [documentación de referencia](https://www.tutorialrepublic.com/php-tutorial/php-classes-and-objects.php)
-
-## Visibilidad
-
-## Métodos estáticos
-
-## Atributos estáticos
-
-## Herencia
-
-## parent
 
 ## Manejo de formularios
 Ver [documentación de referencia](https://www.w3schools.com/php/php_forms.asp)
