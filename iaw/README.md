@@ -12,16 +12,11 @@ Este documento servirá como guión para los alumnos de la asignatura Implantaci
 
 Las unidades didácticas se irán añadiendo conforme se vaya avanzando en el temario. Inicialmente, serán las expuestas a continuación. Esta lista estará sujeta a cambios durante el curso.
 
-#### 0. [Introducción]
+#### 1. [Preparación del entorno de desarrollo]
 
 - [Evolución de la web](T0-Inicio/Evolucion_Web.pdf)
 - [Páginas web estáticas vs páginas web dinámicas](T0-Inicio/pwe_pwd.md)
-
-#### 1. [Preparación del entorno de desarrollo](T1-EntornoLAMP/README.md)
-
-- Servidor web. Instalación y configuración
-- SGBD. Instalación y configuración
-- Entorno LAMP
+- [Preparación del entorno de desarrollo](T1-EntornoLAMP/README.md)
 
 #### 2. [Introducción a los lenguajes de scripting en cliente y servidor. PHP](T2-IntroduccionPHP/README.md)
 - PHPStorm

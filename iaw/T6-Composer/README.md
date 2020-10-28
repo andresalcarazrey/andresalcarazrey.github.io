@@ -1,6 +1,7 @@
 # Composer
 
 Composer es un gestor de dependencias en proyectos PHP. Usando Composer nos evitamos muchas tareas rutinarias y tediosas relacionadas con las dependencias de nuestro proyecto, actualizaciones de las dependencias, y de las dependencias de las dependencias.
+
 Instalación
 
 La documentación sobre la instalación, la podemos encontrar aquí [https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx)

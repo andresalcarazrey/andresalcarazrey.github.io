@@ -3,21 +3,9 @@
 
 Las siglas LAMP responden a **L**inux, **A**pache, **M**ariaDB/MySQL y **P**HP/Python/Perl
 
-Usaremos como sistema operativo Ubuntu Server, por ser el [más usado](https://w3techs.com/technologies/details/os-linux/all/all) de entre las distribuciones de Linux como servidor web.
+Usaremos como sistema operativo Ubuntu, por ser el [más usado](https://w3techs.com/technologies/details/os-linux/all/all) de entre las distribuciones de Linux como servidor web.
 
-
-## [Reconfigurar interfaces de red](https://www.ostechnix.com/how-to-configure-ip-address-in-ubuntu-18-04-lts/)
-
-        NOTA: Este es un ejemplo de como configurar "a mano" la ip o ips que tenga vuestra máquina, para que no cambie por DHCP.
-        Si no queréis hacerlo, no lo hagáis y volveremos aquí en caso necesario.
-
-	$ cp /etc/netplan/50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml.bak
-	
-
-![Imagen de archivo en formato Yaml](https://www.ostechnix.com/wp-content/uploads/2018/11/configure-static-ip-1024x537.png)
-
-	$ sudo netplan apply
-	$ ip addr show
+Cómo se explico en la introducción a la asignatura, necesitamos una máquina (virtual o real) que tenga instalado un servidor web, un interprete de lenguaje script de servidor y un servicio de Base de Datos. Esto es lo que proporciona Apache, PHP y MySQL en nuestro caso. Explicaremos a continuación cómo instalar una máquina LAMP.
 
 ## Instalar apache
 
@@ -29,18 +17,7 @@ Usaremos como sistema operativo Ubuntu Server, por ser el [más usado](https://w
 	$ sudo apt install apache2
 	$ sudo systemctl status apache2
 
-### Configurar el firewall para permitir a Apache
-
-Si  hemos habilitado el [firewall de Ubuntu](docs/firewall.md)
-
-	$ sudo ufw app list
-		Available applications
-		Apache
-		Apache Full
-		Apache Secure
-		OpenSSH
-		
-	$ sudo ufw allow in "Apache Full"
+Para comprobar el funcionamiento de Apache, abrimos un navegador en la máquina donde estemos trabajando e introducimos la URL "localhost". Si todo ha ido bien, nos debe de salir una página web de bienvenida de Apache en inglés.
 
 ## MySQL
 
@@ -92,6 +69,8 @@ Comprobar el archivo *info.php*
 
 ### Modificar la precedencia de extensiones para archivos *index*
 
+Esta fichero de Apache configura cuál es la prioridad de las extensiones de ficheros en las carpetas publicadas en web. Es decir, dice en que orden se proporcionan los ficheros dada una ubicación. Si por ejemplo, tenemos en "/var/www/html/" un fichero index.html y otro index.php ¿Cuál de los dos se manda al cliente? Pues depende del orden en el que aparezca en el fichero de configuración "dir.conf". Aquí teneís cómo y dónde está ese fichero y que habría que hacer para que los ficheros PHP tengan prioridad sobre los demás. Este trabajo no es obligatorio realizarlo en vuestras máquinas.
+
 	ARCHIVO: /etc/apache2/mods-enabled/dir.conf
 	
 	<IfModule mod_dir.c>
@@ -128,6 +107,8 @@ Instalar todos los módulos php
 	$ sudo apt-get install php*
 	
 # PhpMyAdmin con LAMP
+
+PhpMyAdmin es una aplicación web escrita en PHP, que nos permite acceder a la configuración del servidor web, php y base de datos con un interfaz gráfica a través del navegador, tanto localmente como remotamente, lo que hace mucho más cómodo configurar el servicio web. Para instalarlo en linux, tendremos que dar los siguientes pasos:
 
 Ojo -> Hay que cambiar el modo de autenticación.
 
@@ -202,6 +183,7 @@ Podemos usar el usuario  *root* o bien el recién creado *phpmyadminuser*
 **Actividad 1.** Prepara un entorno LAMP similar al expuesto en una máquina virtual con Ubuntu.
 
 **Actividad 2.** Crea un usuario llamado *MiCMS_user* que tenga permisos para realizar operaciones *CRUD* sobre la base de datos *MiCMS*
+(Una operación CRUD es una operación sobre una base de datos que cree, lea, actualice o borre información, tablas o bases enteras). Para realizar este ejercicio necesitas haber estudiado la primera parte de la asignatura BB.DD.
 
 **Actividad 3.** Realiza las siguientes tareas utilizando phpMyAdmin:
 
@@ -214,10 +196,8 @@ Podemos usar el usuario  *root* o bien el recién creado *phpmyadminuser*
 	
 **Actividad 4.** phpMyAdmin muestra un warning (*Warning in ./libraries/sql.lib.php#613 count(): Parameter must be an array or an object that implements Countable*) cuando se accede al contenido de una tabla. Encuentra el motivo del problema y soluciónalo.
 
-Lo siguiente por si alguién quiere dar un vistazo más profundo a Apache. Lo veréis en profundidad igualmente en SRI.
-[Ajustes adicionales de Apache](docs/Ajustes_Apache.md)
 
-# Vsftp
+# Vsftp (Voluntario, se estudia en SRI)
 
 Necesitaremos un servicio de transferencia de archivos, que utilizará el desarrollador para subir sus archivos.
 
@@ -230,16 +210,6 @@ Cuando la instalación esté completa, haremos una copia de seguridad del archiv
 
     sudo cp /etc/vsftpd.conf /etc/vsftpd.conf.orig
 
-## Apertura del firewall
-
-    sudo ufw allow 20/tcp
-    sudo ufw allow 21/tcp
-    sudo ufw allow 990/tcp
-    sudo ufw allow 40000:50000/tcp
-
-Para comprobar que todo está bien, escribiremos:
-
-    sudo ufw status
 
 ## Directorio del usuario
 
@@ -304,7 +274,7 @@ Reiniciamos el servicio
 
 Editamos el archivo */etc/apache2/apache2.conf* y añadimos lo un directorio
 
-	<Directory /direcrtorio/del/usaurio/ftp/>
+	<Directory /directorio/del/usuario/ftp/>
 			Options Indexes FollowSymLinks
 			AllowOverride None
 			Require all granted
