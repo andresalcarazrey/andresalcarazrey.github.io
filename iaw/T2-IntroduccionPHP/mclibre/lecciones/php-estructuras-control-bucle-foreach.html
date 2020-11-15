@@ -1,0 +1,3925 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Estructuras de control: bucle foreach. PHP. Bartolomé Sintes Marco. www.mclibre.org</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../varios/php.css" title="mclibre">
+  <link rel="icon" href="../varios/favicon.ico">
+  <link rel="stylesheet" href="../varios/prism.css">
+  <script src="../varios/prism.js"></script>
+</head>
+
+<body>
+  <h1>Estructuras de control: bucle foreach</h1>
+
+  <nav>
+    <p>
+      <a href="../index.html"><img src="../varios/iconos/icono-php.svg" alt="Índice de PHP" title="Índice de PHP" width="48" height="48"></a>
+      <a href="#"><img src="../varios/iconos/icono-arrow-circle-up.svg" alt="Principio de la página" title="Principio de la página" width="36" height="36"></a>
+    </p>
+
+    <div class="toc">
+      <h2>Bucle foreach</h2>
+
+      <ul>
+        <li><a href="#foreach">El bucle foreach</a></li>
+        <li><a href="#problemas">Problemas al recorrer matrices con el bucle for</a></li>
+        <li><a href="#sintaxis">Sintaxis del bucle foreach</a></li>
+        <li><a href="#diagrama-flujo">Diagrama de flujo</a></li>
+        <li><a href="#ejemplos">Ejemplos de bucles</a>
+          <ul>
+            <li><a href="#matrices">Matrices</a></li>
+            <li><a href="#consultas">Consultas a bases de datos</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <section id="foreach">
+    <h2>El bucle foreach</h2>
+
+    <p>El bucle foreach es un tipo especial de bucle que permite recorrer estructuras que contienen varios elementos (como matrices, recursos u objetos) sin necesidad de preocuparse por el número de elementos.</p>
+  </section>
+
+  <section id="problemas">
+    <h2>Problemas al recorrer matrices con el bucle for</h2>
+
+    <p>En otros lenguajes de programación en los que los índices de las matrices son números naturales correlativos, las matrices se pueden recorrer fácilmente con bucles for. Pero como las matrices de PHP son matrices asociativas y los índices de las matrices no tienen por qué ser valores numéricos correlativos, nos podemos encontrar con problemas. Por ejemplo, podemos hacer involuntariamente referencia a un término inexistente o algunos términos pueden resultar inaccesibles.</p>
+
+    <ul>
+      <li>En el ejemplo siguiente, el bucle llega más allá de los límites de la matriz, generando mensajes de error:
+
+        <div class="mcl-diapo" style="height: 430px;">
+
+          <div id="d10">
+            <p><strong>Ejemplo de bucle for incorrecto (1)</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 3; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;p&gt;bb&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 2 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 3 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;Final&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>Puede ver la ejecución paso a paso de este programa utilizando los iconos de avance y retroceso situados abajo a la derecha.</p>
+
+            <p class="control">
+              <a href="#d11"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d11">
+            <p><strong>Ejemplo de bucle for incorrecto (1) - Paso 1</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+<span class="codigo-resaltado">$matriz = ["a", "bb"];</span>
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 3; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre><code class="language-html"> </code></pre>
+              </div>
+            </div>
+
+            <p>Se ejecuta la primera instrucción del programa.</p>
+
+            <p>En este caso, se crea la matriz $matriz.</p>
+
+            <p class="control">
+              <a href="#d10"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d12"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d12">
+            <p><strong>Ejemplo de bucle for incorrecto (1) - Paso 2</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb"];
+<span class="codigo-resaltado">print "&lt;pre&gt;\n";</span>
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 3; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre><code class="language-html"><span class="codigo-resaltado">&lt;pre&gt;</span></code></pre>
+              </div>
+            </div>
+
+            <p>A continuación se abre la etiqueta <span class="html-eti">&lt;pre&gt;</span>.</p>
+
+            <p class="control">
+              <a href="#d11"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d13"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d13">
+            <p><strong>Ejemplo de bucle for incorrecto (1) - Paso 3</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb"];
+print "&lt;pre&gt;\n";
+<span class="codigo-resaltado">print_r($matriz);</span>
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 3; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre><code class="language-html">&lt;pre&gt;</code></pre>
+                <pre class="codigo-resaltado"><code class="language-html">Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+)</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se imprimen los valores de la matriz $matriz.</p>
+
+            <p class="control">
+              <a href="#d12"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d14"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d14">
+            <p><strong>Ejemplo de bucle for incorrecto (1) - Paso 4</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+<span class="codigo-resaltado">print "&lt;/pre&gt;\n";</span>
+for ($i = 0; $i &lt;= 3; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+)
+<span class="codigo-resaltado">&lt;/pre&gt;</span></code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se cierra la etiqueta <span class="html-eti">&lt;/pre&gt;</span>.</p>
+
+            <p class="control">
+              <a href="#d13"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d15"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d15">
+            <p><strong>Ejemplo de bucle for incorrecto (1) - Paso 5</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for (<span class="codigo-resaltado">$i = 0</span>; $i &lt;= 3; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+)
+&lt;/pre&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se ejecuta el bucle. El primer paso es dar el valor inicial a la variable de control.</p>
+
+            <p>En este caso, la variable de control es $i y toma el valor 0.</p>
+
+            <p class="control">
+              <a href="#d14"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d16"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d16">
+            <p><strong>Ejemplo de bucle for incorrecto (1) - Paso 6</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; <span class="codigo-resaltado">$i &lt;= 3</span>; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+)
+&lt;/pre&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se comprueba que la condición de continuación se cumple.</p>
+
+            <p>En este caso, $i es inferior o igual a 3 (vale 0), así que se pasa a ejecutar las instrucciones del bloque de sentencias.</p>
+
+            <p class="control">
+              <a href="#d15"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d17"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d17">
+            <p><strong>Ejemplo de bucle for incorrecto (1) - Paso 7</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 3; $i++) {
+    <span class="codigo-resaltado">print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";</span>
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+)
+&lt;/pre&gt;
+<span class="codigo-resaltado">&lt;p&gt;a&lt;/p&gt;</span></code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se ejecutan las instrucciones del bloque.</p>
+
+            <p>En este caso, se imprime el texto &lt;p&gt;a&lt;/p&gt; ya que $i tiene el valor 0 y $matriz[0] tiene el valor "a".</p>
+
+            <p class="control">
+              <a href="#d16"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d18"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d18">
+            <p><strong>Ejemplo de bucle for incorrecto (1) - Paso 8</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 3; <span class="codigo-resaltado">$i++</span>) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se ejecuta de nuevo la instrucción de paso.</p>
+
+            <p>En este caso, la variable $i aumenta una unidad, por lo que ahora vale 1.</p>
+
+            <p class="control">
+              <a href="#d17"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d19"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d19">
+            <p><strong>Ejemplo de bucle for incorrecto (1) - Paso 9</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; <span class="codigo-resaltado">$i &lt;= 3</span>; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se comprueba de nuevo que la condición de continuación se cumple.</p>
+
+            <p>En este caso, $i es inferior o igual a 3 (vale 1), así que se pasa a ejecutar las instrucciones del bloque de sentencias.</p>
+
+            <p class="control">
+              <a href="#d18"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d110"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d110">
+            <p><strong>Ejemplo de bucle for incorrecto (1) - Paso 10</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 3; $i++) {
+    <span class="codigo-resaltado">print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n"</span>;
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+<span class="codigo-resaltado">&lt;p&gt;bb&lt;/p&gt;</span></code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se ejecutan de nuevo las instrucciones del bloque.</p>
+
+            <p>En este caso, se imprime el texto &lt;p&gt;bb&lt;/p&gt; ya que $i tiene el valor 1 y $matriz[1] tiene el valor "bb".</p>
+
+            <p class="control">
+              <a href="#d19"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d111"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d111">
+            <p><strong>Ejemplo de bucle for incorrecto (1) - Paso 11</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 3; <span class="codigo-resaltado">$i++</span>) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;p&gt;bb&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se ejecuta de nuevo la instrucción de paso.</p>
+
+            <p>En este caso, la variable $i aumenta una unidad, por lo que ahora vale 2.</p>
+
+            <p class="control">
+              <a href="#d110"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d112"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d112">
+            <p><strong>Ejemplo de bucle for incorrecto (1) - Paso 12</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; <span class="codigo-resaltado">$i &lt;= 3</span>; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;p&gt;bb&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se comprueba de nuevo que la condición de continuación se cumple.</p>
+
+            <p>En este caso, $i es inferior o igual a 3 (vale 2), así que se pasa a ejecutar las instrucciones del bloque de sentencias.</p>
+
+            <p class="control">
+              <a href="#d111"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d113"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d113">
+            <p><strong>Ejemplo de bucle for incorrecto (1) - Paso 13</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 3; $i++) {
+    <span class="codigo-resaltado">print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";</span>
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;p&gt;bb&lt;/p&gt;</code></pre>
+                <pre class="codigo-resaltado"><code class="language-html">&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 2 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>Esta instrucción genera un aviso (puesto que intenta imprimir el valor $matriz[2], que no existe) y escribe un párrafo vacío (puesto que no hay valor de $matriz[2].</p>
+
+            <p class="control">
+              <a href="#d112"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d114"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d114">
+            <p><strong>Ejemplo de bucle for incorrecto (1) - Paso 14</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 3; <span class="codigo-resaltado">$i++</span>) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;p&gt;bb&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 2 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se ejecuta de nuevo la instrucción de paso.</p>
+
+            <p>En este caso, la variable $i aumenta una unidad, por lo que ahora vale 3.</p>
+
+            <p class="control">
+              <a href="#d113"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d115"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d115">
+            <p><strong>Ejemplo de bucle for incorrecto (1) - Paso 15</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; <span class="codigo-resaltado">$i &lt;= 3</span>; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;p&gt;bb&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 2 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se comprueba de nuevo que la condición de continuación se cumple.</p>
+
+            <p>En este caso, $i es inferior o igual a 3 (vale 3), así que se pasa a ejecutar las instrucciones del bloque de sentencias.</p>
+
+            <p class="control">
+              <a href="#d114"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d116"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d116">
+            <p><strong>Ejemplo de bucle for incorrecto (1) - Paso 16</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 3; $i++) {
+    <span class="codigo-resaltado">print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";</span>
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;p&gt;bb&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 2 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;</code></pre>
+                <pre class="codigo-resaltado"><code class="language-html">&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 3 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>Esta instrucción genera un aviso (puesto que intenta imprimir el valor $matriz[3], que no existe) y escribe un párrafo vacío (puesto que no hay valor de $matriz[3].</p>
+
+            <p class="control">
+              <a href="#d115"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d117"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d117">
+            <p><strong>Ejemplo de bucle for incorrecto (1) - Paso 17</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 3; <span class="codigo-resaltado">$i++</span>) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;p&gt;bb&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 2 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 3 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se ejecuta de nuevo la instrucción de paso.</p>
+
+            <p>En este caso, la variable $i aumenta una unidad, por lo que ahora vale 4.</p>
+
+            <p class="control">
+              <a href="#d116"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d118"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d118">
+            <p><strong>Ejemplo de bucle for incorrecto (1) - Paso 18</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; <span class="codigo-resaltado">$i &lt;= 3</span>; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;p&gt;bb&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 2 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 3 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se comprueba de nuevo que la condición de continuación se cumple.</p>
+
+            <p>En este caso, $i ya no es inferior o igual a 3 (vale 4), así que no se ejecutan las instrucciones del bloque de sentencias y el bucle se termina.</p>
+
+            <p class="control">
+              <a href="#d117"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d119"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d119">
+            <p><strong>Ejemplo de bucle for incorrecto (1) - Paso 19</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 3; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+<span class="codigo-resaltado">print "&lt;p&gt;Final&lt;/p&gt;\n";</span>
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;p&gt;bb&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 2 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 3 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;
+<span class="codigo-resaltado">&lt;p&gt;Final&lt;/p&gt;</span></code>
+</pre>
+              </div>
+            </div>
+
+            <p>Una vez terminado el bucle, se ejecuta la instrucción que sigue al bucle.</p>
+
+            <p>En este caso, imprime el párrafo final.</p>
+
+            <p class="control">
+              <a href="#d118"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <img src="../varios/iconos/icono-vacio.svg" alt="" width="48" height="48">
+            </p>
+          </div>
+        </div>
+
+        <p><strong>Nota</strong>: Este problema se podría evitar fácilmente, puesto que los índices son correlativos. La solución sería en este caso expresar la condición de continuación en función del tamaño de la matriz, utilizando $i &lt; count($matriz) en vez de $i &lt;= 3.</p>
+      </li>
+      <li>En el ejemplo siguiente, a la matriz le faltan valores intermedios, por lo que también se generarían mensajes de error al recorrerla:
+
+        <div class="mcl-diapo" style="height: 390px;">
+
+          <div id="d20">
+            <p><strong>Ejemplo de bucle for incorrecto (2)</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = [0 =&gt; "a", 2 =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 2; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [2] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 1 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;bb&lt;/p&gt;
+&lt;p&gt;Final&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>Puede ver la ejecución paso a paso de este programa utilizando los iconos de avance y retroceso situados abajo a la derecha.</p>
+            <p class="control">
+              <a href="#d21"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d21">
+            <p><strong>Ejemplo de bucle for incorrecto (2) - Paso 1</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+<span class="codigo-resaltado">$matriz = [0 =&gt; "a", 2 =&gt; "bb"];</span>
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 2; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+              </div>
+            </div>
+
+            <p>Se ejecuta la primera instrucción del programa.</p>
+
+            <p>En este caso, se crea la matriz $matriz.</p>
+
+            <p class="control">
+              <a href="#d20"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d22"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d22">
+            <p><strong>Ejemplo de bucle for incorrecto (2) - Paso 2</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = [0 =&gt; "a", 2 =&gt; "bb"];
+<span class="codigo-resaltado">print "&lt;pre&gt;\n";</span>
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 2; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre><code class="language-html"><span class="codigo-resaltado">&lt;pre&gt;</span></code></pre>
+              </div>
+            </div>
+
+            <p>A continuación se abre la etiqueta <span class="html-eti">&lt;pre&gt;</span>.</p>
+
+            <p class="control">
+              <a href="#d21"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d23"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d23">
+            <p><strong>Ejemplo de bucle for incorrecto (2) - Paso 3</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = [0 =&gt; "a", 2 =&gt; "bb"];
+print "&lt;pre&gt;\n";
+<span class="codigo-resaltado">print_r($matriz);</span>
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 2; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;</code></pre>
+                <pre class="codigo-resaltado"><code class="language-html">Array
+(
+    [0] =&gt; a
+    [2] =&gt; bb
+)</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se imprimen los valores de la matriz $matriz.</p>
+
+            <p class="control">
+              <a href="#d22"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d24"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d24">
+            <p><strong>Ejemplo de bucle for incorrecto (2) - Paso 4</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = [0 =&gt; "a", 2 =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+<span class="codigo-resaltado">print "&lt;/pre&gt;\n";</span>
+for ($i = 0; $i &lt;= 2; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [2] =&gt; bb
+)
+<span class="codigo-resaltado">&lt;/pre&gt;</span></code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se cierra la etiqueta <span class="html-eti">&lt;/pre&gt;</span>.</p>
+
+            <p class="control">
+              <a href="#d23"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d25"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d25">
+            <p><strong>Ejemplo de bucle for incorrecto (2) - Paso 5</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = [0 =&gt; "a", 2 =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for (<span class="codigo-resaltado">$i = 0</span>; $i &lt;= 2; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [2] =&gt; bb
+)
+&lt;/pre&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se ejecuta el bucle. El primer paso es dar el valor inicial a la variable de control.</p>
+
+            <p>En este caso, la variable de control es $i y toma el valor 0.</p>
+
+            <p class="control">
+              <a href="#d24"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d26"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d26">
+            <p><strong>Ejemplo de bucle for incorrecto (2) - Paso 6</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = [0 =&gt; "a", 2 =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; <span class="codigo-resaltado">$i &lt;= 2</span>; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [2] =&gt; bb
+)
+&lt;/pre&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se comprueba que la condición de continuación se cumple.</p>
+
+            <p>En este caso, $i es inferior o igual a 2 (vale 0), así que se pasa a ejecutar las instrucciones del bloque de sentencias.</p>
+
+            <p class="control">
+              <a href="#d25"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d27"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d27">
+            <p><strong>Ejemplo de bucle for incorrecto (2) - Paso 7</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = [0 =&gt; "a", 2 =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 2; $i++) {
+    <span class="codigo-resaltado">print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";</span>
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [2] =&gt; bb
+)
+&lt;/pre&gt;
+<span class="codigo-resaltado">&lt;p&gt;a&lt;/p&gt;</span></code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se ejecutan las instrucciones del bloque.</p>
+
+            <p>En este caso, se imprime el texto &lt;p&gt;a&lt;/p&gt; ya que $i tiene el valor 0 y $matriz[0] tiene el valor "a".</p>
+
+            <p class="control">
+              <a href="#d26"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d28"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d28">
+            <p><strong>Ejemplo de bucle for incorrecto (2) - Paso 8</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = [0 =&gt; "a", 2 =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 2; <span class="codigo-resaltado">$i++</span>) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [2] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se ejecuta de nuevo la instrucción de paso.</p>
+
+            <p>En este caso, la variable $i aumenta una unidad, por lo que ahora vale 1.</p>
+
+            <p class="control">
+              <a href="#d27"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d29"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d29">
+            <p><strong>Ejemplo de bucle for incorrecto (2) - Paso 9</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = [0 =&gt; "a", 2 =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; <span class="codigo-resaltado">$i &lt;= 2</span>; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [2] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se comprueba de nuevo que la condición de continuación se cumple.</p>
+
+            <p>En este caso, $i es inferior o igual a 2 (vale 1), así que se pasa a ejecutar las instrucciones del bloque de sentencias.</p>
+
+            <p class="control">
+              <a href="#d28"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d210"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d210">
+            <p><strong>Ejemplo de bucle for incorrecto (2) - Paso 10</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = [0 =&gt; "a", 2 =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 2; $i++) {
+    <span class="codigo-resaltado">print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n"</span>;
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [2] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;</code></pre>
+                <pre class="codigo-resaltado"><code class="language-html">&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 1 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se ejecutan de nuevo las instrucciones del bloque.</p>
+
+            <p>Esta instrucción genera un aviso (puesto que intenta imprimir el valor $matriz[1], que no existe) y escribe un párrafo vacío (puesto que no hay valor de $matriz[1].</p>
+
+            <p class="control">
+              <a href="#d29"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d211"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d211">
+            <p><strong>Ejemplo de bucle for incorrecto (2) - Paso 11</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = [0 =&gt; "a", 2 =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 2; <span class="codigo-resaltado">$i++</span>) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [2] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 1 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se ejecuta de nuevo la instrucción de paso.</p>
+
+            <p>En este caso, la variable $i aumenta una unidad, por lo que ahora vale 2.</p>
+
+            <p class="control">
+              <a href="#d210"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d212"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d212">
+            <p><strong>Ejemplo de bucle for incorrecto (2) - Paso 12</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = [0 =&gt; "a", 2 =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; <span class="codigo-resaltado">$i &lt;= 2</span>; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [2] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 1 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se comprueba de nuevo que la condición de continuación se cumple.</p>
+
+            <p>En este caso, $i es inferior o igual a 2 (vale 2), así que se pasa a ejecutar las instrucciones del bloque de sentencias.</p>
+
+            <p class="control">
+              <a href="#d211"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d213"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d213">
+            <p><strong>Ejemplo de bucle for incorrecto (2) - Paso 13</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = [0 =&gt; "a", 2 =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 2; $i++) {
+    <span class="codigo-resaltado">print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";</span>
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [2] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 1 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;
+<span class="codigo-resaltado">&lt;p&gt;bb&lt;/p&gt;</span></code>
+</pre>
+              </div>
+            </div>
+
+            <p>En este caso, se imprime el texto &lt;p&gt;bb&lt;/p&gt; ya que $i tiene el valor 2 y $matriz[2] tiene el valor "bb".</p>
+
+            <p class="control">
+              <a href="#d212"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d214"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d214">
+            <p><strong>Ejemplo de bucle for incorrecto (2) - Paso 14</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = [0 =&gt; "a", 2 =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 2; <span class="codigo-resaltado">$i++</span>) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [2] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 1 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;bb&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se ejecuta de nuevo la instrucción de paso.</p>
+
+            <p>En este caso, la variable $i aumenta una unidad, por lo que ahora vale 3.</p>
+
+            <p class="control">
+              <a href="#d213"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d215"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d215">
+            <p><strong>Ejemplo de bucle for incorrecto (2) - Paso 15</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = [0 =&gt; "a", 2 =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; <span class="codigo-resaltado">$i &lt;= 2</span>; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [2] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 1 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;bb&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se comprueba de nuevo que la condición de continuación se cumple.</p>
+
+            <p>En este caso, $i ya no es inferior o igual a 2 (vale 3), así que no se ejecutan las instrucciones del bloque de sentencias y el bucle se termina.</p>
+
+            <p class="control">
+              <a href="#d214"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d216"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d216">
+            <p><strong>Ejemplo de bucle for incorrecto (2) - Paso 16</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = [0 =&gt; "a", 2 =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 2; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+<span class="codigo-resaltado">print "&lt;p&gt;Final&lt;/p&gt;\n";</span>
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [2] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 1 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;bb&lt;/p&gt;
+<span class="codigo-resaltado">&lt;p&gt;Final&lt;/p&gt;</span></code>
+</pre>
+              </div>
+            </div>
+
+            <p>Una vez terminado el bucle, se ejecuta la instrucción que sigue al bucle.</p>
+
+            <p>En este caso, imprime el párrafo final.</p>
+
+            <p class="control">
+              <a href="#d215"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <img src="../varios/iconos/icono-vacio.svg" alt="" width="48" height="48">
+            </p>
+          </div>
+        </div>
+
+        <p><strong>Nota</strong>: los avisos de error de este ejemplo se podría evitar incluyendo una comprobación de existencia del elemento antes de imprimirlo (if isset($matriz[$i]) ...), aunque tendríamos el problema de no saber a priori hasta qué valor debemos ejecutar el bucle para recorrer todos los valores.</p>
+      </li>
+      <li>Finalmente, en el ejemplo siguiente, la matriz no tiene índices numéricos, por lo que sólo se generarían mensajes de error al recorrerla:
+
+        <div class="mcl-diapo" style="height: 410px;">
+
+          <div id="d30">
+            <p><strong>Ejemplo de bucle for incorrecto (3)</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", "dos" =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 1; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [dos] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 0 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 1 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;Final&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>Puede ver la ejecución paso a paso de este programa utilizando los iconos de avance y retroceso situados abajo a la derecha.</p>
+
+            <p class="control">
+              <a href="#d31"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d31">
+            <p><strong>Ejemplo de bucle for incorrecto (3) - Paso 1</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+<span class="codigo-resaltado">$matriz = ["uno" =&gt; "a", "dos" =&gt; "bb"];</span>
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 1; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo"></div>
+            </div>
+
+            <p>Se ejecuta la primera instrucción del programa.</p>
+
+            <p>En este caso, se crea la matriz $matriz.</p>
+
+            <p class="control">
+              <a href="#d30"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d32"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d32">
+            <p><strong>Ejemplo de bucle for incorrecto (3) - Paso 2</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", "dos" =&gt; "bb"];
+<span class="codigo-resaltado">print "&lt;pre&gt;\n";</span>
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 1; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre><code class="language-html"><span class="codigo-resaltado">&lt;pre&gt;</span></code></pre>
+              </div>
+            </div>
+
+            <p>A continuación se abre la etiqueta <span class="html-eti">&lt;pre&gt;</span>.</p>
+
+            <p class="control">
+              <a href="#d31"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d33"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d33">
+            <p><strong>Ejemplo de bucle for incorrecto (3) - Paso 3</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", "dos" =&gt; "bb"];
+print "&lt;pre&gt;\n";
+<span class="codigo-resaltado">print_r($matriz);</span>
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 1; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;</code>
+</pre>
+                <pre class="codigo-resaltado">
+<code class="language-html">Array
+(
+    [uno] =&gt; a
+    [dos] =&gt; bb
+)</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se imprimen los valores de la matriz $matriz.</p>
+
+            <p class="control">
+              <a href="#d32"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d34"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d34">
+            <p><strong>Ejemplo de bucle for incorrecto (3) - Paso 4</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", "dos" =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+<span class="codigo-resaltado">print "&lt;/pre&gt;\n";</span>
+for ($i = 0; $i &lt;= 1; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [dos] =&gt; bb
+)
+<span class="codigo-resaltado">&lt;/pre&gt;</span></code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se cierra la etiqueta <span class="html-eti">&lt;/pre&gt;</span>.</p>
+
+            <p class="control">
+              <a href="#d33"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d35"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d35">
+            <p><strong>Ejemplo de bucle for incorrecto (3) - Paso 5</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", "dos" =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for (<span class="codigo-resaltado">$i = 0</span>; $i &lt;= 1; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [dos] =&gt; bb
+)
+&lt;/pre&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se ejecuta el bucle. El primer paso es dar el valor inicial a la variable de control.</p>
+
+            <p>En este caso, la variable de control es $i y toma el valor 0.</p>
+
+            <p class="control">
+              <a href="#d34"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d36"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d36">
+            <p><strong>Ejemplo de bucle for incorrecto (3) - Paso 6</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", "dos" =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; <span class="codigo-resaltado">$i &lt;= 1</span>; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [dos] =&gt; bb
+)
+&lt;/pre&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se comprueba que la condición de continuación se cumple.</p>
+
+            <p>En este caso, $i es inferior o igual a 1 (vale 0), así que se pasa a ejecutar las instrucciones del bloque de sentencias.</p>
+
+            <p class="control">
+              <a href="#d35"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d37"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d37">
+            <p><strong>Ejemplo de bucle for incorrecto (3) - Paso 7</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", "dos" =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 1; $i++) {
+    <span class="codigo-resaltado">print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";</span>
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [dos] =&gt; bb
+)
+&lt;/pre&gt;</code>
+</pre>
+                <pre class="codigo-resaltado">
+<code class="language-html">&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 0 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se ejecutan las instrucciones del bloque.</p>
+
+            <p>Esta instrucción genera un aviso (puesto que intenta imprimir el valor $matriz[0], que no existe) y escribe un párrafo vacío (puesto que no hay valor de $matriz[0].</p>
+
+            <p class="control">
+              <a href="#d36"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d38"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d38">
+            <p><strong>Ejemplo de bucle for incorrecto (3) - Paso 8</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", "dos" =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 1; <span class="codigo-resaltado">$i++</span>) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [dos] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 0 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se ejecuta de nuevo la instrucción de paso.</p>
+
+            <p>En este caso, la variable $i aumenta una unidad, por lo que ahora vale 1.</p>
+
+            <p class="control">
+              <a href="#d37"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d39"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d39">
+            <p><strong>Ejemplo de bucle for incorrecto (3) - Paso 9</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", "dos" =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; <span class="codigo-resaltado">$i &lt;= 1</span>; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [dos] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 0 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se comprueba de nuevo que la condición de continuación se cumple.</p>
+
+            <p>En este caso, $i es inferior o igual a 1 (vale 1), así que se pasa a ejecutar las instrucciones del bloque de sentencias.</p>
+
+            <p class="control">
+              <a href="#d38"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d310"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d310">
+            <p><strong>Ejemplo de bucle for incorrecto (3) - Paso 10</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", "dos" =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 1; $i++) {
+    <span class="codigo-resaltado">print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n"</span>;
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [dos] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 0 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;</code></pre>
+                <pre class="codigo-resaltado"><code class="language-html">&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 1 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se ejecutan de nuevo las instrucciones del bloque.</p>
+
+            <p>Esta instrucción genera otro aviso (puesto que intenta imprimir el valor $matriz[1], que no existe) y escribe un párrafo vacío (puesto que no hay valor de $matriz[1].</p>
+
+            <p class="control">
+              <a href="#d39"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d311"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d311">
+            <p><strong>Ejemplo de bucle for incorrecto (3) - Paso 11</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", "dos" =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 1; <span class="codigo-resaltado">$i++</span>) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [dos] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 0 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 1 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se ejecuta de nuevo la instrucción de paso.</p>
+
+            <p>En este caso, la variable $i aumenta una unidad, por lo que ahora vale 2.</p>
+
+            <p class="control">
+              <a href="#d310"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d312"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d312">
+            <p><strong>Ejemplo de bucle for incorrecto (3) - Paso 12</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", "dos" =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; <span class="codigo-resaltado">$i &lt;= 1</span>; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [dos] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 0 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 1 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;</code>
+</pre>
+              </div>
+            </div>
+
+            <p>A continuación se comprueba de nuevo que la condición de continuación se cumple.</p>
+
+            <p>En este caso, $i ya no es inferior o igual a 1 (vale 2), así que no se ejecutan las instrucciones del bloque de sentencias y el bucle se termina.</p>
+
+            <p class="control">
+              <a href="#d311"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <a href="#d313"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+            </p>
+          </div>
+
+          <div id="d313">
+            <p><strong>Ejemplo de bucle for incorrecto (3) - Paso 13</strong></p>
+
+            <div class="filaflex">
+              <div class="codigo">
+                <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", "dos" =&gt; "bb"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+for ($i = 0; $i &lt;= 1; $i++) {
+    print "&lt;p&gt;$matriz[$i]&lt;/p&gt;\n";
+}
+<span class="codigo-resaltado">print "&lt;p&gt;Final&lt;/p&gt;\n";</span>
+?&gt;</code>
+</pre>
+              </div>
+              <div class="resultado-codigo">
+                <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [dos] =&gt; bb
+)
+&lt;/pre&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 0 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined offset: 1 in &lt;b&gt;ejemplo.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;
+<span class="codigo-resaltado">&lt;p&gt;Final&lt;/p&gt;</span></code>
+</pre>
+              </div>
+            </div>
+
+            <p>Una vez terminado el bucle, se ejecuta la instrucción que sigue al bucle.</p>
+
+            <p>En este caso, imprime el párrafo final.</p>
+
+            <p class="control">
+              <a href="#d312"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+              <img src="../varios/iconos/icono-vacio.svg" alt="" width="48" height="48">
+            </p>
+          </div>
+        </div>
+
+        <p><strong>Nota</strong>: Esta situación no se podría evitar pues los índices de la matriz no son valores numéricos.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section id="sintaxis">
+    <h2>Sintaxis del bucle foreach</h2>
+
+    <p>La sintaxis del <a href="https://www.php.net/manual/en/control-structures.foreach.php">bucle foreach</a> puede ser una de las siguientes:</p>
+
+    <div class="codigo">
+      <pre>
+<code class="language-php">foreach ($matriz as $valor) {
+    bloque_de_sentencias
+}</code>
+</pre>
+    </div>
+
+    <div class="codigo">
+      <pre>
+<code class="language-php">foreach ($matriz as $indice =&gt; $valor) {
+    bloque_de_sentencias
+}</code>
+</pre>
+    </div>
+
+    <p>La ejecución de esta estructura de control es la siguiente:</p>
+
+    <ul>
+      <li>Si la matriz no contiene elementos, el bucle no se ejecuta.</li>
+      <li>Si la matriz contiene elementos:
+        <ul>
+          <li>Se asigna el primer valor de la matriz a la variable auxiliar (y en su caso, el primer índice a la otra variable auxiliar)</li>
+          <li>(*) Se ejecuta el bloque de sentencias</li>
+          <li>Si la matriz no contiene más elementos, el bucle deja de ejecutarse.</li>
+          <li>Si la matriz todavía contiene más elementos:
+            <ul>
+              <li>Se asigna el siguiente valor de la matriz a la variable auxiliar (y en su caso, el siguiente índice a la otra variable auxiliar)</li>
+              <li>Se vuelve al punto (*) (es decir, se ejecuta de nuevo el bloque de sentencias, etc.)</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <p>El bucle se ejecuta tantas veces como elementos tiene la matriz. En cada iteración, las variables $indice y $valor van tomando los valores de los índices y de la matriz para ese índice.</p>
+
+    <p>Si sólo se necesitan los valores almacenados en la matriz se puede utilizar tanto la primera como la segunda forma. Si se necesitan tanto los índices como los valores se debe utilizar la segunda forma. Si sólo se necesitan los índices también se debe utilizar la segunda forma.</p>
+  </section>
+
+  <section id="diagrama-flujo">
+    <h2>Diagrama de flujo</h2>
+
+    <p>El diagrama de flujo siguiente muestra la ejecución de un bucle <span class="php-res">foreach</span> ...:</p>
+
+    <p>
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="500" height="640" viewBox="-150 -100 500 640" style="background-color: white;" font-family="sans-serif" class="izquierda">
+        <rect x="-148" y="-98" width="496" height="83" rx="3" ry="3" fill="none" stroke="black" stroke-width="3" />
+        <line x1="-148" y1="-70" x2="348" y2="-70" stroke-width="2" stroke="black" />
+        <text x="100" y="-77" text-anchor="middle" font-family="sans-serif" font-size="20" fill="black">DIAGRAMA DE FLUJO: BUCLE FOREACH</text>
+        <text x="60" y="-48" text-anchor="middle" font-family="sans-serif" font-size="18" fill="green" class="no-paso-a-paso">Haga clic en los botones de avance y retroceso</text>
+        <text x="60" y="-27" text-anchor="middle" font-family="sans-serif" font-size="18" fill="green" class="no-paso-a-paso">para ver la ejecución paso a paso</text>
+        <g onclick="svg_retrocede(0)">
+          <circle cx="280" cy="-43" r="17" fill="white" stroke-width="3" stroke="black" />
+          <polygon points="285,-33 270,-43 285,-53" fill="black" stroke-width="2" stroke="black" />
+        </g>
+        <g onclick="svg_avanza(0)">
+          <circle cx="323" cy="-43" r="17" fill="white" stroke-width="3" stroke="black" />
+          <polygon points="318,-33 333,-43 318,-53" fill="black" stroke-width="2" stroke="black" />
+        </g>
+
+        <g id="svg01-p01">
+          <text x="70" y="-40" text-anchor="middle" font-family="sans-serif" font-size="18" fill="none">El programa llega al bucle foreach.</text>
+          <rect x="-50" y="0" width="100" height="50" rx="25" ry="25" fill="white" stroke="black" stroke-width="3" />
+          <text x="0" y="32" text-anchor="middle" font-family="sans-serif" font-size="20" fill="black">INICIO</text>
+
+          <line x1="0" y1="50" x2="0" y2="90" stroke-width="3" stroke="black" />
+          <polyline points="5,80 0,90 -5,80" fill="black" stroke-width="2" stroke="black" />
+        </g>
+
+        <g id="svg01-p02">
+          <text x="70" y="-40" text-anchor="middle" font-family="sans-serif" font-size="18" fill="none">Evalúa si la matriz tiene elementos ...</text>
+          <polygon points="0,90 90,125 0,160 -90,125" fill="white" stroke-width="3" stroke="black" />
+          <text x="0" y="120" text-anchor="middle" font-family="sans-serif" font-size="14" fill="black">¿Hay elementos</text>
+          <text x="0" y="140" text-anchor="middle" font-family="sans-serif" font-size="14" fill="black">en la matriz?</text>
+        </g>
+
+        <g id="svg01-p03">
+          <text x="70" y="-48" text-anchor="middle" font-family="sans-serif" font-size="18" fill="none">Si no hay ningún elemento,</text>
+          <text x="70" y="-27" text-anchor="middle" font-family="sans-serif" font-size="18" fill="none">termina el bucle foreach.</text>
+          <polyline points="-90,125 -140,125 -140,425, 0,425 0,485" fill="none" stroke-width="3" stroke="black" />
+          <polyline points="-5,475 0,485 5,475" fill="black" stroke-width="2" stroke="black" />
+          <text x="-115" y="115" text-anchor="middle" font-family="sans-serif" font-size="18" fill="blue">false</text>
+
+          <rect x="-50" y="485" width="100" height="50" rx="25" ry="25" fill="white" stroke="black" stroke-width="3" />
+          <text x="0" y="517" text-anchor="middle" font-family="sans-serif" font-size="20" fill="black">FIN</text>
+        </g>
+
+        <g id="svg01-p04">
+          <text x="70" y="-48" text-anchor="middle" font-family="sans-serif" font-size="18" fill="none">Si hay algún elemento, asigna</text>
+          <text x="70" y="-27" text-anchor="middle" font-family="sans-serif" font-size="18" fill="none">el primer elemento a la variable auxiliar ...</text>
+          <polyline points="90,125 140,125 140,170" fill="none" stroke-width="3" stroke="black" />
+          <polyline points="135,160 140,170 145,160" fill="black" stroke-width="2" stroke="black" />
+          <text x="115" y="115" text-anchor="middle" font-family="sans-serif" font-size="18" fill="blue">true</text>
+
+          <rect x="85" y="170" width="110" height="50" fill="white" stroke="black" stroke-width="3" />
+          <text x="140" y="192" text-anchor="middle" font-family="sans-serif" font-size="18" fill="black">Asigna</text>
+          <text x="140" y="212" text-anchor="middle" font-family="sans-serif" font-size="18" fill="black">primer valor</text>
+        </g>
+
+        <g id="svg01-p05">
+          <text x="70" y="-40" text-anchor="middle" font-family="sans-serif" font-size="18" fill="none">... ejecuta el bloque de instrucciones ...</text>
+          <line x1="140" y1="220" x2="140" y2="300" stroke-width="3" stroke="black" />
+          <polyline points="135,290 140,300 145,290" fill="black" stroke-width="2" stroke="black" />
+
+          <rect x="85" y="300" width="110" height="50" fill="white" stroke="black" stroke-width="3" />
+          <text x="140" y="332" text-anchor="middle" font-family="sans-serif" font-size="20" fill="black">Bloque</text>
+        </g>
+
+        <g id="svg01-p06">
+          <text x="70" y="-40" text-anchor="middle" font-family="sans-serif" font-size="18" fill="none">... y evalúa si hay más elementos.</text>
+          <line x1="140" y1="350" x2="140" y2="390" stroke-width="3" stroke="black" />
+          <polyline points="135,380 140,390 145,380" fill="black" stroke-width="2" stroke="black" />
+
+          <polygon points="140,390 230,425 140,460 50,425" fill="white" stroke-width="3" stroke="black" />
+          <text x="140" y="425" text-anchor="middle" font-family="sans-serif" font-size="14" fill="black">¿Quedan elementos</text>
+          <text x="140" y="440" text-anchor="middle" font-family="sans-serif" font-size="14" fill="black">en la matriz?</text>
+        </g>
+
+        <g id="svg01-p07">
+          <text x="70" y="-48" text-anchor="middle" font-family="sans-serif" font-size="18" fill="none">Si los hay, asigna el siguiente</text>
+          <text x="70" y="-27" text-anchor="middle" font-family="sans-serif" font-size="18" fill="none">valor a la variable auxiliar ...</text>
+          <polyline points="230,425 280,425 280,350" fill="none" stroke-width="3" stroke="black" />
+          <polyline points="275,360 280,350 285,360" fill="black" stroke-width="2" stroke="black" />
+          <text x="255" y="415" text-anchor="middle" font-family="sans-serif" font-size="18" fill="blue">true</text>
+
+          <rect x="225" y="300" width="110" height="50" fill="white" stroke="black" stroke-width="3" />
+          <text x="280" y="322" text-anchor="middle" font-family="sans-serif" font-size="18" fill="black">Asigna valor</text>
+          <text x="280" y="342" text-anchor="middle" font-family="sans-serif" font-size="18" fill="black">siguiente</text>
+        </g>
+
+        <g id="svg01-p08">
+          <text x="70" y="-40" text-anchor="middle" font-family="sans-serif" font-size="18" fill="none">... vuelve a ejecutar el bloque ...</text>
+          <polyline points="280,300 280,260 140,260" fill="none" stroke-width="3" stroke="black" />
+          <polyline points="150,265 140,260 150,255" fill="black" stroke-width="2" stroke="black" />
+        </g>
+
+        <g id="svg01-p09">
+          <text x="70" y="-40" text-anchor="middle" font-family="sans-serif" font-size="18" fill="none">... y vuelve a evaluar si hay más elementos.</text>
+          <line x1="140" y1="350" x2="140" y2="390" stroke-width="3" stroke="black" />
+          <polyline points="135,380 140,390 145,380" fill="black" stroke-width="2" stroke="black" />
+
+          <polygon points="140,390 230,425 140,460 50,425" fill="white" stroke-width="3" stroke="black" />
+          <text x="140" y="425" text-anchor="middle" font-family="sans-serif" font-size="14" fill="black">¿Quedan elementos</text>
+          <text x="140" y="440" text-anchor="middle" font-family="sans-serif" font-size="14" fill="black">en la matriz?</text>
+        </g>
+
+        <g id="svg01-p10">
+          <text x="70" y="-48" text-anchor="middle" font-family="sans-serif" font-size="18" fill="none">Si no los hay,</text>
+          <text x="70" y="-27" text-anchor="middle" font-family="sans-serif" font-size="18" fill="none">termina el bucle foreach.</text>
+          <polyline points="50,425 0,425 0,485" fill="none" stroke-width="3" stroke="black" />
+          <polyline points="-5,475 0,485 5,475" fill="black" stroke-width="2" stroke="black" />
+          <text x="25" y="415" text-anchor="middle" font-family="sans-serif" font-size="18" fill="blue">false</text>
+
+          <rect x="-50" y="485" width="100" height="50" rx="25" ry="25" fill="white" stroke="black" stroke-width="3" />
+          <text x="0" y="517" text-anchor="middle" font-family="sans-serif" font-size="20" fill="black">FIN</text>
+        </g>
+
+        <g id="svg01-p01-b" visibility="hidden">
+          <text x="70" y="-40" text-anchor="middle" font-family="sans-serif" font-size="18" fill="black">El programa llega al bucle foreach.</text>
+          <rect x="-50" y="0" width="100" height="50" rx="25" ry="25" fill="white" stroke="red" stroke-width="3" />
+          <text x="0" y="32" text-anchor="middle" font-family="sans-serif" font-size="20" fill="red">INICIO</text>
+
+          <line x1="0" y1="50" x2="0" y2="90" stroke-width="3" stroke="red" />
+          <polyline points="5,80 0,90 -5,80" fill="red" stroke-width="2" stroke="red" />
+        </g>
+
+        <g id="svg01-p02-b" visibility="hidden">
+          <text x="70" y="-40" text-anchor="middle" font-family="sans-serif" font-size="18" fill="black">Evalúa si la matriz tiene elementos ...</text>
+          <polygon points="0,90 90,125 0,160 -90,125" fill="white" stroke-width="3" stroke="red" />
+          <text x="0" y="120" text-anchor="middle" font-family="sans-serif" font-size="14" fill="red">¿Hay elementos</text>
+          <text x="0" y="140" text-anchor="middle" font-family="sans-serif" font-size="14" fill="red">en la matriz?</text>
+        </g>
+
+        <g id="svg01-p03-b" visibility="hidden">
+          <text x="70" y="-48" text-anchor="middle" font-family="sans-serif" font-size="18" fill="black">Si no hay ningún elemento,</text>
+          <text x="70" y="-27" text-anchor="middle" font-family="sans-serif" font-size="18" fill="black">termina el bucle foreach.</text>
+          <polyline points="-90,125 -140,125 -140,425, 0,425 0,485" fill="none" stroke-width="3" stroke="red" />
+          <polyline points="-5,475 0,485 5,475" fill="red" stroke-width="2" stroke="red" />
+          <text x="-115" y="115" text-anchor="middle" font-family="sans-serif" font-size="18" fill="blue">false</text>
+
+          <rect x="-50" y="485" width="100" height="50" rx="25" ry="25" fill="white" stroke="red" stroke-width="3" />
+          <text x="0" y="517" text-anchor="middle" font-family="sans-serif" font-size="20" fill="red">FIN</text>
+        </g>
+
+        <g id="svg01-p04-b" visibility="hidden">
+          <text x="70" y="-48" text-anchor="middle" font-family="sans-serif" font-size="18" fill="black">Si hay algún elemento, asigna</text>
+          <text x="70" y="-27" text-anchor="middle" font-family="sans-serif" font-size="18" fill="black">el primer elemento a la variable auxiliar ...</text>
+          <polyline points="90,125 140,125 140,170" fill="none" stroke-width="3" stroke="red" />
+          <polyline points="135,160 140,170 145,160" fill="red" stroke-width="2" stroke="red" />
+          <text x="115" y="115" text-anchor="middle" font-family="sans-serif" font-size="18" fill="blue">true</text>
+
+          <rect x="85" y="170" width="110" height="50" fill="white" stroke="red" stroke-width="3" />
+          <text x="140" y="192" text-anchor="middle" font-family="sans-serif" font-size="18" fill="red">Asigna</text>
+          <text x="140" y="212" text-anchor="middle" font-family="sans-serif" font-size="18" fill="red">primer valor</text>
+        </g>
+
+        <g id="svg01-p05-b" visibility="hidden">
+          <text x="70" y="-40" text-anchor="middle" font-family="sans-serif" font-size="18" fill="black">... ejecuta el bloque de instrucciones ...</text>
+          <line x1="140" y1="220" x2="140" y2="300" stroke-width="3" stroke="red" />
+          <polyline points="135,290 140,300 145,290" fill="red" stroke-width="2" stroke="red" />
+
+          <rect x="85" y="300" width="110" height="50" fill="white" stroke="red" stroke-width="3" />
+          <text x="140" y="332" text-anchor="middle" font-family="sans-serif" font-size="20" fill="red">Bloque</text>
+        </g>
+
+        <g id="svg01-p06-b" visibility="hidden">
+          <text x="70" y="-40" text-anchor="middle" font-family="sans-serif" font-size="18" fill="black">... y evalúa si hay más elementos.</text>
+          <line x1="140" y1="350" x2="140" y2="390" stroke-width="3" stroke="red" />
+          <polyline points="135,380 140,390 145,380" fill="red" stroke-width="2" stroke="red" />
+
+          <polygon points="140,390 230,425 140,460 50,425" fill="white" stroke-width="3" stroke="red" />
+          <text x="140" y="425" text-anchor="middle" font-family="sans-serif" font-size="14" fill="red">¿Quedan elementos</text>
+          <text x="140" y="440" text-anchor="middle" font-family="sans-serif" font-size="14" fill="red">en la matriz?</text>
+        </g>
+
+        <g id="svg01-p07-b" visibility="hidden">
+          <text x="70" y="-48" text-anchor="middle" font-family="sans-serif" font-size="18" fill="black">Si los hay, asigna el siguiente</text>
+          <text x="70" y="-27" text-anchor="middle" font-family="sans-serif" font-size="18" fill="black">valor a la variable auxiliar ...</text>
+          <polyline points="230,425 280,425 280,350" fill="none" stroke-width="3" stroke="red" />
+          <polyline points="275,360 280,350 285,360" fill="red" stroke-width="2" stroke="red" />
+          <text x="255" y="415" text-anchor="middle" font-family="sans-serif" font-size="18" fill="blue">true</text>
+
+          <rect x="225" y="300" width="110" height="50" fill="white" stroke="red" stroke-width="3" />
+          <text x="280" y="322" text-anchor="middle" font-family="sans-serif" font-size="18" fill="red">Asigna valor</text>
+          <text x="280" y="342" text-anchor="middle" font-family="sans-serif" font-size="18" fill="red">siguiente</text>
+        </g>
+
+        <g id="svg01-p08-b" visibility="hidden">
+          <text x="70" y="-40" text-anchor="middle" font-family="sans-serif" font-size="18" fill="black">... vuelve a ejecutar el bloque ...</text>
+          <polyline points="280,300 280,260 140,260 140,300" fill="none" stroke-width="3" stroke="red" />
+          <polyline points="150,265 140,260 150,255" fill="red" stroke-width="2" stroke="red" />
+          <polyline points="135,290 140,300 145,290" fill="red" stroke-width="2" stroke="red" />
+
+          <rect x="85" y="300" width="110" height="50" fill="white" stroke="red" stroke-width="3" />
+          <text x="140" y="332" text-anchor="middle" font-family="sans-serif" font-size="20" fill="red">Bloque</text>
+        </g>
+
+        <g id="svg01-p09-b" visibility="hidden">
+          <text x="70" y="-40" text-anchor="middle" font-family="sans-serif" font-size="18" fill="black">... y vuelve a evaluar si hay más elementos.</text>
+          <line x1="140" y1="350" x2="140" y2="390" stroke-width="3" stroke="red" />
+          <polyline points="135,380 140,390 145,380" fill="red" stroke-width="2" stroke="red" />
+
+          <polygon points="140,390 230,425 140,460 50,425" fill="white" stroke-width="3" stroke="red" />
+          <text x="140" y="425" text-anchor="middle" font-family="sans-serif" font-size="14" fill="red">¿Quedan elementos</text>
+          <text x="140" y="440" text-anchor="middle" font-family="sans-serif" font-size="14" fill="red">en la matriz?</text>
+        </g>
+
+        <g id="svg01-p10-b" visibility="hidden">
+          <text x="70" y="-48" text-anchor="middle" font-family="sans-serif" font-size="18" fill="black">Si no los hay,</text>
+          <text x="70" y="-27" text-anchor="middle" font-family="sans-serif" font-size="18" fill="black">termina el bucle foreach.</text>
+          <polyline points="50,425 0,425 0,485" fill="none" stroke-width="3" stroke="red" />
+          <polyline points="-5,475 0,485 5,475" fill="red" stroke-width="2" stroke="red" />
+          <text x="25" y="415" text-anchor="middle" font-family="sans-serif" font-size="18" fill="blue">false</text>
+
+          <rect x="-50" y="485" width="100" height="50" rx="25" ry="25" fill="white" stroke="red" stroke-width="3" />
+          <text x="0" y="517" text-anchor="middle" font-family="sans-serif" font-size="20" fill="red">FIN</text>
+        </g>
+      </svg>
+    </p>
+
+  </section>
+
+  <section id="ejemplos">
+    <h2>Ejemplos de bucles <span class="php-res">foreach</span> ...</h2>
+
+    <section id="matrices">
+      <h3>Matrices</h3>
+      <ul>
+        <li>En el ejemplo siguiente, el bucle recorre una matriz imprimiendo sus valores
+
+          <div class="mcl-diapo" style="height: 430px;">
+
+            <div id="d40">
+              <p><strong>Ejemplo de bucle foreach (1)</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb", "ccc"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $valor) {
+    print "&lt;p&gt;$valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+    [2] =&gt; ccc
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;p&gt;bb&lt;/p&gt;
+&lt;p&gt;ccc&lt;/p&gt;
+&lt;p&gt;Final&lt;/p&gt;</code>
+</pre>
+                </div>
+              </div>
+
+              <p>Puede ver la ejecución paso a paso de este programa utilizando los iconos de avance y retroceso situados abajo a la derecha.</p>
+
+              <p class="control">
+                <a href="#d41"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d41">
+              <p><strong>Ejemplo de bucle foreach (1) - Paso 1</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+<span class="codigo-resaltado">$matriz = ["a", "bb", "ccc"];</span>
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $valor) {
+    print "&lt;p&gt;$valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo"></div>
+              </div>
+
+              <p>Se ejecuta la primera instrucción del programa.</p>
+
+              <p>En este caso, se crea la matriz $matriz.</p>
+
+              <p class="control">
+                <a href="#d40"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d42"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d42">
+              <p><strong>Ejemplo de bucle foreach (1) - Paso 2</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb", "ccc"];
+<span class="codigo-resaltado">print "&lt;pre&gt;\n";</span>
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $valor) {
+    print "&lt;p&gt;$valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre><code class="language-html"><span class="codigo-resaltado">&lt;pre&gt;</span></code></pre>
+                </div>
+              </div>
+
+              <p>A continuación se abre la etiqueta <span class="html-eti">&lt;pre&gt;</span>.</p>
+
+              <p class="control">
+                <a href="#d41"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d43"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d43">
+              <p><strong>Ejemplo de bucle foreach (1) - Paso 3</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb", "ccc"];
+print "&lt;pre&gt;\n";
+<span class="codigo-resaltado">print_r($matriz);</span>
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $valor) {
+    print "&lt;p&gt;$valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;</code></pre>
+                  <pre class="codigo-resaltado"><code class="language-html">Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+    [2] =&gt; ccc
+)</code>
+</pre>
+                </div>
+              </div>
+
+              <p>A continuación se imprimen los valores de la matriz $matriz.</p>
+
+              <p class="control">
+                <a href="#d42"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d44"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d44">
+              <p><strong>Ejemplo de bucle foreach (1) - Paso 4</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb", "ccc"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+<span class="codigo-resaltado">print "&lt;/pre&gt;\n";</span>
+foreach ($matriz as $valor) {
+    print "&lt;p&gt;$valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+    [2] =&gt; ccc
+)
+<span class="codigo-resaltado">&lt;/pre&gt;</span></code>
+</pre>
+                </div>
+              </div>
+
+              <p>A continuación se cierra la etiqueta <span class="html-eti">&lt;/pre&gt;</span>.</p>
+
+              <p class="control">
+                <a href="#d43"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d45"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d45">
+              <p><strong>Ejemplo de bucle foreach (1) - Paso 5</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb", "ccc"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach (<span class="codigo-resaltado">$matriz as $valor</span>) {
+    print "&lt;p&gt;$valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+    [2] =&gt; ccc
+)
+&lt;/pre&gt;</code>
+</pre>
+                </div>
+              </div>
+
+              <p>A continuación se ejecuta el bucle. La variable $valor va a ir tomando sucesivamente los valores de la matriz.</p>
+
+              <p>En este caso, la variable $valor toma el valor "a".</p>
+
+              <p class="control">
+                <a href="#d44"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d46"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d46">
+              <p><strong>Ejemplo de bucle foreach (1) - Paso 6</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb", "ccc"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $valor) {
+    <span class="codigo-resaltado">print "&lt;p&gt;$valor&lt;/p&gt;\n";</span>
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+    [2] =&gt; ccc
+)
+&lt;/pre&gt;
+<span class="codigo-resaltado">&lt;p&gt;a&lt;/p&gt;</span></code>
+</pre>
+                </div>
+              </div>
+
+              <p>A continuación se ejecutan las instrucciones del bloque.</p>
+
+              <p>En este caso, se imprime el texto &lt;p&gt;a&lt;/p&gt; ya que $valor tiene el valor "a".</p>
+
+              <p class="control">
+                <a href="#d45"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d47"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d47">
+              <p><strong>Ejemplo de bucle foreach (1) - Paso 7</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb", "ccc"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach (<span class="codigo-resaltado">$matriz as $valor</span>) {
+    print "&lt;p&gt;$valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+    [2] =&gt; ccc
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;</code>
+</pre>
+                </div>
+              </div>
+
+              <p>A continuación $valor pasa a tomar el valor siguiente de la matriz.</p>
+
+              <p>En este caso, la variable $valor toma el valor "bb".</p>
+
+              <p class="control">
+                <a href="#d46"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d48"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d48">
+              <p><strong>Ejemplo de bucle foreach (1) - Paso 8</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb", "ccc"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $valor) {
+    <span class="codigo-resaltado">print "&lt;p&gt;$valor&lt;/p&gt;\n"</span>;
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+    [2] =&gt; ccc
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+<span class="codigo-resaltado">&lt;p&gt;bb&lt;/p&gt;</span></code>
+</pre>
+                </div>
+              </div>
+
+              <p>A continuación se ejecutan de nuevo las instrucciones del bloque.</p>
+
+              <p>En este caso, se imprime el texto &lt;p&gt;bb&lt;/p&gt; ya que $valor tiene el valor "bb".</p>
+
+              <p class="control">
+                <a href="#d47"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d49"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d49">
+              <p><strong>Ejemplo de bucle foreach (1) - Paso 9</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb", "ccc"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach (<span class="codigo-resaltado">$matriz as $valor</span>) {
+    print "&lt;p&gt;$valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+    [2] =&gt; ccc
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;p&gt;bb&lt;/p&gt;</code>
+</pre>
+                </div>
+              </div>
+
+              <p>A continuación $valor pasa a tomar el valor siguiente de la matriz.</p>
+
+              <p>En este caso, la variable $valor toma el valor "ccc".</p>
+
+              <p class="control">
+                <a href="#d48"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d410"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d410">
+              <p><strong>Ejemplo de bucle foreach (1) - Paso 10</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb", "ccc"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $valor) {
+    <span class="codigo-resaltado">print "&lt;p&gt;$valor&lt;/p&gt;\n";</span>
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+    [2] =&gt; ccc
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;p&gt;bb&lt;/p&gt;
+<span class="codigo-resaltado">&lt;p&gt;ccc&lt;/p&gt;</span></code>
+</pre>
+                </div>
+              </div>
+
+              <p>A continuación se ejecutan de nuevo las instrucciones del bloque.</p>
+
+              <p>En este caso, se imprime el texto &lt;p&gt;ccc&lt;/p&gt; ya que $valor tiene el valor "ccc".</p>
+
+              <p class="control">
+                <a href="#d49"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d411"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d411">
+              <p><strong>Ejemplo de bucle foreach (1) - Paso 11</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb", "ccc"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach (<span class="codigo-resaltado">$matriz as $valor</span>) {
+    print "&lt;p&gt;$valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+    [2] =&gt; ccc
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;p&gt;bb&lt;/p&gt;
+&lt;p&gt;ccc&lt;/p&gt;</code>
+</pre>
+                </div>
+              </div>
+
+              <p>A continuación $valor pasa a tomar el valor siguiente de la matriz.</p>
+
+              <p>Pero como en la matriz no quedan más valores, no se ejecutan las instrucciones del bloque de sentencias y el bucle se termina.</p>
+
+              <p class="control">
+                <a href="#d410"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d412"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d412">
+              <p><strong>Ejemplo de bucle foreach (1) - Paso 12</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["a", "bb", "ccc"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $valor) {
+    print "&lt;p&gt;$valor&lt;/p&gt;\n";
+}
+<span class="codigo-resaltado">print "&lt;p&gt;Final&lt;/p&gt;\n";</span>
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; bb
+    [2] =&gt; ccc
+)
+&lt;/pre&gt;
+&lt;p&gt;a&lt;/p&gt;
+&lt;p&gt;bb&lt;/p&gt;
+&lt;p&gt;ccc&lt;/p&gt;
+<span class="codigo-resaltado">&lt;p&gt;Final&lt;/p&gt;</span></code>
+</pre>
+                </div>
+              </div>
+
+              <p>Una vez terminado el bucle, se ejecuta la instrucción que sigue al bucle.</p>
+
+              <p>En este caso, imprime el párrafo final.</p>
+
+              <p class="control">
+                <a href="#d411"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <img src="../varios/iconos/icono-vacio.svg" alt="" width="48" height="48">
+              </p>
+            </div>
+          </div>
+        </li>
+        <li>En el ejemplo siguiente, el bucle recorre una matriz imprimiendo sus índices y valores
+
+          <div class="mcl-diapo" style="height: 430px;">
+
+            <div id="d50">
+              <p><strong>Ejemplo de bucle foreach (2)</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", 2 =&gt; "bb", "tres" =&gt; "ccc"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $indice =&gt; $valor) {
+    print "&lt;p&gt;$indice - $valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [2] =&gt; bb
+    [tres] =&gt; ccc
+)
+&lt;/pre&gt;
+&lt;p&gt;uno - a&lt;/p&gt;
+&lt;p&gt;2 - bb&lt;/p&gt;
+&lt;p&gt;tres - ccc&lt;/p&gt;
+&lt;p&gt;Final&lt;/p&gt;</code>
+</pre>
+                </div>
+              </div>
+
+              <p>Puede ver la ejecución paso a paso de este programa utilizando los iconos de avance y retroceso situados abajo a la derecha.</p>
+
+              <p class="control">
+                <a href="#d51"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d51">
+              <p><strong>Ejemplo de bucle foreach (2) - Paso 1</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+<span class="codigo-resaltado">$matriz = ["uno" =&gt; "a", 2 =&gt; "bb", "tres" =&gt; "ccc"];</span>
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $indice =&gt; $valor) {
+    print "&lt;p&gt;$indice - $valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo"></div>
+              </div>
+
+              <p>Se ejecuta la primera instrucción del programa.</p>
+
+              <p>En este caso, se crea la matriz $matriz.</p>
+
+              <p class="control">
+                <a href="#d50"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d52"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d52">
+              <p><strong>Ejemplo de bucle foreach (2) - Paso 2</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", 2 =&gt; "bb", "tres" =&gt; "ccc"];
+<span class="codigo-resaltado">print "&lt;pre&gt;\n";</span>
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $indice =&gt; $valor) {
+    print "&lt;p&gt;$indice - $valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre><code class="language-html"><span class="codigo-resaltado">&lt;pre&gt;</span></code></pre>
+                </div>
+              </div>
+
+              <p>A continuación se abre la etiqueta <span class="html-eti">&lt;pre&gt;</span>.</p>
+
+              <p class="control">
+                <a href="#d51"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d53"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d53">
+              <p><strong>Ejemplo de bucle foreach (2) - Paso 3</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", 2 =&gt; "bb", "tres" =&gt; "ccc"];
+print "&lt;pre&gt;\n";
+<span class="codigo-resaltado">print_r($matriz);</span>
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $indice =&gt; $valor) {
+    print "&lt;p&gt;$indice - $valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;</code></pre>
+                  <pre class="codigo-resaltado"><code class="language-html">Array
+(
+    [uno] =&gt; a
+    [2] =&gt; bb
+    [tres] =&gt; ccc
+)</code>
+</pre>
+                </div>
+              </div>
+
+              <p>A continuación se imprimen los valores de la matriz $matriz.</p>
+
+              <p class="control">
+                <a href="#d52"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d54"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d54">
+              <p><strong>Ejemplo de bucle foreach (2) - Paso 4</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", 2 =&gt; "bb", "tres" =&gt; "ccc"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+<span class="codigo-resaltado">print "&lt;/pre&gt;\n";</span>
+foreach ($matriz as $indice =&gt; $valor) {
+    print "&lt;p&gt;$indice - $valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [2] =&gt; bb
+    [tres] =&gt; ccc
+)
+<span class="codigo-resaltado">&lt;/pre&gt;</span></code>
+</pre>
+                </div>
+              </div>
+
+              <p>A continuación se cierra la etiqueta <span class="html-eti">&lt;/pre&gt;</span>.</p>
+
+              <p class="control">
+                <a href="#d53"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d55"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d55">
+              <p><strong>Ejemplo de bucle foreach (2) - Paso 5</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", 2 =&gt; "bb", "tres" =&gt; "ccc"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach (<span class="codigo-resaltado">$matriz as $indice =&gt; $valor</span>) {
+    print "&lt;p&gt;$indice - $valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [2] =&gt; bb
+    [tres] =&gt; ccc
+)
+&lt;/pre&gt;</code>
+</pre>
+                </div>
+              </div>
+
+              <p>A continuación se ejecuta el bucle. Las variables $indice y $valor van a ir tomando sucesivamente los valores del índice y del elemento de la matriz, respectivamente.</p>
+
+              <p>En este caso, la variable $indice toma el valor "uno" y $valor toma el valor "a".</p>
+
+              <p class="control">
+                <a href="#d54"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d56"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d56">
+              <p><strong>Ejemplo de bucle foreach (2) - Paso 6</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", 2 =&gt; "bb", "tres" =&gt; "ccc"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $indice =&gt; $valor) {
+    <span class="codigo-resaltado">print "&lt;p&gt;$indice - $valor&lt;/p&gt;\n";</span>
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [2] =&gt; bb
+    [tres] =&gt; ccc
+)
+&lt;/pre&gt;
+<span class="codigo-resaltado">&lt;p&gt;uno - a&lt;/p&gt;</span></code>
+</pre>
+                </div>
+              </div>
+
+              <p>A continuación se ejecutan las instrucciones del bloque.</p>
+
+              <p>En este caso, se imprime el texto &lt;p&gt;uno - a&lt;/p&gt; ya que $indice tiene el valor "uno" y $valor tiene el valor "a".</p>
+
+              <p class="control">
+                <a href="#d55"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d57"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d57">
+              <p><strong>Ejemplo de bucle foreach (2) - Paso 7</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", 2 =&gt; "bb", "tres" =&gt; "ccc"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach (<span class="codigo-resaltado">$matriz as $indice =&gt; $valor</span>) {
+    print "&lt;p&gt;$indice - $valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [2] =&gt; bb
+    [tres] =&gt; ccc
+)
+&lt;/pre&gt;
+&lt;p&gt;uno - a&lt;/p&gt;</code>
+</pre>
+                </div>
+              </div>
+
+              <p>A continuación $indice y $valor pasan a tomar los valores del elemento siguiente de la matriz.</p>
+
+              <p>En este caso, la variable $indice toma el valor "2" y $valor toma el valor "bb".</p>
+
+              <p class="control">
+                <a href="#d56"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d58"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d58">
+              <p><strong>Ejemplo de bucle foreach (2) - Paso 8</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", 2 =&gt; "bb", "tres" =&gt; "ccc"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $indice =&gt; $valor) {
+    <span class="codigo-resaltado">print "&lt;p&gt;$indice - $valor&lt;/p&gt;\n"</span>;
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [2] =&gt; bb
+    [tres] =&gt; ccc
+)
+&lt;/pre&gt;
+&lt;p&gt;uno - a&lt;/p&gt;
+<span class="codigo-resaltado">&lt;p&gt;2 - bb&lt;/p&gt;</span></code>
+</pre>
+                </div>
+              </div>
+
+              <p>A continuación se ejecutan de nuevo las instrucciones del bloque.</p>
+
+              <p>En este caso, se imprime el texto &lt;p&gt;2 - bb&lt;/p&gt; ya que $indice tiene el valor "2" y $valor tiene el valor "bb".</p>
+
+              <p class="control">
+                <a href="#d57"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d59"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d59">
+              <p><strong>Ejemplo de bucle foreach (2) - Paso 9</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", 2 =&gt; "bb", "tres" =&gt; "ccc"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach (<span class="codigo-resaltado">$matriz as $indice =&gt; $valor</span>) {
+    print "&lt;p&gt;$indice - $valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [2] =&gt; bb
+    [tres] =&gt; ccc
+)
+&lt;/pre&gt;
+&lt;p&gt;uno - a&lt;/p&gt;
+&lt;p&gt;2 - bb&lt;/p&gt;</code>
+</pre>
+                </div>
+              </div>
+
+              <p>A continuación $indice y $valor pasan a tomar los valores del elemento siguiente de la matriz.</p>
+
+              <p>En este caso, la variable $indice toma el valor "tres" y $valor toma el valor "ccc".</p>
+
+              <p class="control">
+                <a href="#d58"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d510"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d510">
+              <p><strong>Ejemplo de bucle foreach (2) - Paso 10</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", 2 =&gt; "bb", "tres" =&gt; "ccc"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $indice =&gt; $valor) {
+    <span class="codigo-resaltado">print "&lt;p&gt;$indice - $valor&lt;/p&gt;\n";</span>
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [2] =&gt; bb
+    [tres] =&gt; ccc
+)
+&lt;/pre&gt;
+&lt;p&gt;uno - a&lt;/p&gt;
+&lt;p&gt;2 - bb&lt;/p&gt;</code>
+</pre>
+                  <pre class="codigo-resaltado"><code class="language-html">&lt;p&gt;tres - ccc&lt;/p&gt;</code></pre>
+                </div>
+              </div>
+
+              <p>A continuación se ejecutan de nuevo las instrucciones del bloque.</p>
+
+              <p>En este caso, se imprime el texto &lt;p&gt;tres - ccc&lt;/p&gt; ya que $indice tiene el valor "tres" y $valor tiene el valor "ccc".</p>
+
+              <p class="control">
+                <a href="#d59"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d511"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d511">
+              <p><strong>Ejemplo de bucle foreach (2) - Paso 11</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", 2 =&gt; "bb", "tres" =&gt; "ccc"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach (<span class="codigo-resaltado">$matriz as $indice =&gt; $valor</span>) {
+    print "&lt;p&gt;$indice - $valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [2] =&gt; bb
+    [tres] =&gt; ccc
+)
+&lt;/pre&gt;
+&lt;p&gt;uno - a&lt;/p&gt;
+&lt;p&gt;2 - bb&lt;/p&gt;
+&lt;p&gt;tres - ccc&lt;/p&gt;</code>
+</pre>
+                </div>
+              </div>
+
+              <p>A continuación $indice y $valor pasan a tomar los valores del elemento siguiente de la matriz.</p>
+
+              <p>Pero como en la matriz no quedan más valores, no se ejecutan las instrucciones del bloque de sentencias y el bucle se termina.</p>
+
+              <p class="control">
+                <a href="#d510"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d512"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d512">
+              <p><strong>Ejemplo de bucle foreach (2) - Paso 12</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = ["uno" =&gt; "a", 2 =&gt; "bb", "tres" =&gt; "ccc"];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $indice =&gt; $valor) {
+    print "&lt;p&gt;$indice - $valor&lt;/p&gt;\n";
+}
+<span class="codigo-resaltado">print "&lt;p&gt;Final&lt;/p&gt;\n";</span>
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [uno] =&gt; a
+    [2] =&gt; bb
+    [tres] =&gt; ccc
+)
+&lt;/pre&gt;
+&lt;p&gt;uno - a&lt;/p&gt;
+&lt;p&gt;2 - bb&lt;/p&gt;
+&lt;p&gt;tres - ccc&lt;/p&gt;
+<span class="codigo-resaltado">&lt;p&gt;Final&lt;/p&gt;</span></code>
+</pre>
+                </div>
+              </div>
+
+              <p>Una vez terminado el bucle, se ejecuta la instrucción que sigue al bucle.</p>
+
+              <p>En este caso, imprime el párrafo final.</p>
+
+              <p class="control">
+                <a href="#d511"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <img src="../varios/iconos/icono-vacio.svg" alt="" width="48" height="48">
+              </p>
+            </div>
+          </div>
+        </li>
+        <li>Si la matriz es una matriz vacía, el bucle simplemente no se ejecuta, como muestra el siguiente ejemplo:
+
+          <div class="mcl-diapo" style="height: 430px;">
+
+            <div id="d60">
+              <p><strong>Ejemplo de bucle foreach (3)</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = [];
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $indice =&gt; $valor) {
+    print "&lt;p&gt;$indice - $valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+)
+&lt;/pre&gt;
+&lt;p&gt;Final&lt;/p&gt;</code>
+</pre>
+                </div>
+              </div>
+
+              <p>Puede ver la ejecución paso a paso de este programa utilizando los iconos de avance y retroceso situados abajo a la derecha.</p>
+
+              <p class="control">
+                <a href="#d61"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d61">
+              <p><strong>Ejemplo de bucle foreach (3) - Paso 1</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+<span class="codigo-resaltado">$matriz = [];</span>
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $indice =&gt; $valor) {
+    print "&lt;p&gt;$indice - $valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo"></div>
+              </div>
+
+              <p>Se ejecuta la primera instrucción del programa.</p>
+
+              <p>En este caso, se crea la matriz $matriz.</p>
+
+              <p class="control">
+                <a href="#d60"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d62"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d62">
+              <p><strong>Ejemplo de bucle foreach (3) - Paso 2</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = [];
+<span class="codigo-resaltado">print "&lt;pre&gt;\n";</span>
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $indice =&gt; $valor) {
+    print "&lt;p&gt;$indice - $valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre><code class="language-html"><span class="codigo-resaltado">&lt;pre&gt;</span></code></pre>
+                </div>
+              </div>
+
+              <p>A continuación se abre la etiqueta <span class="html-eti">&lt;pre&gt;</span>.</p>
+
+              <p class="control">
+                <a href="#d61"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d63"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d63">
+              <p><strong>Ejemplo de bucle foreach (3) - Paso 3</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = [];
+print "&lt;pre&gt;\n";
+<span class="codigo-resaltado">print_r($matriz);</span>
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $indice =&gt; $valor) {
+    print "&lt;p&gt;$indice - $valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;</code></pre>
+                  <pre class="codigo-resaltado"><code class="language-html">Array
+(
+)</code>
+</pre>
+                </div>
+              </div>
+
+              <p>A continuación se imprimen los valores de la matriz $matriz.</p>
+
+              <p class="control">
+                <a href="#d62"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d64"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d64">
+              <p><strong>Ejemplo de bucle foreach (3) - Paso 4</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = []
+print "&lt;pre&gt;\n";
+print_r($matriz);
+<span class="codigo-resaltado">print "&lt;/pre&gt;\n";</span>
+foreach ($matriz as $indice =&gt; $valor) {
+    print "&lt;p&gt;$indice - $valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+)
+<span class="codigo-resaltado">&lt;/pre&gt;</span></code>
+</pre>
+                </div>
+              </div>
+
+              <p>A continuación se cierra la etiqueta <span class="html-eti">&lt;/pre&gt;</span>.</p>
+
+              <p class="control">
+                <a href="#d63"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d65"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d65">
+              <p><strong>Ejemplo de bucle foreach (3) - Paso 5</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = []
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach (<span class="codigo-resaltado">$matriz as $indice =&gt; $valor</span>) {
+    print "&lt;p&gt;$indice - $valor&lt;/p&gt;\n";
+}
+print "&lt;p&gt;Final&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+)
+&lt;/pre&gt;</code>
+</pre>
+                </div>
+              </div>
+
+              <p>A continuación $indice y $valor deberían pasan a tomar los valores del primer elemento de la matriz.</p>
+
+              <p>Pero como en la matriz no hay valores, no se ejecutan las instrucciones del bloque de sentencias y el bucle se termina sin haber ejecutado ninguna vez las instrucciones del cuerpo del bucle..</p>
+
+              <p class="control">
+                <a href="#d64"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <a href="#d66"><img src="../varios/iconos/icono-siguiente.svg" alt="Siguiente" title="Siguiente" width="48" height="48"></a>
+              </p>
+            </div>
+
+            <div id="d66">
+              <p><strong>Ejemplo de bucle foreach (3) - Paso 6</strong></p>
+
+              <div class="filaflex">
+                <div class="codigo">
+                  <pre>
+<code class="language-php">&lt;?php
+$matriz = []
+print "&lt;pre&gt;\n";
+print_r($matriz);
+print "&lt;/pre&gt;\n";
+foreach ($matriz as $indice =&gt; $valor) {
+    print "&lt;p&gt;$indice - $valor&lt;/p&gt;\n";
+}
+<span class="codigo-resaltado">print "&lt;p&gt;Final&lt;/p&gt;\n";</span>
+?&gt;</code>
+</pre>
+                </div>
+                <div class="resultado-codigo">
+                  <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+)
+&lt;/pre&gt;
+<span class="codigo-resaltado">&lt;p&gt;Final&lt;/p&gt;</span></code>
+</pre>
+                </div>
+              </div>
+
+              <p>Una vez terminado el bucle, se ejecuta la instrucción que sigue al bucle.</p>
+
+              <p>En este caso, imprime el párrafo final.</p>
+
+              <p class="control">
+                <a href="#d65"><img src="../varios/iconos/icono-anterior.svg" alt="Anterior" title="Anterior" width="48" height="48"></a>
+                <img src="../varios/iconos/icono-vacio.svg" alt="" width="48" height="48">
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section id="consultas">
+      <h3>Consultas a bases de datos</h3>
+
+      <p class="incompleto">Por completar</p>
+    </section>
+  </section>
+
+  <script>
+    var paso = [-1];
+    var pasos = [
+      ["svg01-p01", "svg01-p02", "svg01-p03", "svg01-p04", "svg01-p05", "svg01-p06", "svg01-p07", "svg01-p08", "svg01-p09", "svg01-p10"]
+    ];
+
+    function svg_cambia(svg, n) {
+      p = document.getElementById(pasos[svg].concat("-b")[n]);
+      if (p.getAttribute("visibility") == "hidden") {
+        p.setAttribute("visibility", "visible");
+      } else {
+        p.setAttribute("visibility", "hidden");
+      }
+      p = document.getElementById((pasos[svg][n]).concat("-b"));
+      if (p.getAttribute("visibility") == "hidden") {
+        p.setAttribute("visibility", "visible");
+      } else {
+        p.setAttribute("visibility", "hidden");
+      }
+      p = document.getElementsByClassName("no-paso-a-paso");
+      for (i = 0; i < p.length; i++) {
+        if (paso[svg] == -1) {
+          p[i].setAttribute("visibility", "visible");
+        } else {
+          p[i].setAttribute("visibility", "hidden");
+        }
+      }
+    }
+
+    function svg_avanza(svg) {
+      if (paso[svg] == -1) {
+        paso[svg] = paso[svg] + 1;
+        svg_cambia(svg, paso[svg]);
+      } else {
+        if (paso[svg] == (pasos[svg].length - 1)) {
+          paso[svg] = -1;
+          svg_cambia(svg, pasos[svg].length - 1);
+        } else {
+          paso[svg] = paso[svg] + 1;
+          svg_cambia(svg, paso[svg] - 1);
+          svg_cambia(svg, paso[svg]);
+        }
+      }
+    }
+
+    function svg_retrocede(svg) {
+      if (paso[svg] == -1) {
+        paso[svg] = pasos[svg].length - 1;
+        svg_cambia(svg, paso[svg]);
+      } else {
+        if (paso[svg] == 0) {
+          paso[svg] = paso[svg] - 1;
+          svg_cambia(svg, [svg]);
+        } else {
+          paso[svg] = paso[svg] - 1;
+          svg_cambia(svg, paso[svg] + 1);
+          svg_cambia(svg, paso[svg]);
+        }
+      }
+    }
+  </script>
+
+  <footer>
+    <p class="ultmod">Última modificación de esta página: 12 de octubre de 2018</p>
+
+    <p class="licencia">
+      <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es_ES"><img src="../varios/iconos/icono-cc-by-sa.svg" alt="Licencia Creative Commons" title="Licencia Creative Commons BY-SA" width="120" height="42"></a><br>
+      Esta página forma parte del curso <strong><a href="https://www.mclibre.org/consultar/php/">Programación web en PHP</a></strong> por <a href="https://www.mclibre.org/" rel="author">Bartolomé Sintes Marco</a><br>
+      que se distribuye bajo una <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es_ES">Licencia Creative Commons Reconocimiento-CompartirIgual 4.0 Internacional (CC BY-SA 4.0)</a>.
+    </p>
+  </footer>
+</body>
+</html>

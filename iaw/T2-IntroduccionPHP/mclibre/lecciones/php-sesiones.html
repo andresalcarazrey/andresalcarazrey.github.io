@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Sesiones. PHP. Bartolomé Sintes Marco. www.mclibre.org</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../varios/php.css" title="mclibre">
+  <link rel="icon" href="../varios/favicon.ico">
+  <link rel="stylesheet" href="../varios/prism.css">
+  <script src="../varios/prism.js"></script>
+</head>
+
+<body>
+  <h1>Sesiones</h1>
+
+  <nav>
+    <p>
+      <a href="../index.html"><img src="../varios/iconos/icono-php.svg" alt="Índice de PHP" title="Índice de PHP" width="48" height="48"></a>
+      <a href="#"><img src="../varios/iconos/icono-arrow-circle-up.svg" alt="Principio de la página" title="Principio de la página" width="36" height="36"></a>
+    </p>
+
+    <div class="toc">
+      <h2>Sesiones</h2>
+
+      <ul>
+        <li><a href="#sesiones-introduccion">Introducción</a></li>
+        <li><a href="#sesiones-crear">Crear la sesión</a></li>
+        <li><a href="#sesiones-utilizar">Utilizar la sesión</a></li>
+        <li><a href="#sesiones-destruir">Cerrar la sesión</a></li>
+        <li><a href="#sesiones-nombre">Nombre de sesión</a></li>
+        <li><a href="#sesiones-borrar">Borrar elementos</a></li>
+        <li><a href="#sesiones-directiva-session-save-handler">session.save_handler</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <p>En esta lección se trata el manejo de sesiones en PHP.</p>
+
+  <section id="sesiones-introduccion">
+    <h2>Introducción</h2>
+
+    <p>Una de las limitaciones de las páginas web es que cada página web es un documento independiente. Eso hace que dos programas PHP no puedan, en principio, compartir información.</p>
+
+    <p>En principio, la única manera de enviar información de una página a otra es a través de un formulario y se trata de la información que ha introducido el usuario en ese formulario. Como mucho podemos enviar información adicional mediante controles ocultos (como se comenta en el <a href="php-varios-1.html#controles-ocultos">apartado sobre controles ocultos de la lección Varios</a>), o podemos "imitar" a un formulario redirigiendo a otra página enviando información en la dirección (como se comenta en la <a href="php-cabeceras.html#redirecciones">lección sobre cabeceras</a>), pero esto no puede considerarse compartir información, puesto que la página que recibe la información no puede saber si la información ha sido manipulada por el camino ni quién se la envía.</p>
+
+    <p>Por compartir información nos estamos refiriendo a utilizar variables comunes en programas distintos, sin que la información salga del servidor.</p>
+
+    <p>El ejemplo siguiente muestra dos páginas: en la primera se crea una variable, que se puede utilizar en esa misma página. La segunda página, que se encuentra en el mismo servidor, no tiene acceso a la variable creada en el primer programa y por eso se produce un aviso al ejecutarla.</p>
+
+    <div class="filaflex">
+      <div class="codigo">
+        <pre>
+<code class="language-php">&lt;?php
+$nombre = "Pepito Conejo";
+print "&lt;p&gt;El nombre es $nombre&lt;/p&gt;";
+?&gt;</code>
+</pre>
+      </div>
+      <div class="resultado-html">
+        <p>El nombre es Pepito Conejo</p>
+      </div>
+    </div>
+
+    <div class="filaflex">
+      <div class="codigo">
+        <pre>
+<code class="language-php">&lt;?php
+print "&lt;p&gt;El nombre es $nombre&lt;/p&gt;";
+?&gt;</code>
+</pre>
+      </div>
+      <div class="resultado-html">
+        <b>Notice</b>: Undefined variable: nombre in <b>ejemplo.php</b> on line <b>2</b>
+
+        <p>El nombre es </p>
+      </div>
+    </div>
+
+    <p>PHP puede superar esta limitación mediante las sesiones. Las sesiones permiten que páginas distintas puedan acceder a una variable común, la matriz $_SESSION.</p>
+
+    <p>El ejemplo siguiente muestra dos páginas: en la primera se crea la variable en la matriz $_SESSION, que se puede utilizar en esa misma página. La segunda página, que se encuentra en el mismo servidor, tiene acceso a la variable creada en el primer programa (si se ha ejecutado antes el primer programa, obviamente).</p>
+
+    <div class="filaflex">
+      <div class="codigo">
+        <pre>
+<code class="language-php">&lt;?php
+session_start();
+
+$_SESSION["nombre"] = "Pepito Conejo";
+print "&lt;p&gt;El nombre es $_SESSION[nombre]&lt;/p&gt;";
+?&gt;</code>
+</pre>
+      </div>
+      <div class="resultado-html">
+        <p>El nombre es Pepito Conejo</p>
+      </div>
+    </div>
+
+    <div class="filaflex">
+      <div class="codigo">
+        <pre>
+<code class="language-php">&lt;?php
+session_start();
+
+print "&lt;p&gt;El nombre es $_SESSION[nombre]&lt;/p&gt;";
+?&gt;</code>
+</pre>
+      </div>
+      <div class="resultado-html">
+        <p>El nombre es Pepito Conejo</p>
+      </div>
+    </div>
+
+    <hr class="corta">
+
+    <p>Las sesiones no deben confundirse con <a href="php-cookies.html">las cookies</a>. Las cookies es un método que permite guardar información en el ordenador del cliente para recuperarla en el futuro, mientras que en las sesiones la información se mantiene en el servidor hasta que se cierra la sesión (por intervención del usuario o por tiempo). En el manual de PHP se ofrece un <a href="https://www.php.net/manual/en/book.session.php">capítulo dedicado a las sesiones</a>.</p>
+
+    <p>El trabajo con sesiones tiene tres partes:</p>
+    <ul>
+      <li>Creación o apertura de la sesión
+        <p>Cuando alguna página crea una sesión utilizando la función correspondiente, el servidor asocia al navegador del usuario un identificador de usuario único. El identificador se guarda en el usuario en forma de cookie o, si el navegador del usuario no permite la creación de cookies, añadiendo el identificador en la dirección de la página.</p>
+      </li>
+      <li>Utilización de la sesión
+        <p>Si ya se ha creado la sesión, las páginas solicitadas por el mismo navegador pueden guardar y recuperar información en el servidor, información que se asocia al identificador de usuario, por lo que no es accesible a otros usuarios. La información se conserva hasta que el usuario o el servidor destruyan la sesión.</p>
+      </li>
+      <li>Destrucción o cierre de la sesión
+        <p>Tanto el usuario como el servidor pueden cerrar la sesión. El usuario puede destruir la sesión cerrando el navegador. El servidor puede destruir la sesión cuando alguna página utilice la función correspondiente o al cabo de un tiempo determinado (definido mediante la función <span class="php-fun"><a href="https://www.php.net/manual/en/function.session-set-cookie-params.php">session_set_cookie_params()</a></span>).</p>
+      </li>
+    </ul>
+  </section>
+
+  <section id="sesiones-crear">
+    <h2>Crear la sesión</h2>
+
+    <p>En PHP, las sesiones se crean mediante la función <a href="https://www.php.net/manual/en/function.session-start.php"><span class="php-fun">session_start()</span></a>. Si la sesión no existía, esta función crea la sesión y le asocia un identificador de sesión único. Si la sesión ya existía, esta función permite que la página tenga acceso a la información vinculada a la sesión. Es decir, todas las páginas que quieran guardar datos en $_SESSION o leer datos de $_SESSION deben comenzar con la función <span class="php-fun">session_start()</span>.</p>
+
+    <div class="filaflex">
+      <div class="codigo">
+        <pre>
+<code class="language-php">&lt;?php
+session_start();
+
+$_SESSION["nombre"] = "Pepito Conejo";
+print "&lt;p&gt;El nombre es $_SESSION[nombre]&lt;/p&gt;";
+?&gt;</code>
+</pre>
+      </div>
+      <div class="resultado-html">
+        <p>El nombre es Pepito Conejo</p>
+      </div>
+    </div>
+
+    <div class="filaflex">
+      <div class="codigo">
+        <pre>
+<code class="language-php">&lt;?php
+session_start();
+
+print "&lt;p&gt;El nombre es $_SESSION[nombre]&lt;/p&gt;";
+?&gt;</code>
+</pre>
+      </div>
+      <div class="resultado-html">
+        <p>El nombre es Pepito Conejo</p>
+      </div>
+    </div>
+
+    <hr class="corta">
+
+    <p>La creación de sesiones requiere el envío de cabeceras HTTP, por lo que la función session_start() debe utilizarse antes de empezar a escribir el contenido de la página. En caso contrario PHP producirá un aviso y no se creará la sesión. El motivo es que el identificador de sesión se utiliza en las cabeceras de respuesta HTTP y las cabeceras se envían antes del texto de la página. En la <a href="php-cabeceras.html">lección sobre cabeceras</a> se comenta con más detalle el problema del envío de cabeceras.</p>
+
+    <p>El ejemplo siguiente es incorrecto, ya que utiliza la función session_start() después de haber escrito texto.</p>
+
+    <div class="filaflex">
+      <div class="icono-ok">
+        <img src="../varios/iconos/icono-okno.svg" alt="Incorrecto" title="Incorrecto" width="40" height="40">
+      </div>
+      <div class="codigo">
+        <pre>
+<code class="language-php">&lt;?php
+// Este código es incorrecto, la sesión se crea después de crear texto
+print "&lt;p&gt;Hola&lt;/p&gt;\n";
+session_start();
+?&gt;</code>
+</pre>
+      </div>
+      <div class="resultado-html">
+        <p>Hola</p>
+        <b>Warning</b>: session_start(): Cannot send session cache limiter - headers already sent (output started at ejemplo.php:3) in <b>ejemplo.php</b> on line <b>4</b>
+      </div>
+    </div>
+
+    <p><strong>Nota:</strong> Como se comenta también en la <a href="php-cabeceras.html#buffer">lección sobre cabeceras</a>, dependiendo de la configuración de la directiva <a href="../otros/php-configuracion-1.html#output-buffering">output_buffering</a>, la sesión podría crearse correctamente y no generarse el aviso.</p>
+  </section>
+
+  <section id="sesiones-utilizar">
+    <h2>Utilizar la sesión</h2>
+
+    <p>Cuando una página ha creado una sesión o ha accedido a una sesión ya existente mediante <span class="php-fun">session_start()</span>, la página tiene acceso a la matriz <a href="https://www.php.net/manual/en/reserved.variables.session.php">$_SESSION</a> que contiene las variables de esa sesión.</p>
+
+    <p>La matriz $_SESSION es una matriz asociativa en la que se pueden definir valores como en cualquier otra matriz. La diferencia es que $_SESSION es accesible desde páginas diferentes (siempre que esas páginas tengan asociada la misma sesión), manteniéndose los valores de una página a otra.</p>
+
+    <p>El ejemplo siguiente muestra dos páginas. La primera página guarda información en $_SESSION y la segunda la utiliza.</p>
+
+    <div class="filaflex">
+      <div class="codigo">
+        <pre>
+<code class="language-php">&lt;?php
+session_start();
+
+$_SESSION["nombre"] = "Pepito Conejo";
+print "&lt;p&gt;Se ha guardado su nombre.&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+      </div>
+      <div class="resultado-codigo">
+        <pre><code class="language-html">&lt;p&gt;Se ha guardado su nombre.&lt;/p&gt;</code></pre>
+      </div>
+    </div>
+
+    <div class="filaflex">
+      <div class="codigo">
+        <pre>
+<code class="language-php">&lt;?php
+session_start();
+
+print "&lt;p&gt;Su nombre es $_SESSION[nombre].&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+      </div>
+      <div class="resultado-codigo">
+        <pre><code class="language-html">&lt;p&gt;Su nombre es Pepito Conejo.&lt;/p&gt;</code></pre>
+      </div>
+    </div>
+
+    <hr class="corta">
+
+    <p>Los nombres de los primeros índices de la matriz $_SESSION tienen que cumplir las mismas reglas que los nombres de las variables, es decir, que el primer carácter debe ser una letra o un guion bajo (_). En particular, no deben ser números ni contener caracteres no alfanuméricos.</p>
+
+    <div class="filaflex">
+      <div class="icono-ok">
+        <img src="../varios/iconos/icono-okno.svg" alt="Incorrecto" title="Incorrecto" width="40" height="40">
+      </div>
+      <div class="codigo">
+        <pre>
+<code class="language-php">&lt;?php
+session_start();
+
+// Este código es incorrecto, ya que PHP no puede crear un índice numérico en $_SESSION
+$_SESSION[] = "Pepito Conejo";
+print "&lt;p&gt;Se ha guardado su nombre.&lt;/p&gt;\n";
+print "&lt;pre&gt;"; print_r($_SESSION); print "&lt;/pre&gt;\n";
+?&gt;</code>
+</pre>
+      </div>
+      <div class="resultado-html">
+        <p>Se ha guardado su nombre.</p>
+
+        <b>Notice</b>: Unknown: Skipping numeric key 0 in <b>Unknown</b> on line <b>0</b>
+
+        <pre>Array
+(
+)</pre>
+      </div>
+    </div>
+
+    <div class="filaflex">
+      <div class="icono-ok">
+        <img src="../varios/iconos/icono-oksi.svg" alt="Correcto" title="Correcto" width="40" height="40">
+      </div>
+      <div class="codigo">
+        <pre>
+<code class="language-php">&lt;?php
+session_start();
+
+// Este código es correcto, ya que el primer índice no es numérico
+$_SESSION["nombres"][] = "Pepito Conejo";
+print "&lt;p&gt;Se ha guardado su nombre.&lt;/p&gt;\n";
+print "&lt;pre&gt;"; print_r($_SESSION); print "&lt;/pre&gt;\n";
+?&gt;</code>
+</pre>
+      </div>
+      <div class="resultado-html">
+        <p>Se ha guardado su nombre.</p>
+        <pre>Array
+(
+    [nombres] =&gt; Array
+        (
+            [0] =&gt; Pepito Conejo
+        )
+
+)</pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="sesiones-destruir">
+    <h2>Cerrar la sesión</h2>
+
+    <p>Cerrar una sesión es destruir la matriz $_SESSION y el identificador de la sesión.</p>
+
+    <p>Las sesiones se pueden cerrar de varias maneras:</p>
+
+    <ul>
+      <li>El usuario puede cerrar la sesión simplemente cerrando el navegador (no basta con cerrar las pestañas).</li>
+      <li>Un programa puede cerrar la sesión mediante la función <a href="https://www.php.net/manual/en/function.session-destroy.php"><span class="php-fun">session_destroy()</span></a>.</li>
+      <li>En general, las cookies tienen una duración establecida en la directiva <a href="http://docs.php.net/session.configuration#ini.session.cookie-lifetime">session.cookie_lifetime</a> (y el servidor puede borrar la información cuando ha pasado el tiempo indicado en segundos en la directiva <a href="http://docs.php.net/session.configuration#ini.session.gc-maxlifetime">session.gc_maxlifetime</a>), pero la duración de una sesión en particular puede establecerse en el momento de su creación mediante la función <span class="php-fun"><a href="https://www.php.net/manual/en/function.session-set-cookie-params.php">session_set_cookie_params()</a></span> (tiempo que se puede modificar posteriormente).</li>
+    </ul>
+
+    <p>Cuando se destruye una sesión, el programa que ha destruido la sesión sigue teniendo acceso a los valores de $_SESSION creados antes de la destrucción de la sesión, pero las páginas siguientes no. Si se ejecuta el primero de los ejemplos siguientes y después el segundo, se obtienen los resultados indicados:</p>
+
+    <div class="filaflex">
+      <div class="codigo">
+        <pre>
+<code class="language-php">&lt;?php
+session_start();
+
+$_SESSION["nombre"] = "Pepito Conejo";
+session_destroy();
+
+if (isset($_SESSION["nombre"])) {
+    print "&lt;p&gt;Su nombre es $_SESSION[nombre].&lt;/p&gt;\n";
+} else {
+    print "&lt;p&gt;No sé su nombre.&lt;/p&gt;\n";
+}
+?&gt;</code>
+</pre>
+      </div>
+      <div class="resultado-codigo">
+        <pre><code class="language-html">&lt;p&gt;Su nombre es Pepito Conejo.&lt;/p&gt;</code></pre>
+      </div>
+    </div>
+
+    <div class="filaflex">
+      <div class="codigo">
+        <pre>
+<code class="language-php">&lt;?php
+session_start();
+
+if (isset($_SESSION["nombre"])) {
+    print "&lt;p&gt;Su nombre es $_SESSION[nombre].&lt;/p&gt;\n";
+} else {
+    print "&lt;p&gt;No sé su nombre.&lt;/p&gt;\n";
+}
+?&gt;</code>
+</pre>
+      </div>
+      <div class="resultado-codigo">
+        <pre><code class="language-html">&lt;p&gt;No sé su nombre.&lt;/p&gt;</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="sesiones-nombre">
+    <h2>Nombre de sesión</h2>
+
+    <p>En principio, cuando el navegador se conecta a un servidor, la sesión es única, es decir, todas las páginas del mismo dominio compartirán la misma matriz $_SESSION. La función <a href="https://www.php.net/manual/en/function.session-name.php"><span class="php-fun">session_name()</span></a> permite establecer un nombre de sesión específico, de manera que todas las páginas que declaren el mismo nombre de sesión accederán a la misma matriz $_SESSION y las que tengan nombres de sesión distintos accederán a matrices $_SESSION diferentes.</p>
+
+    <p>En el ejemplo siguiente, los dos primeros programas crean la misma variable en $_SESSION, pero como se ha utilizado la función <span class="php-fun">session_name()</span> con nombres diferentes, realmente lo hacen en matrices $_SESSION distintas.</p>
+
+    <div class="filaflex">
+      <div class="codigo">
+        <pre>
+<code class="language-php">&lt;?php
+session_name("ejemplo1");
+session_start();
+
+$_SESSION["nombre"] = "Pepito Conejo";
+print "&lt;p&gt;El nombre es $_SESSION[nombre]&lt;/p&gt;";
+?&gt;</code>
+</pre>
+      </div>
+      <div class="resultado-html">
+        <p>El nombre es Pepito Conejo</p>
+      </div>
+    </div>
+
+    <div class="filaflex">
+      <div class="codigo">
+        <pre>
+<code class="language-php">&lt;?php
+session_name("ejemplo2");
+session_start();
+
+$_SESSION["nombre"] = "Juan Fulánez";
+print "&lt;p&gt;El nombre es $_SESSION[nombre]&lt;/p&gt;";
+?&gt;</code>
+</pre>
+      </div>
+      <div class="resultado-html">
+        <p>El nombre es Juan Fulánez</p>
+      </div>
+    </div>
+
+    <p>Los dos programas siguientes acceden después a las matrices $_SESSION, pero cada uno accede a la matriz correspondiente al nombre de sesión.</p>
+
+    <div class="filaflex">
+      <div class="codigo">
+        <pre>
+<code class="language-php">&lt;?php
+session_name("ejemplo1");
+session_start();
+
+print "&lt;p&gt;El nombre es $_SESSION[nombre]&lt;/p&gt;";
+?&gt;</code>
+</pre>
+      </div>
+      <div class="resultado-html">
+        <p>El nombre es Pepito Conejo</p>
+      </div>
+    </div>
+
+    <div class="filaflex">
+      <div class="codigo">
+        <pre>
+<code class="language-php">&lt;?php
+session_name("ejemplo2");
+session_start();
+
+print "&lt;p&gt;El nombre es $_SESSION[nombre]&lt;/p&gt;";
+?&gt;</code>
+</pre>
+      </div>
+      <div class="resultado-html">
+        <p>El nombre es Juan Fulánez</p>
+      </div>
+    </div>
+
+    <hr class="corta">
+
+    <p>El nombre de sesión distingue entre minúsculas y mayúsculas, es decir, dos sesiones con el mismo nombre, pero uno en minúsculas y otro en mayúsculas, son dos sesiones distintas.</p>
+
+    <p>El nombre de la sesión no puede contener únicamente números, ni tampoco puede contener los caracteres espacio ( ), punto (.), ampersand (&amp;), más (+), corchete izquierdo ([) ni almohadilla (#).</p>
+
+    <p><strong>Nota</strong>: No he encontrado una lista oficial de caracteres no admitidos. Los caracteres . &amp; + [ y # los he encontrado probando manualmente, pero es posible que haya otros caracteres problemáticos.</p>
+
+    <p>Referencia:</p>
+    <ul>
+      <li><a href="https://www.php.net/manual/en/function.session-id.php#116836">Caracteres admitidos en el identificador de sesión</a>, que no es lo mismo que el nombre de sesión.</li>
+    </ul>
+  </section>
+
+  <section id="sesiones-borrar">
+    <h2>Borrar elementos de la sesión</h2>
+
+    <p>Los valores de $_SESSION se borran como en cualquier otra matriz mediante la función <a href="https://www.php.net/manual/en/function.unset.php"><span class="php-fun">unset()</span></a>.</p>
+
+    <div class="filaflex">
+      <div class="codigo">
+        <pre>
+<code class="language-php">&lt;?php
+session_start();
+
+$_SESSION["nombre"] = "Pepito Conejo";
+
+print "&lt;p&gt;Su nombre es $_SESSION[nombre].&lt;/p&gt;\n";
+
+unset($_SESSION["nombre"]);
+
+if (isset($_SESSION["nombre"])) {
+    print "&lt;p&gt;Su nombre es $_SESSION[nombre].&lt;/p&gt;\n";
+} else {
+    print "&lt;p&gt;No sé su nombre.&lt;/p&gt;\n";
+}
+?&gt;</code>
+</pre>
+      </div>
+      <div class="resultado-codigo">
+        <pre>
+<code class="language-html">&lt;p&gt;Su nombre es Pepito Conejo.&lt;/p&gt;
+&lt;p&gt;No sé su nombre.&lt;/p&gt;</code>
+</pre>
+      </div>
+    </div>
+
+    <hr class="corta">
+
+    <p>Para borrar todos los valores de $_SESSION se pueden borrar uno a uno o utilizar la función <a href="https://www.php.net/manual/en/function.session-unset.php"><span class="php-fun">session_unset()</span></a>, pero normalmente no se debe utilizar <span class="php-fun">unset</span>():</p>
+    <ul>
+      <li><span class="php-fun">unset</span>($_SESSION) impide que el resto de la página escriba o lea valores en $_SESSION, pero la sesión conserva los valores, por lo que otras páginas seguirían viendo esos valores.
+        <div class="filaflex">
+          <div class="icono-ok">
+            <img src="../varios/iconos/icono-okno.svg" alt="Incorrecto" title="Incorrecto" width="40" height="40">
+          </div>
+          <div class="columnaflex">
+            <div class="codigo">
+              <pre>
+<code class="language-php">&lt;?php
+session_start();
+$_SESSION["nombre"] = "Pepito";
+<span class="codigo-resaltado">unset($_SESSION);</span>
+$_SESSION["apellidos"] = "Conejo";
+header("Location:pagina-2.php");
+?&gt;</code>
+</pre>
+            </div>
+            <div class="codigo">
+              <pre>
+<code class="language-php">&lt;?php
+session_start();
+$_SESSION["saludo"] = "Hola";
+print "&lt;pre&gt;\n";
+print_r ($_SESSION);
+print "&lt;/pre&gt;\n";
+?&gt;</code>
+</pre>
+            </div>
+          </div>
+          <div class="resultado-codigo">
+            <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [nombre] =&gt; Pepito
+    [saludo] =&gt; Hola
+)
+&lt;/pre&gt;</code>
+</pre>
+          </div>
+        </div>
+      </li>
+      <li>la función <a href="https://www.php.net/manual/en/function.session-unset.php"><span class="php-fun">session_unset()</span></a> borra todos los valores pero permite que el resto de la página (y otras páginas) escriba o lea valores en $_SESSION.
+
+        <div class="filaflex">
+          <div class="icono-ok">
+            <img src="../varios/iconos/icono-oksi.svg" alt="Correcto" title="Correcto" width="40" height="40">
+          </div>
+          <div class="columnaflex">
+            <div class="codigo">
+              <pre>
+<code class="language-php">&lt;?php
+session_start();
+$_SESSION["nombre"] = "Pepito";
+<span class="codigo-resaltado">session_unset();</span>
+$_SESSION["apellidos"] = "Conejo";
+header("Location:pagina-2.php");
+?&gt;</code>
+</pre>
+            </div>
+            <div class="codigo">
+              <pre>
+<code class="language-php">&lt;?php
+session_start();
+$_SESSION["saludo"] = "Hola";
+print "&lt;pre&gt;\n";
+print_r ($_SESSION);
+print "&lt;/pre&gt;\n";
+?&gt;</code>
+</pre>
+            </div>
+          </div>
+          <div class="resultado-codigo">
+            <pre>
+<code class="language-html">&lt;pre&gt;
+Array
+(
+    [apellidos] =&gt; Conejo
+    [saludo] =&gt; Hola
+)
+&lt;/pre&gt;</code>
+</pre>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="sesiones-directiva-session-save-handler">
+    <h2>Directiva session.save_handler</h2>
+
+    <p>Para utilizar sesiones mediante el mecanismo propio de PHP (es decir, sin necesidad de crear funciones propias), la directiva session.save_handler del archivo de configuración php.ini debe tener el valor files.</p>
+
+    <div class="codigo">
+      <pre>
+<code class="language-configuracion">session.save_handler = files        ; Valor recomendado en este curso</code>
+</pre>
+    </div>
+
+    <p>Esta configuración es la más habitual, pero algunos gestores de contenidos (CMS) tienen sus propias funciones de gestión de sesiones y requieren que esta directiva tome el valor user.</p>
+
+    <div class="codigo">
+      <pre>
+<code class="language-configuracion">session.save_handler = user         ; Valor definido en algunos servidores</code>
+</pre>
+    </div>
+
+    <p>Si se ha necesitado modificar php.ini, pero queremos ejecutar otros programas que no incluyen sus propias funciones de gestión de sesiones, se puede incluir en las páginas PHP la función <a href="https://www.php.net/manual/en/function.ini-set.php"><span class="php-fun">ini_set()</span></a> antes de abrir la sesión. Ese cambio sólo afectará a la página que incluya la llamada a la función.</p>
+
+    <div class="codigo">
+      <pre><code class="language-php">ini_set("session.save_handler", "files"); // Necesario únicamente cuando session.save_handler = user en php.ini
+session_start();</code></pre>
+    </div>
+
+    <p>En este curso se supondrá que la directiva tiene el valor "files".</p>
+  </section>
+
+  <footer>
+    <p class="ultmod">Última modificación de esta página: 11 de noviembre de 2019</p>
+
+    <p class="licencia">
+      <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es_ES"><img src="../varios/iconos/icono-cc-by-sa.svg" alt="Licencia Creative Commons" title="Licencia Creative Commons BY-SA" width="120" height="42"></a><br>
+      Esta página forma parte del curso <strong><a href="https://www.mclibre.org/consultar/php/">Programación web en PHP</a></strong> por <a href="https://www.mclibre.org/" rel="author">Bartolomé Sintes Marco</a><br>
+      que se distribuye bajo una <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es_ES">Licencia Creative Commons Reconocimiento-CompartirIgual 4.0 Internacional (CC BY-SA 4.0)</a>.
+    </p>
+  </footer>
+</body>
+</html>

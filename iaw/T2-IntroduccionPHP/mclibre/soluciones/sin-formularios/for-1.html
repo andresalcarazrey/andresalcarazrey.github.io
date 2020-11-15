@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>for (1). Soluciones. Ejercicios (sin formularios). PHP. Bartolomé Sintes Marco. www.mclibre.org</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../varios/php.css" title="mclibre">
+  <link rel="icon" href="../../varios/favicon.ico">
+  <link rel="stylesheet" href="../../varios/prism.css">
+  <script src="../../varios/prism.js"></script>
+  <script async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_CHTML"></script>
+</head>
+
+<body>
+  <h1>Ejercicios (sin formularios) - for (1) - Soluciones</h1>
+
+  <nav>
+    <p>
+      <a href="../../index.html"><img src="../../varios/iconos/icono-php.svg" alt="Índice de PHP" title="Índice de PHP" width="48" height="48"></a>
+      <a href="#"><img src="../../varios/iconos/icono-arrow-circle-up.svg" alt="Principio de la página" title="Principio de la página" width="36" height="36"></a>
+    </p>
+
+    <div class="toc">
+      <h2>for (1)</h2>
+
+      <h3><a href="../../ejercicios/sin-formularios/for-1/index.html">Enunciados</a></h3>
+      <ul>
+        <li><a href="../../ejercicios/sin-formularios/for-1/index.html#ejercicio-01">01 - Círculos en fila</a></li>
+        <li><a href="../../ejercicios/sin-formularios/for-1/index.html#ejercicio-02">02 - Círculos en columna</a></li>
+        <li><a href="../../ejercicios/sin-formularios/for-1/index.html#ejercicio-03">03 - Círculos de colores</a></li>
+        <li><a href="../../ejercicios/sin-formularios/for-1/index.html#ejercicio-04">04 - Círculos numerados</a></li>
+        <li><a href="../../ejercicios/sin-formularios/for-1/index.html#ejercicio-05">05 - Círculos girados</a></li>
+        <li><a href="../../ejercicios/sin-formularios/for-1/index.html#ejercicio-11">11 - Contar puntos</a></li>
+        <li><a href="../../ejercicios/sin-formularios/for-1/index.html#ejercicio-12">12 - Dado máximo</a></li>
+        <li><a href="../../ejercicios/sin-formularios/for-1/index.html#ejercicio-13">13 - Dado mínimo</a></li>
+        <li><a href="../../ejercicios/sin-formularios/for-1/index.html#ejercicio-14">14 - Contar pares e impares</a></li>
+        <li><a href="../../ejercicios/sin-formularios/for-1/index.html#ejercicio-15">15 - Contar dados máximos</a></li>
+        <li><a href="../../ejercicios/sin-formularios/for-1/index.html#ejercicio-21">21 - Diana</a></li>
+      </ul>
+
+      <h3><a href="#">Soluciones</a></h3>
+      <ul>
+        <li><a href="#ejercicio-01">01 - Círculos en fila</a></li>
+        <li><a href="#ejercicio-02">02 - Círculos en columna</a></li>
+        <li><a href="#ejercicio-03">03 - Círculos de colores</a></li>
+        <li><a href="#ejercicio-04">04 - Círculos numerados</a></li>
+        <li><a href="#ejercicio-05">05 - Círculos girados</a></li>
+        <li><a href="#ejercicio-11">11 - Contar puntos</a></li>
+        <li><a href="#ejercicio-12">12 - Dado máximo</a></li>
+        <li><a href="#ejercicio-13">13 - Dado mínimo</a></li>
+        <li><a href="#ejercicio-14">14 - Contar pares e impares</a></li>
+        <li><a href="#ejercicio-15">15 - Contar dados máximos</a></li>
+        <li><a href="#ejercicio-21">21 - Diana</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <p>En esta página se muestran una parte de las soluciones de los ejercicios <a href="../../ejercicios/sin-formularios/for-1/index.html">for (1)</a>, concretamente el fragmento PHP, sin el principio ni el final de la página que se puede dejar en un fragmento HTML. La solución completa se puede descargar de la <a href="../index.html">página de soluciones</a>.</p>
+
+  <section id="ejercicio-01">
+    <h3>for (1) 01 - Círculos en fila</h3>
+
+    <ul>
+      <li>En el código fuente HTML del programa de ejemplo se puede ver que las líneas que se repiten varias veces son las cinco líneas que crean los <span class="html-eti">&lt;td&gt;</span> y su contenido. Esas cinco líneas son las que formarán el cuerpo del bucle <span class="php-res">for</span>, que debe ejecutarse tantas veces como indique el valor obtenido al azar.</li>
+    </ul>
+
+    <div class="codigo">
+      <pre>
+<code class="language-php">&lt;?php
+$circulos = rand(1,10);
+
+if ($circulos == 1) {
+    print "  &lt;h2&gt;$circulos círculo&lt;/h2&gt;\n";
+} else {
+    print "  &lt;h2&gt;$circulos círculos&lt;/h2&gt;\n";
+}
+print "\n";
+print "  &lt;table class=\"conborde\"&gt;\n";
+print "    &lt;tbody&gt;\n";
+print "      &lt;tr&gt;\n";
+for ($i = 0; $i &lt; $circulos; $i++) {
+    print "        &lt;td&gt;\n";
+    print "          &lt;svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" width=\"70\" height=\"70\"&gt;\n";
+    print "            &lt;circle cx=\"35\" cy=\"35\" r=\"30\" fill=\"black\" /&gt;\n";
+    print "          &lt;/svg&gt;\n";
+    print "        &lt;/td&gt;\n";
+}
+print "      &lt;/tr&gt;\n";
+print "    &lt;/tbody&gt;\n";
+print "  &lt;/table&gt;\n";
+?&gt;</code>
+</pre>
+    </div>
+  </section>
+
+  <section id="ejercicio-02">
+    <h3>for (1) 02 - Círculos en columna</h3>
+
+    <ul>
+      <li>En el código fuente HTML del programa de ejemplo se puede ver que las líneas que se repiten varias veces son las siete líneas que crean los <span class="html-eti">&lt;tr&gt;</span> y su contenido. Esas siete líneas son las que formarán el cuerpo del bucle <span class="php-res">for</span>, que debe ejecutarse tantas veces como indique el valor obtenido al azar.</li>
+    </ul>
+
+    <div class="codigo">
+      <pre>
+<code class="language-php">&lt;?php
+$circulos = rand(1,10);
+
+if ($circulos == 1) {
+    print "  &lt;h2&gt;$circulos círculo&lt;/h2&gt;\n";
+} else {
+    print "  &lt;h2&gt;$circulos círculos&lt;/h2&gt;\n";
+}
+print "\n";
+print "  &lt;table class=\"conborde\"&gt;\n";
+print "    &lt;tbody&gt;\n";
+for ($i = 0; $i &lt; $circulos; $i++) {
+    print "      &lt;tr&gt;\n";
+    print "        &lt;td&gt;\n";
+    print "          &lt;svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" width=\"70\" height=\"70\"&gt;\n";
+    print "            &lt;circle cx=\"35\" cy=\"35\" r=\"30\" fill=\"black\" /&gt;\n";
+    print "          &lt;/svg&gt;\n";
+    print "        &lt;/td&gt;\n";
+    print "      &lt;/tr&gt;\n";
+}
+print "    &lt;/tbody&gt;\n";
+print "  &lt;/table&gt;\n";
+?&gt;</code>
+</pre>
+    </div>
+  </section>
+
+  <section id="ejercicio-03">
+    <h3>for (1) 03 - Círculos de colores</h3>
+
+    <ul>
+      <li>En el código fuente HTML del programa de ejemplo se puede ver que las líneas que se repiten varias veces son las cinco líneas que crean los <span class="html-eti">&lt;td&gt;</span> y su contenido. Esas cinco líneas son las que formarán el cuerpo del bucle <span class="php-res">for</span>, que debe ejecutarse tantas veces como indique el valor obtenido al azar.</li>
+      <li>El color de los círculos se expresa mediante <a href="https://www.mclibre.org/consultar/htmlcss/css/css-color.html#hsl">códigos HSL</a>.</li>
+    </ul>
+
+    <div class="codigo">
+      <pre>
+<code class="language-php">&lt;?php
+$circulos = rand(1,10);
+
+if ($circulos == 1) {
+    print "  &lt;h2&gt;$circulos círculo&lt;/h2&gt;\n";
+} else {
+    print "  &lt;h2&gt;$circulos círculos&lt;/h2&gt;\n";
+}
+print "\n";
+print "  &lt;table class=\"conborde\"&gt;\n";
+print "    &lt;tbody&gt;\n";
+print "      &lt;tr&gt;\n";
+for ($i = 0; $i &lt; $circulos; $i++) {
+    print "        &lt;td&gt;\n";
+    print "          &lt;svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" width=\"70\" height=\"70\"&gt;\n";
+    print "            &lt;circle cx=\"35\" cy=\"35\" r=\"30\" fill=\"hsl(" . rand(1, 360) . ", 100%, 50%)\" /&gt;\n";
+    print "          &lt;/svg&gt;\n";
+    print "        &lt;/td&gt;\n";
+}
+print "      &lt;/tr&gt;\n";
+print "    &lt;/tbody&gt;\n";
+print "  &lt;/table&gt;\n";
+?&gt;</code>
+</pre>
+    </div>
+  </section>
+
+  <section id="ejercicio-04">
+    <h3>for (1) 04 - Círculos numerados</h3>
+
+    <ul>
+      <li>En el código fuente HTML del programa de ejemplo se puede ver que las líneas que se repiten varias veces son las seis líneas que crean los <span class="html-eti">&lt;td&gt;</span> y su contenido. Esas seis líneas son las que formarán el cuerpo del bucle <span class="php-res">for</span>, que debe ejecutarse tantas veces como indique el valor obtenido al azar.</li>
+      <li>El color de los círculos se expresa mediante <a href="https://www.mclibre.org/consultar/htmlcss/css/css-color.html#hsl">códigos HSL</a>.</li>
+    </ul>
+
+    <div class="codigo">
+      <pre>
+<code class="language-php">&lt;?php
+$circulos = rand(1,10);
+
+if ($circulos == 1) {
+    print "  &lt;h2&gt;$circulos círculo&lt;/h2&gt;\n";
+} else {
+    print "  &lt;h2&gt;$circulos círculos&lt;/h2&gt;\n";
+}
+print "\n";
+print "  &lt;table class=\"conborde\"&gt;\n";
+print "    &lt;tbody&gt;\n";
+print "      &lt;tr&gt;\n";
+for ($i = 0; $i &lt; $circulos; $i++) {
+    print "        &lt;td&gt;\n";
+    print "          &lt;svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" width=\"70\" height=\"70\" font-size=\"45\"&gt;\n";
+    print "            &lt;circle cx=\"35\" cy=\"35\" r=\"30\" fill=\"hsl(" . rand(1, 360) . ", 100%, 50%)\" /&gt;\n";
+    print "            &lt;text x=\"35\" y=\"50\" text-anchor=\"middle\"&gt;" . rand(1, 9) . "&lt;/text&gt;\n";
+    print "          &lt;/svg&gt;\n";
+    print "        &lt;/td&gt;\n";
+}
+print "      &lt;/tr&gt;\n";
+print "    &lt;/tbody&gt;\n";
+print "  &lt;/table&gt;\n";
+?&gt;</code>
+</pre>
+    </div>
+  </section>
+
+  <section id="ejercicio-05">
+    <h3>for (1) 05 - Círculos girados</h3>
+
+    <ul>
+      <li>En el código fuente HTML del programa de ejemplo se puede ver que las líneas que se repiten varias veces son las seis líneas que crean los <span class="html-eti">&lt;td&gt;</span> y su contenido. Esas seis líneas son las que formarán el cuerpo del bucle <span class="php-res">for</span>, que debe ejecutarse tantas veces como indique el valor obtenido al azar.</li>
+      <li>El color de los círculos se expresa mediante <a href="https://www.mclibre.org/consultar/htmlcss/css/css-color.html#hsl">códigos HSL</a>.</li>
+      <li>El giro del texto se consigue con un valor al azar desde un valor negativo (giro horario) hasta un valor positivo (giro antihorario).</li>
+    </ul>
+
+    <div class="codigo">
+      <pre>
+<code class="language-php">&lt;?php
+$circulos = rand(1,10);
+
+if ($circulos == 1) {
+    print "  &lt;h2&gt;$circulos círculo&lt;/h2&gt;\n";
+} else {
+    print "  &lt;h2&gt;$circulos círculos&lt;/h2&gt;\n";
+}
+print "\n";
+print "  &lt;table class=\"conborde\"&gt;\n";
+print "    &lt;tbody&gt;\n";
+print "      &lt;tr&gt;\n";
+for ($i = 0; $i &lt; $circulos; $i++) {
+    print "        &lt;td&gt;\n";
+    print "          &lt;svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" width=\"70\" height=\"70\" font-size=\"45\"&gt;\n";
+    print "            &lt;circle cx=\"35\" cy=\"35\" r=\"30\" fill=\"hsl(" . rand(1, 360) . ", 100%, 50%)\" /&gt;\n";
+    print "            &lt;text x=\"35\" y=\"50\" text-anchor=\"middle\" transform=\"rotate(" . rand(-80, 80) . " 35 35)\"&gt;" . rand(1, 9) . "&lt;/text&gt;\n";
+    print "          &lt;/svg&gt;\n";
+    print "        &lt;/td&gt;\n";
+}
+print "      &lt;/tr&gt;\n";
+print "    &lt;/tbody&gt;\n";
+print "  &lt;/table&gt;\n";
+?&gt;</code>
+</pre>
+    </div>
+  </section>
+
+  <section id="ejercicio-11">
+    <h3>for (1) 11 - Contar puntos</h3>
+
+    <div class="codigo">
+      <pre>
+<code class="language-php">&lt;?php
+$numero = rand(1,10);
+$total = 0;
+
+if ($numero == 1) {
+    print "  &lt;h2&gt;$numero dado&lt;/h2&gt;\n";
+} else {
+    print "  &lt;h2&gt;$numero dados&lt;/h2&gt;\n";
+}
+print "\n";
+print "  &lt;p&gt;\n";
+for ($i = 0; $i &lt; $numero; $i++) {
+    $dado = rand(1, 6);
+    print "    &lt;img src=\"img/$dado.svg\" alt=\"$dado\" width=\"140\" height=\"140\"&gt;\n";
+    $total += $dado;
+}
+print "  &lt;/p&gt;\n";
+print "\n";
+print "  &lt;p&gt;El total de puntos obtenidos es &lt;strong&gt;$total&lt;/strong&gt;.&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+    </div>
+  </section>
+
+  <section id="ejercicio-12">
+    <h3>for (1) 12 - Dado máximo</h3>
+
+    <div class="codigo">
+      <pre>
+<code class="language-php">&lt;?php
+$numero = rand(1,10);
+$maximo = 0;
+
+if ($numero == 1) {
+    print "  &lt;h2&gt;$numero dado&lt;/h2&gt;\n";
+} else {
+    print "  &lt;h2&gt;$numero dados&lt;/h2&gt;\n";
+}
+print "\n";
+print "  &lt;p&gt;\n";
+for ($i = 0; $i &lt; $numero; $i++) {
+    $dado = rand(1, 6);
+    print "    &lt;img src=\"img/$dado.svg\" alt=\"$dado\" width=\"140\" height=\"140\"&gt;\n";
+    if ($dado &gt; $maximo) {
+        $maximo = $dado;
+    }
+}
+print "  &lt;/p&gt;\n";
+print "\n";
+print "  &lt;p&gt;El valor más grande obtenido es &lt;strong&gt;$maximo&lt;/strong&gt;.&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+    </div>
+  </section>
+
+  <section id="ejercicio-13">
+    <h3>for (1) 13 - Dado mínimo</h3>
+
+    <div class="codigo">
+      <pre>
+<code class="language-php">&lt;?php
+$numero = rand(1,10);
+$minimo = 7;
+
+if ($numero == 1) {
+    print "  &lt;h2&gt;$numero dado&lt;/h2&gt;\n";
+} else {
+    print "  &lt;h2&gt;$numero dados&lt;/h2&gt;\n";
+}
+print "\n";
+print "  &lt;p&gt;\n";
+for ($i = 0; $i &lt; $numero; $i++) {
+    $dado = rand(1, 6);
+    print "    &lt;img src=\"img/$dado.svg\" alt=\"$dado\" width=\"140\" height=\"140\"&gt;\n";
+    if ($dado &lt; $minimo) {
+        $minimo = $dado;
+    }
+}
+print "  &lt;/p&gt;\n";
+print "\n";
+print "  &lt;p&gt;El valor más pequeño obtenido es &lt;strong&gt;$minimo&lt;/strong&gt;.&lt;/p&gt;\n";
+?&gt;</code>
+</pre>
+    </div>
+  </section>
+
+  <section id="ejercicio-14">
+    <h3>for (1) 14 - Contar pares e impares</h3>
+
+    <div class="codigo">
+      <pre>
+<code class="language-php">&lt;?php
+$numero = rand(1,10);
+$pares = 0;
+$impares = 0;
+
+if ($numero == 1) {
+    print "  &lt;h2&gt;$numero dado&lt;/h2&gt;\n";
+} else {
+    print "  &lt;h2&gt;$numero dados&lt;/h2&gt;\n";
+}
+print "\n";
+print "  &lt;p&gt;\n";
+for ($i = 0; $i &lt; $numero; $i++) {
+    $dado = rand(1, 6);
+    print "    &lt;img src=\"img/$dado.svg\" alt=\"$dado\" width=\"140\" height=\"140\"&gt;\n";
+    if ($dado % 2) {
+        $impares += 1;
+    } else {
+        $pares += 1;
+    }
+}
+print "  &lt;/p&gt;\n";
+print "\n";
+print "  &lt;p&gt;Han salido ";
+if ($pares == 1) {
+    print "1 número par y ";
+} else {
+    print "$pares números pares y ";
+}
+if ($impares == 1) {
+    print "1 número impar.&lt;/p&gt;\n";
+} else {
+    print "$impares números impares.&lt;/p&gt;\n";
+}
+?&gt;</code>
+</pre>
+    </div>
+  </section>
+
+  <section id="ejercicio-15">
+    <h3>for (1) 15 - Contar dados máximos</h3>
+
+    <div class="codigo">
+      <pre>
+<code class="language-php">&lt;?php
+$numero = rand(1,10);
+$maximo = 0;
+$cantidad = 0;
+
+if ($numero == 1) {
+    print "  &lt;h2&gt;$numero dado&lt;/h2&gt;\n";
+} else {
+    print "  &lt;h2&gt;$numero dados&lt;/h2&gt;\n";
+}
+print "\n";
+print "  &lt;p&gt;\n";
+for ($i = 0; $i &lt; $numero; $i++) {
+    $dado = rand(1, 6);
+    print "    &lt;img src=\"img/$dado.svg\" alt=\"$dado\" width=\"140\" height=\"140\"&gt;\n";
+    if ($dado &gt; $maximo) {
+        $maximo = $dado;
+        $cantidad = 1;
+    }
+    elseif ($dado == $maximo) {
+        $cantidad += 1;
+    }
+}
+print "  &lt;/p&gt;\n";
+print "\n";
+print "  &lt;p&gt;El valor más grande obtenido es &lt;strong&gt;$maximo&lt;/strong&gt;. Este valor se ha obtenido ";
+if ($cantidad == 1) {
+    print "&lt;strong&gt;$cantidad&lt;/strong&gt; vez.&lt;/p&gt;\n";
+} else {
+    print "&lt;strong&gt;$cantidad&lt;/strong&gt; veces.&lt;/p&gt;\n";
+}
+?&gt;</code>
+</pre>
+    </div>
+  </section>
+
+  <section id="ejercicio-21">
+    <h3>for (1) 21 - Diana (1)</h3>
+
+    <div class="codigo">
+      <pre>
+<code class="language-php">&lt;?php
+print "  &lt;p&gt;\n";
+print "    &lt;svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" \n";
+print "      width=\"400\" height=\"400\" viewBox=\"-200 -200 400 400\"&gt;\n";
+
+for ($i = 0; $i &lt; 4; $i++) {
+    print "      &lt;circle cx=\"0\" cy=\"0\" r=\"" . (200 - 50 * $i) . "\" fill=\"red\" /&gt;\n";
+    print "      &lt;circle cx=\"0\" cy=\"0\" r=\"" . (200 - 50 * $i - 25) . "\" fill=\"#ddd\" /&gt;\n";
+}
+
+$disparos = rand(1,10);
+for ($i = 0; $i &lt; $disparos; $i++) {
+    $x = rand(-180, 180);
+    $y = rand(-180, 180);
+    print "      &lt;path fill=\"black\" stroke=\"white\" stroke-width=\"2\" "
+     . "d=\"m $x,$y 3.5,-1.1 3.0,-2.7 4.4,2.5 3.6,0.6 0.5,2.9 2.2,2.9 -2.2,3.1 "
+     . "-0.1,3.6 -3.3,0.2 -1.7,2.7 -4,-1.4 -3.9,0.2 -0.9,-4.2 -2.7,-2.6 1.7,-3.4 z\" /&gt;\n";
+}
+print "    &lt;/svg&gt;\n";
+print "  &lt;/p&gt;\n";
+print "\n";
+print "  &lt;h2&gt;Estadísticas&lt;/h2&gt;\n";
+print "\n";
+print "  &lt;ul&gt;\n";
+print "    &lt;li&gt;Número de disparos: &lt;strong&gt;$disparos&lt;/strong&gt;.&lt;/li&gt;\n";
+print "  &lt;/ul&gt;\n";
+?&gt;</code>
+</pre>
+    </div>
+  </section>
+
+  <footer>
+    <p class="ultmod">Última modificación de esta página: 10 de octubre de 2019</p>
+
+    <p class="licencia">
+      <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es_ES"><img src="../../varios/iconos/icono-cc-by-sa.svg" alt="Licencia Creative Commons" title="Licencia Creative Commons BY-SA" width="120" height="42"></a><br>
+      Esta página forma parte del curso <strong><a href="https://www.mclibre.org/consultar/php/">Programación web en PHP</a></strong> por <a href="https://www.mclibre.org/" rel="author">Bartolomé Sintes Marco</a><br>
+      que se distribuye bajo una <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es_ES">Licencia Creative Commons Reconocimiento-CompartirIgual 4.0 Internacional (CC BY-SA 4.0)</a>.
+    </p>
+  </footer>
+</body>
+</html>

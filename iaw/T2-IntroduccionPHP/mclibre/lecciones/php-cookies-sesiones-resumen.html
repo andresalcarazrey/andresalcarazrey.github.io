@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Cookies y sesiones (resumen). PHP. Bartolomé Sintes Marco. www.mclibre.org</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../varios/php.css" title="mclibre">
+  <link rel="icon" href="../varios/favicon.ico">
+  <link rel="stylesheet" href="../varios/prism.css">
+  <script src="../varios/prism.js"></script>
+</head>
+
+<body>
+  <h1>Cookies y sesiones (resumen)</h1>
+
+  <nav>
+    <p>
+      <a href="../index.html"><img src="../varios/iconos/icono-php.svg" alt="Índice de PHP" title="Índice de PHP" width="48" height="48"></a>
+      <a href="#"><img src="../varios/iconos/icono-arrow-circle-up.svg" alt="Principio de la página" title="Principio de la página" width="36" height="36"></a>
+    </p>
+
+    <div class="toc">
+      <h2>Cookies y sesiones</h2>
+
+      <ul>
+        <li><a href="#resumen">Resumen</a></li>
+        <li><a href="#ejemplos">Ejemplos</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section id="resumen">
+    <h2>Resumen</h2>
+
+    <p>Para deshabilitar las cookies en Firefox, hay que desmarcar la casilla de verificación "Aceptar cookies" en el menú <span class="soft-menu">Herramientas &gt; Opciones &gt; Privacidad &gt; Usar una configuración personalizada para el historial</span>.</p>
+
+    <p>Para deshabilitar las cookies en Internet Explorer 8, hay que elegir la configuración "Bloquear todas las cookies" en el menú <span class="soft-menu">Herramientas &gt; Opciones de Internet &gt; Privacidad</span>.</p>
+
+    <hr class="corta">
+
+    <p>Las <a href="https://www.php.net/manual/en/features.cookies.php">cookies</a> permiten que el servidor almacene datos en el ordenador del cliente.</p>
+
+    <div class="codigo">
+      <pre>
+<code class="language-php">// Las cookies deben crearse o destruirse antes de enviar ningún carácter al navegador.
+
+// Para crear una cookie, se utiliza la función <span class="php-fun"><a href="https://www.php.net/manual/en/function.setcookie.php"><span class="php-fun">setcookie</span></a></span>
+
+setcookie("nombreCookie", valorCookie, momentoDestruccion);
+
+// nombreCookie es el nombre con que identificará a la cookie.
+//    Los nombres de cookie no deben coincidir con los nombres de los controles de los formularios
+// valorCookie es el valor que se guarda en la cookie
+// momentoDestruccion es el momento en que se borrará automáticamente la cookie,
+//    expresado como tiempo Unix. Para calcularlo se suele utilizar la expresión
+//    time()+$duracion donde $duracion es el número de segundos que debe
+//    permanecer la cookie en el ordenador del cliente
+//    Si se omite, la cookie se borrará al cerrar el navegador
+
+// Los valores de las cookies se pueden consultar en cualquier página
+// del mismo dominio y se almacenan en la matriz $_COOKIE y en $_REQUEST
+// (por eso no deben coincidir los nombres de las cookies con los de los controles de los formularios)
+
+$dato = $_COOKIE["nombreCookie"];
+$dato = $_REQUEST["nombreCookie"];
+
+// Para borrar una cookie, basta con volver a crear la cookie con un tiempo anterior al actual
+
+setcookie(nombreCookie, valorCookie, time() - 3600);</code>
+</pre>
+    </div>
+
+    <hr class="corta">
+
+    <p>Las <a href="https://www.php.net/manual/en/ref.session.php">sesiones</a> permiten que PHP "recuerde" datos cuando el usuario cambia de página dentro de un mismo sitio web, sin necesidad de ir pasándola de página a página como controles ocultos.</p>
+
+    <div class="codigo">
+      <pre>
+<code class="language-php">// Para utilizar variables de sesión, cada página debe abrir la sesión:
+
+ini_set("session.save_handler", "files"); // Sólo si session.save_handler = user en php.ini
+session_start();
+
+// Una vez abierta la sesión, se pueden almacenar valores en la matriz $_SESSION:
+
+$_SESSION["dato"] = $dato;
+
+// Los valores almacenados se pueden recuperar en cualquier página
+// en la que se haya abierto sesión desde el mismo navegador:
+
+$dato = $_SESSION["dato"];
+
+// Las sesiones se pierden si el usuario cierra el navegador o si se
+// destruye la sesión desde el servidor:
+
+session_destroy();</code>
+</pre>
+    </div>
+  </section>
+
+  <section id="ejemplos">
+    <h2>Ejemplos</h2>
+
+    <h3>Contador del número de accesos a una página</h3>
+
+    <div class="filaflex">
+      <div class="codigo">
+        <pre>
+<code class="language-php">&lt;?php
+//contador del número de accesos a una página por sesión.
+session_start();
+if (!isset($_SESSION["count"])) {
+    $_SESSION["count"] = 0;
+} else {
+    $_SESSION["count"]++;
+}
+?&gt;
+
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Contador de accesos&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;
+
+&lt;?php
+print("Hola, has accedido a esta página ");
+print($_SESSION["count"]);
+print(" veces.");
+?&gt;
+
+&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code>
+</pre>
+      </div>
+      <div class="codigo">
+        <pre>
+<code class="language-html">&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Contador de accesos&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;Hola, has accedido a esta página 2 veces.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code>
+</pre>
+      </div>
+    </div>
+
+    <h3>Configuración personalizada de los colores de una página</h3>
+    <div class="codigo">
+      <pre>
+<code class="language-php">&lt;?php
+session_start();
+
+if (!isset($_SESSION["bgcol"])) {
+    $_SESSION["bgcol"] = 0;
+}
+
+if (!isset($_SESSION["textCol"])) {
+    $_SESSION["textCol"] = 0;
+}
+
+if(isset($_REQUEST["enviar"])) {
+    $bgCol = traduce($_REQUEST["nbgCol"]);
+    $textCol = traduce($_REQUEST["ntextCol"]);
+    $_SESSION["bgCol"] = $bgCol;
+    $_SESSION["textCol"] = $textCol;
+    print "&lt;html&gt;\n&lt;head&gt;\n&lt;title&gt;Elección de colores&lt;/title&gt;\n&lt;/head&gt;\n";
+    print("&lt;body bgcolor=\"$bgCol\" text=\"$textCol\"&gt;");
+} else {
+    print "&lt;html&gt;\n&lt;head&gt;\n&lt;title&gt;Elección de colores&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;";
+}
+
+function traduce($color)
+{
+    switch ($color) {
+        case "rojo"     : return "red";
+        case "verde"    : return "green";
+        case "azul"     : return "blue";
+        case "cian"     : return "cyan";
+        case "amarillo" : return "yellow";
+    }
+}
+?&gt;
+&lt;h2&gt;Elige los tus colores favoritos&lt;/h2&gt;
+&lt;form action="&lt;?php echo($_SERVER["PHP_SELF"]) ?&gt;" method="post"&gt;
+  &lt;p&gt;Color de fondo:
+    &lt;select name="nbgCol"&gt;
+      &lt;option&gt;rojo&lt;/option&gt;
+      &lt;option&gt;verde&lt;/option&gt;
+      &lt;option&gt;azul&lt;/option&gt;
+      &lt;option&gt;cian&lt;/option&gt;
+      &lt;option&gt;amarillo&lt;/option&gt;
+    &lt;/select&gt;&lt;/p&gt;
+  &lt;hr&gt;
+
+  &lt;p&gt;Color del texto:
+    &lt;select name="ntextCol"&gt;
+      &lt;option&gt;rojo&lt;/option&gt;
+      &lt;option&gt;verde&lt;/option&gt;
+      &lt;option&gt;azul&lt;/option&gt;
+      &lt;option&gt;cian&lt;/option&gt;
+      &lt;option&gt;amarillo&lt;/option&gt;
+    &lt;/select&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;input type="submit" name="enviar"&gt;&lt;/p&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code>
+</pre>
+    </div>
+  </section>
+
+  <footer>
+    <p class="ultmod">Última modificación de esta página: 25 de mayo de 2011</p>
+
+    <p class="licencia">
+      <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es_ES"><img src="../varios/iconos/icono-cc-by-sa.svg" alt="Licencia Creative Commons" title="Licencia Creative Commons BY-SA" width="120" height="42"></a><br>
+      Esta página forma parte del curso <strong><a href="https://www.mclibre.org/consultar/php/">Programación web en PHP</a></strong> por <a href="https://www.mclibre.org/" rel="author">Bartolomé Sintes Marco</a><br>
+      que se distribuye bajo una <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es_ES">Licencia Creative Commons Reconocimiento-CompartirIgual 4.0 Internacional (CC BY-SA 4.0)</a>.
+    </p>
+  </footer>
+</body>
+</html>

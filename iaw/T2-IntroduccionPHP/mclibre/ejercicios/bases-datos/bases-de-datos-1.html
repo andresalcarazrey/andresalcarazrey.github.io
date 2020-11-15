@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Bases de datos (1). Enunciados. Ejercicios (bases de datos). PHP. Bartolomé Sintes Marco. www.mclibre.org</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../varios/php.css" title="mclibre">
+  <link rel="icon" href="../../varios/favicon.ico">
+  <link rel="stylesheet" href="../../varios/prism.css">
+  <script src="../../varios/prism.js"></script>
+</head>
+
+<body>
+  <h1>Ejercicios - Bases de datos (1) - Enunciados</h1>
+
+  <nav>
+    <p>
+      <a href="../../index.html"><img src="../../varios/iconos/icono-php.svg" alt="Índice de PHP" title="Índice de PHP" width="48" height="48"></a>
+      <a href="#"><img src="../../varios/iconos/icono-arrow-circle-up.svg" alt="Principio de la página" title="Principio de la página" width="36" height="36"></a>
+    </p>
+
+    <div class="toc">
+      <h2>Bases de datos (1)</h2>
+
+      <h3><a href="#">Enunciados</a></h3>
+      <ul>
+        <li><a href="#ejercicio-1">1 - Borrar y crear BD</a></li>
+        <li><a href="#ejercicio-2">2 - Añadir registros</a></li>
+        <li><a href="#ejercicio-3">3 - Listar registros</a></li>
+        <li><a href="#ejercicio-4">4 - Borrar registro</a></li>
+        <li><a href="#ejercicio-5">5 - Buscar registros</a></li>
+        <li><a href="#ejercicio-6">6 - Modificar registros</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <p>Para facilitar la realización de los ejercicios, se proporcionan unas <a href="../../soluciones/1920/db-bases-de-datos-1-plantillas.zip">plantillas de los ejercicios Bases de datos (1) (Bases de datos)</a> que incluyen parte de las páginas (los fragmentos HTML y las bibliotecas específicas de bases de datos).</p>
+
+  <p>Se pueden descargar unas posibles soluciones de estos ejercicios en la <a href="../../soluciones/index.html">página de soluciones</a>.</p>
+
+  <hr class="corta">
+
+  <p>El objetivo final de estos ejercicios es obtener una aplicación web capaz de gestionar una agenda. El título del ejercicio hace referencia a la funcionalidad añadida a la aplicación:</p>
+
+  <p>Estos ejercicios van encadenados. Cada ejercicio se puede hacer a partir del ejercicio anterior, añadiendo las páginas necesarias.</p>
+
+  <p>En estos ejercicios no se hace ninguna comprobación sobre los datos introducidos por el usuario, por lo que la aplicación no puede considerarse segura.</p>
+
+  <p>En cada ejercicio, se encuentran unos comentarios que incluyen un dibujo que indica las relaciones entre las diferentes páginas:</p>
+  <ul>
+    <li>El cuadro rojo a trazos indica las páginas añadidas a la aplicación en este ejercicio.</li>
+    <li>Las líneas negras indican inclusiones de bibliotecas.</li>
+    <li>Las flechas negras indican enlaces (aunque no esté indicado, desde cualquier página se puede volver a la página index.php).</li>
+    <li>Las flechas azules indican envíos de formularios.</li>
+    <li>Las flechas rojas indican redirecciones.</li>
+  </ul>
+
+  <section id="ejercicio-1">
+    <h2>Bases de datos (1) 1 - Borrar y crear la base de datos</h2>
+
+    <p>Escriba un programa que permita crear una base de datos.</p>
+    <ul>
+      <li>La página principal incluye un menú con un enlace a la página de borrado y creación de la tabla.</li>
+      <li>El borrado y creación de tabla se hace en dos páginas, que incluyen un menú con un enlace a la página inicial.
+        <ul>
+          <li>La primera página contiene un formulario que pide confirmación. Si se contesta "No", se vuelve a la página inicial. Si se contesta "Sí", se llega a la segunda página.</li>
+          <li>La segunda página borra y crea la base de datos, que contiene una tabla con dos campos.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="filaflex">
+      <div class="resultado-object">
+        <object type="text/html" data="bases-de-datos-1/bases-de-datos-1-1/index.php" style="height: 30em;">ERROR (no puede mostrarse el objeto)</object>
+      </div>
+      <div class="icono-enlace">
+        <a href="bases-de-datos-1/bases-de-datos-1-1/index.php"><img src="../../varios/iconos/icono-enlace.svg" alt="Enlace a ejemplo" title="Enlace a ejemplo" width="31" height="36"></a>
+      </div>
+    </div>
+
+    <h3>Comentarios</h3>
+    <ul>
+      <li>La organización de las páginas puede ser la siguiente:
+        <p>
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="900" height="240" viewBox="0 0 900 240" style="background-color: white;" font-family="sans-serif" class="izquierda">
+            <defs>
+              <marker id="flechaNegra" markerWidth="12" markerHeight="12" refX="0" refY="6" orient="auto">
+                <path d="M0,4 L0,8 L6,6" style="fill: black;" />
+              </marker>
+              <marker id="flechaRoja" markerWidth="12" markerHeight="12" refX="0" refY="6" orient="auto">
+                <path d="M0,4 L0,8 L6,6" style="fill: red;" />
+              </marker>
+              <marker id="flechaAzul" markerWidth="12" markerHeight="12" refX="0" refY="6" orient="auto">
+                <path d="M0,4 L0,8 L6,6" style="fill: blue;" />
+              </marker>
+            </defs>
+
+            <!-- Bibliotecas -->
+            <text x="10" y="20" text-anchor="start" font-family="sans-serif" font-size="14">Todas las páginas incluyen biblioteca.php</text>
+            <svg x="10" y="40">
+              <text x="60" y="60" text-anchor="middle" font-family="sans-serif" font-size="14">biblioteca.php</text>
+              <rect x="25" y="70" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+
+              <line x1="95" y1="95" x2="150" y2="45" stroke="black" stroke-width="2" />
+              <text x="185" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">biblioteca-sqlite.php</text>
+              <rect x="150" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+
+              <line x1="95" y1="95" x2="150" y2="145" stroke="black" stroke-width="2" />
+              <text x="185" y="110" text-anchor="middle" font-family="sans-serif" font-size="14">biblioteca-mysql.php</text>
+              <rect x="150" y="120" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+
+            <!-- Páginas -->
+            <text x="330" y="20" text-anchor="start" font-family="sans-serif" font-size="14">La página index.php enlaza a las diferentes opciones del programa</text>
+            <svg x="330" y="40">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">index.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="35" y="35" width="50" height="20" fill="none" stroke="black" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="black" font-size="10">menú</text>
+            </svg>
+
+            <path d="M425,85 c0,0 70,0 70,0" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <svg x="480" y="40">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">borrar-todo-1.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="35" y="35" width="50" height="20" fill="none" stroke="blue" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="blue" font-size="10">confirma</text>
+
+              <path d="M95,45 c0,0 70,0 70,0" stroke="blue" stroke-width="2" fill="transparent" style="marker-end: url(#flechaAzul)" />
+
+              <text x="210" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">borrar-todo-2.php</text>
+              <rect x="175" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+            <path d="M655,110 c-30,20 -170,10 -205,-10" stroke="red" stroke-width="2" fill="transparent" style="marker-end: url(#flechaRoja)" />
+
+            <rect x="20" y="30" width="260" height="200" stroke="red" stroke-width="2" stroke-dasharray="5 5" fill="none" />
+            <rect x="330" y="30" width="430" height="110" stroke="red" stroke-width="2" stroke-dasharray="5 5" fill="none" />
+          </svg>
+        </p>
+      </li>
+      <li>En una aplicación real, el borrado y creación de la base de datos estarían disponibles únicamente para el administrador, pero aquí cualquier usuario puede borrar y crear la base de datos.</li>
+      <li>El proceso de borrar y crear la base de datos se realiza uno tras otro. Lógicamente, la primera vez que se realice el borrado y creación de la base de datos se obtendrá un mensaje de error en el borrado puesto que la base de datos no existe todavía, pero las veces siguientes no.</li>
+      <li>Si el usuario intenta acceder directamente a la página que crea la tabla (escribiendo la dirección en el navegador), se le redireccionará directamente a la página inicial.</li>
+      <li>Esta pueden ser las consultas de creación de tabla para este proyecto cuando se trabaja con <strong>SQLite</strong>:
+
+        <div class="codigo">
+          <pre>
+<code class="language-php">// Constantes comunes
+
+define("SQLITE_DATABASE", "/home/barto/mclibre/tmp/mclibre/mclibre-base-datos-1-1.sqlite");  // Ubicación de la base de datos
+define("SQLITE_TABLE_AGENDA", "agenda");                                                     // Nombre de la tabla Agenda
+
+// Nombres de las tablas
+
+$tablaAgenda = SQLITE_TABLE_AGENDA;      // Nombre de la tabla Agenda
+
+// Consultas de borrado y creación de base de datos y tablas, etc.
+
+$consultaCreaTabla = "CREATE TABLE $tablaAgenda (
+    id INTEGER PRIMARY KEY,
+    nombre VARCHAR($tamAgendaNombre),
+    apellidos VARCHAR($tamAgendaApellidos)
+    )";</code>
+</pre>
+        </div>
+      </li>
+      <li>Esta pueden ser las consultas de creación de tabla para este proyecto cuando se trabaja con <strong>MySQL</strong>:
+
+        <div class="codigo">
+          <pre>
+<code class="language-php">
+// Configuración específica para MYSQL
+
+// Configuración general
+
+define("MYSQL_HOST", "mysql:host=localhost");        // Nombre de host
+define("MYSQL_USER", "");                            // Nombre de usuario
+define("MYSQL_PASSWORD", "");                        // Contraseña de usuario
+define("MYSQL_DATABASE", "mclibre_base_datos_1_1");  // Nombre de la base de datos
+define("MYSQL_TABLE_AGENDA", "agenda");              // Nombre de la tabla Agenda
+
+$tablaAgenda = MYSQL_DATABASE . "." . MYSQL_TABLE_AGENDA;  // Nombre de la tabla Agenda
+
+// Consultas de borrado y creación de base de datos y tablas, etc.
+
+define("CONSULTA_BORRA_DB", "DROP DATABASE " . MYSQL_DATABASE);
+
+define(
+    "CONSULTA_CREA_DB",
+    "CREATE DATABASE " . MYSQL_DATABASE . "
+        CHARACTER SET utf8mb4
+        COLLATE utf8mb4_unicode_ci"
+);
+
+$consultaCreaTabla = "CREATE TABLE $tablaAgenda (
+    id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR($tamAgendaNombre),
+    apellidos VARCHAR($tamAgendaApellidos),
+    PRIMARY KEY(id)
+    )";</code>
+</pre>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="ejercicio-2">
+    <h2>Bases de datos (1) 2 - Añadir registros en la tabla</h2>
+
+    <p>Amplíe el ejercicio anterior de manera que permita incluir registros en la base de datos.</p>
+    <ul>
+      <li>El menú inicial incluye una opción de menú con un enlace a la página de creación de un nuevo registro.</li>
+      <li>La creación del nuevo registro se hace en dos páginas, que incluyen un menú con un enlace a la página inicial.
+        <ul>
+          <li>La primera página contiene un formulario que pide los datos a registrar.</li>
+          <li>La segunda página inserta los datos en la base de datos.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="filaflex">
+      <div class="resultado-object">
+        <object type="text/html" data="bases-de-datos-1/bases-de-datos-1-2/index.php" style="height: 30em;">ERROR (no puede mostrarse el objeto)</object>
+      </div>
+      <div class="icono-enlace">
+        <a href="bases-de-datos-1/bases-de-datos-1-2/index.php"><img src="../../varios/iconos/icono-enlace.svg" alt="Enlace a ejemplo" title="Enlace a ejemplo" width="31" height="36"></a>
+      </div>
+    </div>
+
+    <h3>Comentarios</h3>
+
+    <ul>
+      <li>La organización de las páginas puede ser la siguiente:
+        <p>
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="900" height="240" viewBox="0 0 900 240" style="background-color: white;" font-family="sans-serif" class="izquierda">
+            <!-- Bibliotecas -->
+            <text x="10" y="20" text-anchor="start" font-family="sans-serif" font-size="14">Todas las páginas incluyen biblioteca.php</text>
+            <svg x="10" y="40">
+              <text x="60" y="60" text-anchor="middle" font-family="sans-serif" font-size="14">biblioteca.php</text>
+              <rect x="25" y="70" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+
+              <line x1="95" y1="95" x2="150" y2="45" stroke="black" stroke-width="2" />
+              <text x="185" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">biblioteca-sqlite.php</text>
+              <rect x="150" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+
+              <line x1="95" y1="95" x2="150" y2="145" stroke="black" stroke-width="2" />
+              <text x="185" y="110" text-anchor="middle" font-family="sans-serif" font-size="14">biblioteca-mysql.php</text>
+              <rect x="150" y="120" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+
+            <!-- Páginas -->
+            <text x="330" y="20" text-anchor="start" font-family="sans-serif" font-size="14">La página index.php enlaza a las diferentes opciones del programa</text>
+            <svg x="330" y="40">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">index.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="35" y="35" width="50" height="20" fill="none" stroke="black" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="black" font-size="10">menú</text>
+            </svg>
+
+            <path d="M425,85 c0,0 70,0 70,0" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <svg x="480" y="40">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">borrar-todo-1.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="35" y="35" width="50" height="20" fill="none" stroke="blue" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="blue" font-size="10">confirma</text>
+
+              <path d="M95,45 c0,0 70,0 70,0" stroke="blue" stroke-width="2" fill="transparent" style="marker-end: url(#flechaAzul)" />
+
+              <text x="210" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">borrar-todo-2.php</text>
+              <rect x="175" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+            <path d="M655,110 c-30,20 -170,10 -205,-10" stroke="red" stroke-width="2" fill="transparent" style="marker-end: url(#flechaRoja)" />
+
+            <path d="M425,90 c20,0 50,95 70,95" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <svg x="480" y="140">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">insertar-1.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="35" y="35" width="50" height="20" fill="none" stroke="blue" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="blue" font-size="10">datos</text>
+
+              <path d="M95,45 c0,0 70,0 70,0" stroke="blue" stroke-width="2" fill="transparent" style="marker-end: url(#flechaAzul)" />
+
+              <text x="210" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">insertar-2.php</text>
+              <rect x="175" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+
+            <rect x="480" y="130" width="280" height="100" stroke="red" stroke-width="2" stroke-dasharray="5 5" fill="none" />
+          </svg>
+        </p>
+      </li>
+      <li>MySQL no permite guardar registros más largos que el tamaño del campo, por lo que se puede avisar al usuario del problema:
+
+        <div class="codigo">
+          <pre>
+<code class="language-php">// Comprobar la longitud del dato recibido
+$nombre    = recoge("nombre");
+$nombreOk  = false;
+
+if (mb_strlen($nombre, "UTF-8") &gt; $tamAgendaNombre) {
+    print "      &lt;p class=\"aviso\"&gt;El nombre no puede tener más de $tamAgendaNombre caracteres.&lt;/p&gt;\n";
+} else {
+    $nombreOk = true;
+}</code>
+</pre>
+        </div>
+      </li>
+      <li>Esta puede ser la consulta preparada de inserción:
+
+        <div class="codigo">
+          <pre>
+<code class="language-php">// Añadir un registro
+$nombre    = recoge("nombre");
+$apellidos = recoge("apellidos");
+
+$consulta = "INSERT INTO $tablaAgenda
+    (nombre, apellidos)
+    VALUES (:nombre, :apellidos)";
+$result = $db-&gt;prepare($consulta);
+if ($result-&gt;execute([":nombre" =&gt; $nombre, ":apellidos" =&gt; $apellidos])) {
+    print "      &lt;p&gt;Registro creado correctamente.&lt;/p&gt;\n";
+} else {
+    print "      &lt;p&gt;Error al crear el registro.&lt;/p&gt;\n";
+}</code>
+</pre>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="ejercicio-3">
+    <h2>Bases de datos (1) 3 - Listar los registros en la tabla</h2>
+
+    <p>Amplíe el ejercicio anterior de manera que permita listar los registros de la base de datos.</p>
+    <ul>
+      <li>El menú inicial incluye una opción de menú con un enlace a la página que lista los registros existentes.</li>
+      <li>El listado se hace en una página, que incluye un menú con un enlace a la página inicial.</li>
+    </ul>
+
+    <div class="filaflex">
+      <div class="resultado-object">
+        <object type="text/html" data="bases-de-datos-1/bases-de-datos-1-3/index.php" style="height: 30em;">ERROR (no puede mostrarse el objeto)</object>
+      </div>
+      <div class="icono-enlace">
+        <a href="bases-de-datos-1/bases-de-datos-1-3/index.php"><img src="../../varios/iconos/icono-enlace.svg" alt="Enlace a ejemplo" title="Enlace a ejemplo" width="31" height="36"></a>
+      </div>
+    </div>
+
+    <h3>Comentarios</h3>
+
+    <ul>
+      <li>La organización de las páginas puede ser la siguiente:
+        <p>
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="900" height="330" viewBox="0 0 900 330" style="background-color: white;" font-family="sans-serif" class="izquierda">
+            <!-- Bibliotecas -->
+            <text x="10" y="20" text-anchor="start" font-family="sans-serif" font-size="14">Todas las páginas incluyen biblioteca.php</text>
+            <svg x="10" y="40">
+              <text x="60" y="60" text-anchor="middle" font-family="sans-serif" font-size="14">biblioteca.php</text>
+              <rect x="25" y="70" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+
+              <line x1="95" y1="95" x2="150" y2="45" stroke="black" stroke-width="2" />
+              <text x="185" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">biblioteca-sqlite.php</text>
+              <rect x="150" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+
+              <line x1="95" y1="95" x2="150" y2="145" stroke="black" stroke-width="2" />
+              <text x="185" y="110" text-anchor="middle" font-family="sans-serif" font-size="14">biblioteca-mysql.php</text>
+              <rect x="150" y="120" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+
+            <!-- Páginas -->
+            <text x="330" y="20" text-anchor="start" font-family="sans-serif" font-size="14">La página index.php enlaza a las diferentes opciones del programa</text>
+            <svg x="330" y="40">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">index.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="35" y="35" width="50" height="20" fill="none" stroke="black" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="black" font-size="10">menú</text>
+            </svg>
+
+            <path d="M425,85 c0,0 70,0 70,0" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <svg x="480" y="40">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">borrar-todo-1.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="35" y="35" width="50" height="20" fill="none" stroke="blue" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="blue" font-size="10">confirma</text>
+
+              <path d="M95,45 c0,0 70,0 70,0" stroke="blue" stroke-width="2" fill="transparent" style="marker-end: url(#flechaAzul)" />
+
+              <text x="210" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">borrar-todo-2.php</text>
+              <rect x="175" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+            <path d="M655,110 c-30,20 -170,10 -205,-10" stroke="red" stroke-width="2" fill="transparent" style="marker-end: url(#flechaRoja)" />
+
+            <path d="M425,90 c20,0 50,95 70,95" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <svg x="480" y="140">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">insertar-1.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="35" y="35" width="50" height="20" fill="none" stroke="blue" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="blue" font-size="10">datos</text>
+
+              <path d="M95,45 c0,0 70,0 70,0" stroke="blue" stroke-width="2" fill="transparent" style="marker-end: url(#flechaAzul)" />
+
+              <text x="210" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">insertar-2.php</text>
+              <rect x="175" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+
+            <path d="M425,95 c20,0 50,180 70,180" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <svg x="480" y="230">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">listar.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+
+            <rect x="480" y="220" width="120" height="100" stroke="red" stroke-width="2" stroke-dasharray="5 5" fill="none" />
+          </svg>
+        </p>
+      </li>
+      <li>Para listar los registros, esta puede ser la consulta de selección:
+
+        <div class="codigo">
+          <pre>
+<code class="language-php">// Seleccionar todos los registros
+$consulta = "SELECT * FROM $tablaAgenda";
+$result = $db-&gt;query($consulta);
+
+foreach ($result as $valor) {
+    print "          &lt;tr&gt;\n";
+    print "            &lt;td&gt;$valor[nombre]&lt;/td&gt;\n";
+    print "            &lt;td&gt;$valor[apellidos]&lt;/td&gt;\n";
+    print "          &lt;/tr&gt;\n";
+}</code>
+</pre>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="ejercicio-4">
+    <h2>Bases de datos (1) 4 - Borrar individualmente registros en la tabla</h2>
+
+    <p>Amplíe el ejercicio anterior de manera que permita borrar individualmente los registros de la base de datos.</p>
+    <ul>
+      <li>El menú inicial incluye una opción de menú con un enlace a la página que permite borrar los registros existentes.</li>
+      <li>El borrado se hace en dos páginas, que incluyen un menú con un enlace a la página inicial.
+        <ul>
+          <li>La primera página contiene un formulario que muestra los registros existentes y que permite marcar los datos a borrar.</li>
+          <li>La segunda página borra los registros en la base de datos.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="filaflex">
+      <div class="resultado-object">
+        <object type="text/html" data="bases-de-datos-1/bases-de-datos-1-4/index.php" style="height: 30em;">ERROR (no puede mostrarse el objeto)</object>
+      </div>
+      <div class="icono-enlace">
+        <a href="bases-de-datos-1/bases-de-datos-1-4/index.php"><img src="../../varios/iconos/icono-enlace.svg" alt="Enlace a ejemplo" title="Enlace a ejemplo" width="31" height="36"></a>
+      </div>
+    </div>
+
+    <h3>Comentarios</h3>
+
+    <ul>
+      <li>La organización de las páginas puede ser la siguiente:
+        <p>
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420" style="background-color: white;" font-family="sans-serif" class="izquierda">
+            <!-- Bibliotecas -->
+            <text x="10" y="20" text-anchor="start" font-family="sans-serif" font-size="14">Todas las páginas incluyen biblioteca.php</text>
+            <svg x="10" y="40">
+              <text x="60" y="60" text-anchor="middle" font-family="sans-serif" font-size="14">biblioteca.php</text>
+              <rect x="25" y="70" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+
+              <line x1="95" y1="95" x2="150" y2="45" stroke="black" stroke-width="2" />
+              <text x="185" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">biblioteca-sqlite.php</text>
+              <rect x="150" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+
+              <line x1="95" y1="95" x2="150" y2="145" stroke="black" stroke-width="2" />
+              <text x="185" y="110" text-anchor="middle" font-family="sans-serif" font-size="14">biblioteca-mysql.php</text>
+              <rect x="150" y="120" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+
+            <!-- Páginas -->
+            <text x="330" y="20" text-anchor="start" font-family="sans-serif" font-size="14">La página index.php enlaza a las diferentes opciones del programa</text>
+            <svg x="330" y="40">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">index.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="35" y="35" width="50" height="20" fill="none" stroke="black" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="black" font-size="10">menú</text>
+            </svg>
+
+            <path d="M425,85 c0,0 70,0 70,0" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <svg x="480" y="40">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">borrar-todo-1.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="35" y="35" width="50" height="20" fill="none" stroke="blue" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="blue" font-size="10">confirma</text>
+
+              <path d="M95,45 c0,0 70,0 70,0" stroke="blue" stroke-width="2" fill="transparent" style="marker-end: url(#flechaAzul)" />
+
+              <text x="210" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">borrar-todo-2.php</text>
+              <rect x="175" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+            <path d="M655,110 c-30,20 -170,10 -205,-10" stroke="red" stroke-width="2" fill="transparent" style="marker-end: url(#flechaRoja)" />
+
+            <path d="M425,90 c20,0 50,95 70,95" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <svg x="480" y="140">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">insertar-1.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="35" y="35" width="50" height="20" fill="none" stroke="blue" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="blue" font-size="10">datos</text>
+
+              <path d="M95,45 c0,0 70,0 70,0" stroke="blue" stroke-width="2" fill="transparent" style="marker-end: url(#flechaAzul)" />
+
+              <text x="210" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">insertar-2.php</text>
+              <rect x="175" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+
+            <path d="M425,95 c20,0 50,180 70,180" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <svg x="480" y="230">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">listar.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+
+            <path d="M425,100 c20,0 50,265 70,265" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <svg x="480" y="320">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">borrar-1.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="30" y="35" width="60" height="20" fill="none" stroke="blue" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="blue" font-size="10">seleccionar</text>
+
+              <path d="M95,45 c0,0 70,0 70,0" stroke="blue" stroke-width="2" fill="transparent" style="marker-end: url(#flechaAzul)" />
+
+              <text x="210" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">borrar-2.php</text>
+              <rect x="175" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+
+            <rect x="480" y="310" width="280" height="100" stroke="red" stroke-width="2" stroke-dasharray="5 5" fill="none" />
+          </svg>
+        </p>
+      </li>
+      <li>Para seleccionar los registros a borrar, se puede utilizar una casilla de verificación cuyo nombre contenga el id del registro. Lo mejor es que los nombres formen una matriz.
+
+        <div class="codigo">
+          <pre>
+<code class="language-php">// Imprime casilla de verificación
+$consulta = "SELECT * FROM $tablaAgenda";
+$result = $db-&gt;query($consulta);
+
+foreach ($result as $valor) {
+    print "              &lt;td class=\"centrado\"&gt;&lt;input type=\"checkbox\" name=\"id[$valor[id]]\"&gt;&lt;/td&gt;\n";
+}</code>
+</pre>
+        </div>
+      </li>
+      <li>Para borrar los registros, esta puede ser la consulta preparada de borrado:
+
+        <div class="codigo">
+          <pre>
+<code class="language-php">// Recoge los registros seleccionados
+$id = recoge("id", []);
+
+foreach ($id as $indice =&gt; $valor) {
+    $consulta = "DELETE FROM $tablaAgenda
+        WHERE id=:indice";
+    $result = $db-&gt;prepare($consulta);
+    if ($result-&gt;execute([":indice" =&gt; $indice])) {
+        print "      &lt;p&gt;Registro borrado correctamente.&lt;/p&gt;\n";
+    } else {
+        print "      &lt;p&gt;Error al borrar el registro.&lt;/p&gt;\n";
+    }
+}</code>
+</pre>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="ejercicio-5">
+    <h2>Bases de datos (1) 5 - Buscar registros en la tabla</h2>
+
+    <p>Amplíe el ejercicio anterior de manera que permita buscar registros de la base de datos.</p>
+    <ul>
+      <li>El menú inicial incluye una opción de menú con un enlace a la página que permite buscar en los registros existentes.</li>
+      <li>La búsqueda se hace en dos páginas, que incluyen un menú con un enlace a la página inicial.
+        <ul>
+          <li>La primera página contiene un formulario que pide los datos a buscar.</li>
+          <li>La segunda página muestra los registros encontrados</li>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="filaflex">
+      <div class="resultado-object">
+        <object type="text/html" data="bases-de-datos-1/bases-de-datos-1-5/index.php" style="height: 30em;">ERROR (no puede mostrarse el objeto)</object>
+      </div>
+      <div class="icono-enlace">
+        <a href="bases-de-datos-1/bases-de-datos-1-5/index.php"><img src="../../varios/iconos/icono-enlace.svg" alt="Enlace a ejemplo" title="Enlace a ejemplo" width="31" height="36"></a>
+      </div>
+    </div>
+
+    <h3>Comentarios</h3>
+
+    <ul>
+      <li>La organización de las páginas puede ser la siguiente:
+        <p>
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="900" height="510" viewBox="0 0 900 510" style="background-color: white;" font-family="sans-serif" class="izquierda">
+            <!-- Bibliotecas -->
+            <text x="10" y="20" text-anchor="start" font-family="sans-serif" font-size="14">Todas las páginas incluyen biblioteca.php</text>
+            <svg x="10" y="40">
+              <text x="60" y="60" text-anchor="middle" font-family="sans-serif" font-size="14">biblioteca.php</text>
+              <rect x="25" y="70" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+
+              <line x1="95" y1="95" x2="150" y2="45" stroke="black" stroke-width="2" />
+              <text x="185" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">biblioteca-sqlite.php</text>
+              <rect x="150" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+
+              <line x1="95" y1="95" x2="150" y2="145" stroke="black" stroke-width="2" />
+              <text x="185" y="110" text-anchor="middle" font-family="sans-serif" font-size="14">biblioteca-mysql.php</text>
+              <rect x="150" y="120" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+
+            <!-- Páginas -->
+            <text x="330" y="20" text-anchor="start" font-family="sans-serif" font-size="14">La página index.php enlaza a las diferentes opciones del programa</text>
+            <svg x="330" y="40">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">index.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="35" y="35" width="50" height="20" fill="none" stroke="black" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="black" font-size="10">menú</text>
+            </svg>
+
+            <path d="M425,85 c0,0 70,0 70,0" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <svg x="480" y="40">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">borrar-todo-1.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="35" y="35" width="50" height="20" fill="none" stroke="blue" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="blue" font-size="10">confirma</text>
+
+              <path d="M95,45 c0,0 70,0 70,0" stroke="blue" stroke-width="2" fill="transparent" style="marker-end: url(#flechaAzul)" />
+
+              <text x="210" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">borrar-todo-2.php</text>
+              <rect x="175" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+            <path d="M655,110 c-30,20 -170,10 -205,-10" stroke="red" stroke-width="2" fill="transparent" style="marker-end: url(#flechaRoja)" />
+
+            <path d="M425,90 c20,0 50,95 70,95" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <svg x="480" y="140">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">insertar-1.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="35" y="35" width="50" height="20" fill="none" stroke="blue" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="blue" font-size="10">datos</text>
+
+              <path d="M95,45 c0,0 70,0 70,0" stroke="blue" stroke-width="2" fill="transparent" style="marker-end: url(#flechaAzul)" />
+
+              <text x="210" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">insertar-2.php</text>
+              <rect x="175" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+
+            <path d="M425,95 c20,0 50,180 70,180" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <svg x="480" y="230">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">listar.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+
+            <path d="M425,100 c20,0 50,265 70,265" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <svg x="480" y="320">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">borrar-1.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="30" y="35" width="60" height="20" fill="none" stroke="blue" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="blue" font-size="10">seleccionar</text>
+
+              <path d="M95,45 c0,0 70,0 70,0" stroke="blue" stroke-width="2" fill="transparent" style="marker-end: url(#flechaAzul)" />
+
+              <text x="210" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">borrar-2.php</text>
+              <rect x="175" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+
+            <path d="M425,105 c20,0 50,350 70,350" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <svg x="480" y="410">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">buscar-1.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="35" y="35" width="50" height="20" fill="none" stroke="blue" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="blue" font-size="10">datos</text>
+
+              <path d="M95,45 c0,0 70,0 70,0" stroke="blue" stroke-width="2" fill="transparent" style="marker-end: url(#flechaAzul)" />
+
+              <text x="210" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">buscar-2.php</text>
+              <rect x="175" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+
+            <rect x="480" y="400" width="280" height="100" stroke="red" stroke-width="2" stroke-dasharray="5 5" fill="none" />
+          </svg>
+        </p>
+      </li>
+      <li>La primera página es un formulario como el de añadir registros.</li>
+      <li>Para buscar los registros, esta puede ser la consulta preparada de selección:
+
+        <div class="codigo">
+          <pre>
+<code class="language-php">// Imprime casilla de verificación
+$nombre    = recoge("nombre");
+$apellidos = recoge("apellidos");
+
+$consulta = "SELECT * FROM $tablaAgenda
+    WHERE nombre LIKE :nombre
+    AND apellidos LIKE :apellidos";
+$result = $db-&gt;prepare($consulta);
+$result-&gt;execute([":nombre" =&gt; "%$nombre%", ":apellidos" =&gt; "%$apellidos%"]);</code>
+</pre>
+        </div>
+        <p>El comodín (%) debe incluirse al ejecutar la consulta, no se podrían incluir en la definición de $consulta.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section id="ejercicio-6">
+    <h2>Bases de datos (1) 6 - Modificar registros en la tabla</h2>
+
+    <p>Amplíe el ejercicio anterior de manera que permita modificar registros de la base de datos.</p>
+    <ul>
+      <li>El menú inicial incluye una opción de menú con un enlace a la página que permite modificar los registros existentes.</li>
+      <li>La modificación se hace en tres páginas, que incluyen un menú con un enlace a la página inicial.
+        <ul>
+          <li>La primera página contiene un formulario que permite seleccionar el registro a modificar.</li>
+          <li>La segunda página muestra el registro seleccionado y permite modificarlo.</li>
+          <li>La tercera página guarda los datos modificados.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="filaflex">
+      <div class="resultado-object">
+        <object type="text/html" data="bases-de-datos-1/bases-de-datos-1-6/index.php" style="height: 30em;">ERROR (no puede mostrarse el objeto)</object>
+      </div>
+      <div class="icono-enlace">
+        <a href="bases-de-datos-1/bases-de-datos-1-6/index.php"><img src="../../varios/iconos/icono-enlace.svg" alt="Enlace a ejemplo" title="Enlace a ejemplo" width="31" height="36"></a>
+      </div>
+    </div>
+
+    <h3>Comentarios</h3>
+
+    <ul>
+      <li>La organización de las páginas puede ser la siguiente:
+        <p>
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" style="background-color: white;" font-family="sans-serif" class="izquierda">
+            <!-- Bibliotecas -->
+            <text x="10" y="20" text-anchor="start" font-family="sans-serif" font-size="14">Todas las páginas incluyen biblioteca.php</text>
+            <svg x="10" y="40">
+              <text x="60" y="60" text-anchor="middle" font-family="sans-serif" font-size="14">biblioteca.php</text>
+              <rect x="25" y="70" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+
+              <line x1="95" y1="95" x2="150" y2="45" stroke="black" stroke-width="2" />
+              <text x="185" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">biblioteca-sqlite.php</text>
+              <rect x="150" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+
+              <line x1="95" y1="95" x2="150" y2="145" stroke="black" stroke-width="2" />
+              <text x="185" y="110" text-anchor="middle" font-family="sans-serif" font-size="14">biblioteca-mysql.php</text>
+              <rect x="150" y="120" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+
+            <!-- Páginas -->
+            <text x="330" y="20" text-anchor="start" font-family="sans-serif" font-size="14">La página index.php enlaza a las diferentes opciones del programa</text>
+            <svg x="330" y="40">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">index.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="35" y="35" width="50" height="20" fill="none" stroke="black" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="black" font-size="10">menú</text>
+            </svg>
+
+            <path d="M425,85 c0,0 70,0 70,0" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <svg x="480" y="40">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">borrar-todo-1.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="35" y="35" width="50" height="20" fill="none" stroke="blue" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="blue" font-size="10">confirma</text>
+
+              <path d="M95,45 c0,0 70,0 70,0" stroke="blue" stroke-width="2" fill="transparent" style="marker-end: url(#flechaAzul)" />
+
+              <text x="210" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">borrar-todo-2.php</text>
+              <rect x="175" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+            <path d="M655,110 c-30,20 -170,10 -205,-10" stroke="red" stroke-width="2" fill="transparent" style="marker-end: url(#flechaRoja)" />
+
+            <path d="M425,90 c20,0 50,95 70,95" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <svg x="480" y="140">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">insertar-1.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="35" y="35" width="50" height="20" fill="none" stroke="blue" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="blue" font-size="10">datos</text>
+
+              <path d="M95,45 c0,0 70,0 70,0" stroke="blue" stroke-width="2" fill="transparent" style="marker-end: url(#flechaAzul)" />
+
+              <text x="210" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">insertar-2.php</text>
+              <rect x="175" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+
+            <path d="M425,95 c20,0 50,180 70,180" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <svg x="480" y="230">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">listar.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+
+            <path d="M425,100 c20,0 50,265 70,265" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <svg x="480" y="320">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">borrar-1.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="30" y="35" width="60" height="20" fill="none" stroke="blue" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="blue" font-size="10">seleccionar</text>
+
+              <path d="M95,45 c0,0 70,0 70,0" stroke="blue" stroke-width="2" fill="transparent" style="marker-end: url(#flechaAzul)" />
+
+              <text x="210" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">borrar-2.php</text>
+              <rect x="175" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+
+            <path d="M425,105 c20,0 50,350 70,350" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <svg x="480" y="410">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">buscar-1.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="35" y="35" width="50" height="20" fill="none" stroke="blue" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="blue" font-size="10">datos</text>
+
+              <path d="M95,45 c0,0 70,0 70,0" stroke="blue" stroke-width="2" fill="transparent" style="marker-end: url(#flechaAzul)" />
+
+              <text x="210" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">buscar-2.php</text>
+              <rect x="175" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+
+            <path d="M425,110 c20,0 50,435 70,435" stroke="black" stroke-width="2" fill="transparent" style="marker-end: url(#flechaNegra)" />
+            <rect x="480" y="490" width="415" height="100" stroke="red" stroke-width="2" stroke-dasharray="5 5" fill="none" />
+
+            <svg x="480" y="500">
+              <text x="60" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">modificar-1.php</text>
+              <rect x="25" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="30" y="35" width="60" height="20" fill="none" stroke="blue" stroke-width="1" />
+              <text x="60" y="48" text-anchor="middle" font-family="sans-serif" fill="blue" font-size="10">seleccionar</text>
+
+              <path d="M95,45 c0,0 70,0 70,0" stroke="blue" stroke-width="2" fill="transparent" style="marker-end: url(#flechaAzul)" />
+
+              <text x="210" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">modificar-2.php</text>
+              <rect x="175" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+              <rect x="185" y="35" width="50" height="20" fill="none" stroke="blue" stroke-width="1" />
+              <text x="210" y="48" text-anchor="middle" font-family="sans-serif" fill="blue" font-size="10">datos</text>
+              <path d="M95,45 c0,0 70,0 70,0" stroke="blue" stroke-width="2" fill="transparent" style="marker-end: url(#flechaAzul)" />
+
+              <path d="M245,45 c0,0 70,0 70,0" stroke="blue" stroke-width="2" fill="transparent" style="marker-end: url(#flechaAzul)" />
+
+              <text x="360" y="10" text-anchor="middle" font-family="sans-serif" font-size="14">modificar-3.php</text>
+              <rect x="325" y="20" width="70" height="50" fill="none" stroke="black" stroke-width="2" />
+            </svg>
+          </svg>
+        </p>
+      </li>
+      <li>La primera página es un formulario como el de borrar, salvo que en vez de una casilla de verificación, se puede utilizar un botón radio cuyo valor contenga el id del registro.
+
+        <div class="codigo">
+          <pre>
+<code class="language-php">// Imprime botón radio
+$consulta = "SELECT * FROM $tablaAgenda";
+$result = $db-&gt;query($consulta);
+
+foreach ($result as $valor) {
+    print "              &lt;td class=\"centrado\"&gt;&lt;input type=\"radio\" name=\"id\" value=\"$valor[id]\"&gt;&lt;/td&gt;\n";
+}</code>
+</pre>
+        </div>
+      </li>
+      <li>En la segunda página, como sólo se recupera el registro seleccionado en la primera página, no es necesario utilizar un bucle <span class="php-res">foreach</span> y se puede utilizar el método $result-&gt;fetch(). La consulta puede ser la siguiente:
+
+        <div class="codigo">
+          <pre>
+<code class="language-php">// Recoge el registro seleccionado
+$id = recoge("id");
+
+$consulta = "SELECT * FROM $tablaAgenda
+    WHERE id=:id";
+$result = $db-&gt;prepare($consulta);
+$result-&gt;execute([":id" =&gt; $id]);
+$valor = $result-&gt;fetch();</code>
+</pre>
+        </div>
+      </li>
+      <li>La segunda página es un formulario como el de añadir, salvo que los campos contienen el valor del registro seleccionado en la primera página:
+
+        <div class="codigo">
+          <pre>
+<code class="language-php">// Muestra valor
+print "              &lt;td&gt;&lt;input type=\"text\" name=\"nombre\" size=\"$tamAgendaNombre\" maxlength=\"$tamAgendaNombre\" value=\"$valor[nombre]\" autofocus&gt;&lt;/td&gt;\n";</code>
+</pre>
+        </div>
+      </li>
+      <li>En la segunda página hay que incluir en el formulario un control oculto que contenga el id del registro para pasarlo a la tercera página:
+
+        <div class="codigo">
+          <pre>
+<code class="language-php">// Control oculto con el id del registro modificado
+print "          &lt;input type=\"hidden\" name=\"id\" value=\"$id\"&gt;\n";</code>
+</pre>
+        </div>
+      </li>
+      <li>En la tercera página, para modificar el registro seleccionado, esta puede ser la consulta preparada de actualización:
+
+        <div class="codigo">
+          <pre>
+<code class="language-php">$nombre    = recoge("nombre");
+$apellidos = recoge("apellidos");
+$id        = recoge("id");
+
+$consulta = "UPDATE $tablaAgenda
+    SET nombre=:nombre, apellidos=:apellidos
+    WHERE id=:id";
+$result = $db-&gt;prepare($consulta);
+if ($result-&gt;execute([":nombre" =&gt; $nombre, ":apellidos" =&gt; $apellidos, ":id" =&gt; $id])) {
+    print "      &lt;p&gt;Registro modificado correctamente.&lt;/p&gt;\n";
+} else {
+    print "      &lt;p&gt;Error al modificar el registro.&lt;/p&gt;\n";
+}</code>
+</pre>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <footer>
+    <p class="ultmod">Última modificación de esta página: 9 de mayo de 2020</p>
+
+    <p class="licencia">
+      <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es_ES"><img src="../../varios/iconos/icono-cc-by-sa.svg" alt="Licencia Creative Commons" title="Licencia Creative Commons BY-SA" width="120" height="42"></a><br>
+      Esta página forma parte del curso <strong><a href="https://www.mclibre.org/consultar/php/">Programación web en PHP</a></strong> por <a href="https://www.mclibre.org/" rel="author">Bartolomé Sintes Marco</a><br>
+      que se distribuye bajo una <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es_ES">Licencia Creative Commons Reconocimiento-CompartirIgual 4.0 Internacional (CC BY-SA 4.0)</a>.
+    </p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Matrices de dimensión 1. Ejercicios (sin formularios). PHP. Bartolomé Sintes Marco. www.mclibre.org</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../../varios/php.css" title="mclibre">
+  <link rel="icon" href="../../../varios/favicon.ico">
+  <link rel="stylesheet" href="../../../varios/prism.css">
+  <script src="../../../varios/prism.js"></script>
+</head>
+
+<body>
+  <h1>Ejercicios (sin formularios) - Matrices de dimensión 1 - Enunciados</h1>
+
+  <nav>
+    <p>
+      <a href="../../../index.html"><img src="../../../varios/iconos/icono-php.svg" alt="Índice de PHP" title="Índice de PHP" width="48" height="48"></a>
+      <a href="#"><img src="../../../varios/iconos/icono-arrow-circle-up.svg" alt="Principio de la página" title="Principio de la página" width="36" height="36"></a>
+    </p>
+
+    <div class="toc">
+      <h2>Matrices (1)</h2>
+
+      <h3><a href="#">Enunciados</a></h3>
+      <ul>
+        <li><a href="#sin-bucles">Sin bucles</a>
+          <ul>
+            <li><a href="#ejercicio-01">01 - Números</a></li>
+            <li><a href="#ejercicio-02">02 - Animales</a></li>
+            <li><a href="#ejercicio-03">03 - Nombres de animales</a></li>
+          </ul>
+        </li>
+        <li><a href="#con-bucles">Con bucles</a>
+          <ul>
+            <li><a href="#ejercicio-11">11 - Tirada de dados</a></li>
+            <li><a href="#ejercicio-12">12 - Negación</a></li>
+            <li><a href="#ejercicio-13">13 - Cambio de bits</a></li>
+            <li><a href="#ejercicio-14">14 - De binario a Gray</a></li>
+            <li><a href="#ejercicio-15">15 - "Y" lógico</a></li>
+            <li><a href="#ejercicio-16">16 - El bit más común</a></li>
+            <li><a href="#ejercicio-17">17 - Partida de dados</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3><a href="../../../soluciones/sin-formularios/matrices-1.html">Soluciones</a></h3>
+      <ul>
+        <li><a href="../../../soluciones/sin-formularios/matrices-1.html#sin-bucles">Sin bucles</a>
+          <ul>
+            <li><a href="../../../soluciones/sin-formularios/matrices-1.html#ejercicio-01">01 - Números</a></li>
+            <li><a href="../../../soluciones/sin-formularios/matrices-1.html#ejercicio-02">02 - Animales</a></li>
+            <li><a href="../../../soluciones/sin-formularios/matrices-1.html#ejercicio-03">03 - Nombres de animales</a></li>
+          </ul>
+        </li>
+        <li><a href="../../../soluciones/sin-formularios/matrices-1.html#con-bucles">Con bucles</a>
+          <ul>
+            <li><a href="../../../soluciones/sin-formularios/matrices-1.html#ejercicio-11">11 - Tirada de dados</a></li>
+            <li><a href="../../../soluciones/sin-formularios/matrices-1.html#ejercicio-12">12 - Negación</a></li>
+            <li><a href="../../../soluciones/sin-formularios/matrices-1.html#ejercicio-13">13 - Cambio de bits</a></li>
+            <li><a href="../../../soluciones/sin-formularios/matrices-1.html#ejercicio-14">14 - De binario a Gray</a></li>
+            <li><a href="../../../soluciones/sin-formularios/matrices-1.html#ejercicio-15">15 - "Y" lógico</a></li>
+            <li><a href="../../../soluciones/sin-formularios/matrices-1.html#ejercicio-16">16 - El bit más común</a></li>
+            <li><a href="../../../soluciones/sin-formularios/matrices-1.html#ejercicio-17">17 - Partida de dados</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <p>Estos ejercicios se pueden resolver utilizando únicamente matrices de dimensión 1, también llamadas vectores (aún así, el ejercicio 3 se propone resolverlo de dos maneras, con dos matrices de una dimensión o con una matriz de dos dimensiones).</p>
+
+  <p>Para facilitar la realización de los ejercicios, se proporcionan unas <a href="../../../soluciones/1920/sf-matrices-1-plantillas.zip">plantillas de los ejercicios Matrices (1) (Sin formularios)</a>.</p>
+
+  <p>Puede consultar unas <a href="../../../soluciones/sin-formularios/matrices-1.html">posibles soluciones</a> de estos ejercicios. Puede descargar unas posibles soluciones de estos ejercicios en la <a href="../../../soluciones/index.html">página de soluciones</a>.</p>
+
+  <p>Las imágenes de los animales han sido creadas por <a href="https://www.customizedgirl.com/blog/free-vector-art-happy-cute-and-colorful-animals-perfect-for-custom-kids-shirts-and-custom-onesies/">Customized Girl</a>.</p>
+
+  <section id="sin-bucles">
+    <h2>Sin bucles</h2>
+
+    <p>Estos ejercicios no requieren el uso de bucles.</p>
+
+    <section id="ejercicio-01">
+      <h3>Matrices (1) 01 - Números</h3>
+
+      <p>Escriba un programa que muestre una tirada de dado al azar y escriba en letras el valor obtenido.</p>
+
+      <details>
+        <summary><strong>Ayuda</strong></summary>
+        <ul>
+          <li>Matriz
+            <p>Cree una matriz con el texto de los diferentes valores ("uno", "dos", etc.) y utilice la variable que guarda el valor del dado al azar para elegir el texto a mostrar.</p>
+          </li>
+        </ul>
+      </details>
+
+      <div class="filaflex">
+        <div class="resultado-object">
+          <object type="text/html" data="matrices-1-01.php" style="height: 26em;">ERROR (no puede mostrarse el objeto)</object>
+        </div>
+        <div class="icono-enlace">
+          <a href="matrices-1-01.php"><img src="../../../varios/iconos/icono-enlace.svg" alt="Enlace a ejemplo" title="Enlace a ejemplo" width="31" height="36"></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="ejercicio-02">
+      <h3>Matrices (1) 02 - Animales</h3>
+
+      <p>Escriba un programa que muestre un animal al azar.</p>
+
+      <details>
+        <summary><strong>Ayuda</strong></summary>
+        <ul>
+          <li>Matriz
+            <p>Cree una matriz con los nombres de los ficheros ("ballena.svg", "caballito-mar.svg", etc.) y utilice la variable que guarda el valor del animal elegido al azar para elegir el texto a mostrar.</p>
+          </li>
+          <li>Poco a poco
+            <p>Empiece con sólo tres o cuatro nombres de animales y añade el resto una vez haya comprobado que el programa funciona.</p>
+          </li>
+        </ul>
+      </details>
+
+      <div class="filaflex">
+        <div class="resultado-object">
+          <object type="text/html" data="matrices-1-02.php" style="height: 31em;">ERROR (no puede mostrarse el objeto)</object>
+        </div>
+        <div class="icono-enlace">
+          <a href="matrices-1-02.php"><img src="../../../varios/iconos/icono-enlace.svg" alt="Enlace a ejemplo" title="Enlace a ejemplo" width="31" height="36"></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="ejercicio-03">
+      <h3>Matrices (1) 03 - Nombres de animales</h3>
+
+      <p>Escriba un programa que muestre un animal al azar y su nombre.</p>
+
+      <details>
+        <summary><strong>Ayuda</strong></summary>
+        <p>Este ejercicio se puede hacer de dos maneras:</p>
+        <ul>
+          <li>Con dos matrices de una dimensión
+            <p>Cree dos matrices, una con los nombres de los ficheros ("ballena.svg", "caballito-mar.svg", etc.) y otra con los nombres de los animales ("Ballena", "Caballito de mar", etc.), en el mismo orden. Elija un valor del índice al azar para elegir tanto el dibujo como el texto a mostrar.</p>
+          </li>
+          <li>Con una matriz de dos dimensiones
+            <p>Cree una matriz en la que cada elemento sea una matriz con el nombre del animal ("Ballena", "Caballito de mar", etc.) y el nombre del fichero ("ballena.svg", "caballito-mar.svg", etc.) como elementos. Elija un valor del índice al azar para elegir tanto el dibujo como el texto a mostrar.</p>
+          </li>
+        </ul>
+      </details>
+
+      <div class="filaflex">
+        <div class="resultado-object">
+          <object type="text/html" data="matrices-1-03.php" style="height: 33em;">ERROR (no puede mostrarse el objeto)</object>
+        </div>
+        <div class="icono-enlace">
+          <a href="matrices-1-03.php"><img src="../../../varios/iconos/icono-enlace.svg" alt="Enlace a ejemplo" title="Enlace a ejemplo" width="31" height="36"></a>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <section id="con-bucles">
+    <h2>Con bucles for y foreach</h2>
+
+    <p>En estos ejercicios se aconseja utilizar:</p>
+    <ul>
+      <li>bucles <span class="php-res">for</span> para crear las matrices de datos</li>
+      <li>bucles <span class="php-res">foreach</span> para mostrar las matrices de datos</li>
+      <li>Para transformar las matrices se recomienda utilizar <span class="php-res">foreach</span> cuando se pueda y bucles <span class="php-res">for</span> cuando sea necesario.</li>
+    </ul>
+
+    <section id="ejercicio-11">
+      <h3>Matrices (1) 11 - Tirada de dados</h3>
+
+      <p>Escriba un programa que muestre una tirada de un número de dados al azar entre 2 y 7 e indique los valores.</p>
+
+      <details>
+        <summary><strong>Ayuda</strong></summary>
+        <ul>
+          <li>Bucles
+            <ul>
+              <li>Cree la matriz con los valores con un bucle <span class="php-res">for</span> que en cada iteración añada un nuevo valor.</li>
+              <li>Dibuje o liste los valores también con sendos bucles <span class="php-res">for</span>.</li>
+            </ul>
+          </li>
+        </ul>
+      </details>
+
+      <div class="filaflex">
+        <div class="resultado-object">
+          <object type="text/html" data="matrices-1-11.php" style="height: 31em;">ERROR (no puede mostrarse el objeto)</object>
+        </div>
+        <div class="icono-enlace">
+          <a href="matrices-1-11.php"><img src="../../../varios/iconos/icono-enlace.svg" alt="Enlace a ejemplo" title="Enlace a ejemplo" width="31" height="36"></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="ejercicio-12">
+      <h3>Matrices (1) 12 - Negación de bits</h3>
+
+      <p>Escriba un programa que muestre una secuencia aleatoria de 10 bits y su secuencia complementaria.</p>
+
+      <details>
+        <summary><strong>Ayuda</strong></summary>
+        <ul>
+          <li>Con un bucle, cree una matriz de diez elementos con los valores aleatorios (0, 1, etc.)</li>
+          <li>Con otro bucle, cree otra matriz a partir de los valores de la primera. Si en la primera matriz el valor es es 0, en su complementaria es 1, y viceversa.</li>
+          <li>Con dos bucles más, escriba los valores de las dos matrices.</li>
+        </ul>
+      </details>
+
+      <div class="filaflex">
+        <div class="resultado-object">
+          <object type="text/html" data="matrices-1-12.php" style="height: 25em;">ERROR (no puede mostrarse el objeto)</object>
+        </div>
+        <div class="icono-enlace">
+          <a href="matrices-1-12.php"><img src="../../../varios/iconos/icono-enlace.svg" alt="Enlace a ejemplo" title="Enlace a ejemplo" width="31" height="36"></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="ejercicio-13">
+      <h3>Matrices (1) 13 - Cambio de bits</h3>
+
+      <p>Escriba un programa que muestre una secuencia aleatoria de 10 bits y la detección de cambios de bits consecutivos en la secuencia. Es decir:</p>
+      <ul>
+        <li>si en la primera secuencia un bit es igual al bit siguiente, el bit correspondiente del resultado será 0</li>
+        <li>si en la primera secuencia un bit es distinto al bit siguiente, el bit correspondiente del resultado será 1</li>
+      </ul>
+
+      <details>
+        <summary><strong>Ayuda</strong></summary>
+        <ul>
+          <li>En el bucle que genera la matriz resultado se debe comparar cada valor de la secuencia inicial con el valor siguiente.</li>
+          <li>Ese bucle debe tener una iteración menos que el número de valores.</li>
+        </ul>
+      </details>
+
+      <div class="filaflex">
+        <div class="resultado-object">
+          <object type="text/html" data="matrices-1-13.php" style="height: 25em;">ERROR (no puede mostrarse el objeto)</object>
+        </div>
+        <div class="icono-enlace">
+          <a href="matrices-1-13.php"><img src="../../../varios/iconos/icono-enlace.svg" alt="Enlace a ejemplo" title="Enlace a ejemplo" width="31" height="36"></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="ejercicio-14">
+      <h3>Matrices (1) 14 - Convertidor de binario a código de Gray</h3>
+
+      <p>Escriba un programa que muestre una secuencia aleatoria de bits y su conversión a <a href="https://es.wikipedia.org/wiki/C%C3%B3digo_Gray">código de Gray</a>.</p>
+
+      <details>
+        <summary><strong>Ayuda</strong></summary>
+        <ul>
+          <li>En el código de Gray, el primer bit es el mismo que el del número inicial.</li>
+          <li>Los siguientes bits indican si los bits consecutivos son distintos, como en el ejercicio anterior.</li>
+        </ul>
+      </details>
+
+      <div class="filaflex">
+        <div class="resultado-object">
+          <object type="text/html" data="matrices-1-14.php" style="height: 25em;">ERROR (no puede mostrarse el objeto)</object>
+        </div>
+        <div class="icono-enlace">
+          <a href="matrices-1-14.php"><img src="../../../varios/iconos/icono-enlace.svg" alt="Enlace a ejemplo" title="Enlace a ejemplo" width="31" height="36"></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="ejercicio-15">
+      <h3>Matrices (1) 15 - "Y" lógico</h3>
+
+      <p>Escriba un programa que muestre dos secuencias aleatorias de 10 bits y el resultado de hacer la conjunción lógica ("y" lógico) bit a bit.</p>
+
+      <details>
+        <summary><strong>Ayuda</strong></summary>
+        <ul>
+          <li>La conjunción lógica de dos valores da como resultado 1 si los dos valores son 1.</li>
+        </ul>
+      </details>
+
+      <div class="filaflex">
+        <div class="resultado-object">
+          <object type="text/html" data="matrices-1-15.php" style="height: 31em;">ERROR (no puede mostrarse el objeto)</object>
+        </div>
+        <div class="icono-enlace">
+          <a href="matrices-1-15.php"><img src="../../../varios/iconos/icono-enlace.svg" alt="Enlace a ejemplo" title="Enlace a ejemplo" width="31" height="36"></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="ejercicio-16">
+      <h3>Matrices (1) 16 - El bit más común</h3>
+
+      <p>Escriba un programa que muestre tres secuencias aleatorias de 10 bits y una cuarta secuencia que indique cuál es el bit más común en esa posición.</p>
+
+      <details>
+        <summary><strong>Ayuda</strong></summary>
+        <ul>
+          <li>Si la suma de los valores en una posición es mayor que uno es que en esa posición hay más unos que ceros.</li>
+        </ul>
+      </details>
+
+      <div class="filaflex">
+        <div class="resultado-object">
+          <object type="text/html" data="matrices-1-16.php" style="height: 35em;">ERROR (no puede mostrarse el objeto)</object>
+        </div>
+        <div class="icono-enlace">
+          <a href="matrices-1-16.php"><img src="../../../varios/iconos/icono-enlace.svg" alt="Enlace a ejemplo" title="Enlace a ejemplo" width="31" height="36"></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="ejercicio-17">
+      <h3>Matrices (1) 17 - Partida de dados</h3>
+
+      <p>Escriba un programa que enfrente a dos jugadores tirando una serie de dados al azar entre 2 y 7 e indique el resultado. Los dados se comparan en orden (el primero con el primero, el segundo con el segundo, etc.) y gana el jugador que obtenga el número más alto.</p>
+
+      <details>
+        <summary><strong>Ayuda</strong></summary>
+        <ul>
+          <li>Contadores
+            <p>Defina tres contadores, uno para llevar la cuenta de partidas ganadas por cada jugador y otro para los empates.</p>
+          </li>
+          <li>Bucles
+            <p>Una vez creadas las dos matrices de resultados, compare elemento a elemento usando un bucle <span class="php-res">for</span>, aumentando el contador correspondiente.</p>
+          </li>
+          <li>Plurales
+            <p>Un detalle del programa es que al decir los resultados dice "1 vez", pero "2 veces", etc.</p>
+          </li>
+        </ul>
+      </details>
+
+      <div class="filaflex">
+        <div class="resultado-object">
+          <object type="text/html" data="matrices-1-17.php" style="height: 46em;">ERROR (no puede mostrarse el objeto)</object>
+        </div>
+        <div class="icono-enlace">
+          <a href="matrices-1-17.php"><img src="../../../varios/iconos/icono-enlace.svg" alt="Enlace a ejemplo" title="Enlace a ejemplo" width="31" height="36"></a>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <footer>
+    <p class="ultmod">Última modificación de esta página: 17 de octubre de 2019</p>
+
+    <p class="licencia">
+      <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es_ES"><img src="../../../varios/iconos/icono-cc-by-sa.svg" alt="Licencia Creative Commons" title="Licencia Creative Commons BY-SA" width="120" height="42"></a><br>
+      Esta página forma parte del curso <strong><a href="https://www.mclibre.org/consultar/php/">Programación web en PHP</a></strong> por <a href="https://www.mclibre.org/" rel="author">Bartolomé Sintes Marco</a><br>
+      que se distribuye bajo una <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es_ES">Licencia Creative Commons Reconocimiento-CompartirIgual 4.0 Internacional (CC BY-SA 4.0)</a>.
+    </p>
+  </footer>
+</body>
+</html>
