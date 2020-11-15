@@ -35,6 +35,14 @@ Se puede desplegar una aplicación en más de un servidor. Hay [varias configura
 
 **Actividad 1.** Configura un entorno de desarrollo *PhpStorm* que permita desplegar el código tanto localmente como en un servidor remoto en producción. Una vez configurado, crea una página PHP sencilla y comprueba que puedes abrirla tanto localmente como en el servidor remoto.
 
+# Programación con PHP. 
+
+Para aprender PHP utilizaremos el curso disponible en [W3SCHOOLS](https://www.w3schools.com/php/)
+
+También utilizaremos estos [apuntes y ejercicios](mclibre/index.html)
+
+A continuación se enlazan los distintos apartados de w3schools, para que los tengáis de manera más accesible.
+
 # PHP
 
     <?php
