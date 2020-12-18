@@ -28,14 +28,14 @@ Las unidades didácticas se irán añadiendo conforme se vaya avanzando en el te
 - Introducción a javascript
 - Javascript O.O.
 
-#### 4. AJAX
+#### 4. [AJAX](T4-AJAX/README.md)
 - Enviando una solicitud AJAX al servidor
 - Definición de la función *callback*
 - Envío de la solicitud
 - Objetos en JavaScript
 - JSON
 
-#### 5. Control de versiones
+#### 5. [Control de versiones](T5-ControlVersiones)
 - Git
 - GitHub
 
