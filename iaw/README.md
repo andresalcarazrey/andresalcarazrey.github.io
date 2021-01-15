@@ -39,7 +39,7 @@ Las unidades didácticas se irán añadiendo conforme se vaya avanzando en el te
 - Git
 - GitHub
 
-#### 6. Composer
+#### 6. [Composer](T6-Composer)
 - Indicar las dependencias
 - Instalar las dependencias
 - Usando una librería instalada

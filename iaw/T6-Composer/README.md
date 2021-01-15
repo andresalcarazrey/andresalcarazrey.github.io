@@ -2,6 +2,10 @@
 
 Composer es un gestor de dependencias en proyectos PHP. Usando Composer nos evitamos muchas tareas rutinarias y tediosas relacionadas con las dependencias de nuestro proyecto, actualizaciones de las dependencias, y de las dependencias de las dependencias.
 
+Apuntes de referencia
+
+[Libro de composer de la uniwebsidad.com](https://uniwebsidad.com/libros/composer)
+
 Instalación
 
 La documentación sobre la instalación, la podemos encontrar aquí [https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx)
@@ -56,7 +60,7 @@ Por ejemplo, el siguiente script haría uso de *kint*:
         // Es necesario importar las librerías instaladas por composer.
         require './vendor/autoload.php';
 
-        $miArray = Array('Tema 1' => "Introducción", 'Tema 2' => 'Continación', 'Tema final' => 'Conclusión');
+        $miArray = Array('Tema 1' => "Introducción", 'Tema 2' => 'Continuación', 'Tema final' => 'Conclusión');
         
         Kint::dump($miArray);
         Kint::trace();
