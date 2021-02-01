@@ -48,7 +48,7 @@ Las unidades didácticas se irán añadiendo conforme se vaya avanzando en el te
 - Generar archivos de autoload
 - Eliminar librerías
 
-#### 7. [PHPUnit](T7-PHPUnit/phpunit.md)
+#### 7. [PHPUnit](T7-PHPUnit)
 - Instalar PHPUnit
 - PHPUnit en un único archivo
 - Un primer ejemplo
