@@ -27,7 +27,21 @@ Para la instalación de Jenkins vamos a utilizar inicialmente un servidor Ubuntu
 
 Más adelante podríamos utilizar una VPS para instalar Jenkins y usarlo como servidor de integración, de despliegue y de producción (aunque lo más recomendable sería que el servidor de CI no fuese el mismo que el de producción).
 
-### Instalación de un servidor Tomcat
+### Instalación de Jenkins en Linux (local)
+
+En máquinas con la distribución Linux Ubuntu instalada podemos utilizar los paquetes oficiales siguiendo los comandos:
+
+wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
+sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ 
+            > /etc/apt/sources.list.d/jenkins.list'
+sudo apt-get update
+sudo apt-get install jenkins
+
+Para más información sobre la instalación recomendamos visitar la documentación oficial Jenkins:[https://www.jenkins.io/doc/](https://www.jenkins.io/doc/)
+
+Una vez instalado Jenkins podemos acceder a la aplicación abriendo un navegador y accediendo a la url http://localhost:8080, que es la configuración por defecto.
+
+### Instalación de un servidor Tomcat (otra opción disponible, no la usaremos inicialmente)
 
 El proceso de instalación de un servidor Tomcat queda descrito en [https://ubunlog.com/tomcat-9-instalacion-ubuntu-18-04/](https://ubunlog.com/tomcat-9-instalacion-ubuntu-18-04/).
 
