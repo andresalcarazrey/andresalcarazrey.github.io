@@ -129,11 +129,11 @@ Vamos a crear un test para salario. Su contenido será el siguiente:
  * @author mauri
  */
 /*
-namespace aprendophpunit\Test\modelo;
+namespace aprendophpunit/Test/modelo;
 require 'vendor/autoload.php';  // Esto es necesario para poder acceder a Salario.
 
-use aprendophpunit\modelo\Salario;
-class SalarioTest extends \PHPUnit_Framework_TestCase{
+use aprendophpunit/modelo/Salario;
+class SalarioTest extends /PHPUnit/Framework/TestCase{
     
     
     public function testSalarioDevuelveIncremento20porciento(){
