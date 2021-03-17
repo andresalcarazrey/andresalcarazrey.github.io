@@ -23,23 +23,11 @@ Las unidades didácticas se irán añadiendo conforme se vaya avanzando en el te
 - Introducción a PHP
 - PHP Orientado a objetos
 
-#### 3. [Introducción a los lenguajes de Scripting. javascript](T3-IntroduccionJavaScript/README.md)
-
-- Introducción a javascript
-- Javascript O.O.
-
-#### 4. [AJAX](T4-AJAX/README.md)
-- Enviando una solicitud AJAX al servidor
-- Definición de la función *callback*
-- Envío de la solicitud
-- Objetos en JavaScript
-- JSON
-
-#### 5. [Control de versiones](T5-ControlVersiones)
+#### 3. [Control de versiones](T5-ControlVersiones)
 - Git
 - GitHub
 
-#### 6. [Composer](T6-Composer)
+#### 4. [Composer](T6-Composer)
 - Indicar las dependencias
 - Instalar las dependencias
 - Usando una librería instalada
@@ -48,28 +36,44 @@ Las unidades didácticas se irán añadiendo conforme se vaya avanzando en el te
 - Generar archivos de autoload
 - Eliminar librerías
 
-#### 7. [PHPUnit](T7-PHPUnit)
+#### 5. [PHPUnit](T7-PHPUnit)
 - Instalar PHPUnit
 - PHPUnit en un único archivo
 - Un primer ejemplo
 - PHPUnit se integra con los IDE. PHPUnit en PHPStorm
 
-#### 8. [Jenkins](T8-Jenkins)
+#### 6. [Jenkins](T8-Jenkins)
 - Instalación del servidor Tomcat, Apache y PHP
 - Despliegue de Jenkins
 - Configurar un usuario con permisos de administrador
 - Creación de tareas
 - Disparo de las tareas de testeo y despligue por actualización de repositorio
+- Manejo de contenedores Docker desde Jenkins.
+- Despliegue en contenedores Docker
 
-#### 9. Gestores de contenidos. Joomla.
+#### 7. [Despliegue de múltiples aplicaciones con Jenkins usando Docker]
+- ¿Usamos shell scripting? El uso de docker integrado en los pipelines.
+- Desplegando un wordpress inicial
+- Desplegando un wordpress "personalizado"
 
-- Introducción a Joomla
-- Instalación
-- Sitios Joomla
-- Manejo básico de Joomla
-- Módulos
-- Plugins
-- Extensiones
-- Plantillas
-- Usuarios
-- Administración del sitio
+#### 8. [Despliegue desde Github Actions, Bitbucket, Gitlab]
+- Integración continua fuera de Jenkins.
+- Comparativa de distintas plataformas.
+
+
+#### 9. [IaaS: Microsoft Azure, Google Cloud, Amazon Web Services]
+- Mundo de gigantes
+- Comparativa.
+
+
+#### Ampliación. [Introducción a los lenguajes de Scripting. javascript](T3-IntroduccionJavaScript/README.md)
+
+- Introducción a javascript
+- Javascript O.O.
+
+#### Ampliación. [AJAX](T4-AJAX/README.md)
+- Enviando una solicitud AJAX al servidor
+- Definición de la función *callback*
+- Envío de la solicitud
+- Objetos en JavaScript
+- JSON
